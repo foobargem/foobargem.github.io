@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Life with Linux</title>
+    <link>http://replace-this-with-your-hugo-site.com/tags/module/index.xml</link>
+    <description>Recent content on Life with Linux</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>foobargem</copyright>
+    <atom:link href="http://replace-this-with-your-hugo-site.com/tags/module/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Build a kernel module on CentOS</title>
+      <link>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/build-a-kernel-module-on-centos/</link>
+      <pubDate>Sat, 11 Jun 2016 16:56:53 +0900</pubDate>
+      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/build-a-kernel-module-on-centos/</guid>
+      <description>
+
+&lt;h3 id=&#34;발단&#34;&gt;발단&lt;/h3&gt;
+
+&lt;p&gt;bcache (Linux kernel block layer cache) 를 적용하려고 알아보니 CentOS 7 의 커널은 bcache module 이 disabled 였다.
+그래서 kernel source 를 받아서 bcache module 을 build 시도했다.&lt;/p&gt;
+
+&lt;p&gt;경험하면 할 수록 CentOS 는 서버환경에서 별로이다. - Debian 추천!! :)&lt;/p&gt;
+
+&lt;h3 id=&#34;build-환경-구축&#34;&gt;Build 환경 구축&lt;/h3&gt;
+
+&lt;h5 id=&#34;required-packages-설치&#34;&gt;required packages 설치&lt;/h5&gt;
+
+&lt;pre&gt;&lt;code&gt;# yum install rpm-build redhat-rpm-config asciidoc hmaccalc perl-ExtUtils-Embed pesign xmlto \
+              audit-libs-devel binutils-devel elfutils-devel elfutils-libelf-devel \
+              ncurses-devel newt-devel numactl-devel pciutils-devel python-devel zlib-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;kernel-source-다운로드&#34;&gt;kernel source 다운로드&lt;/h5&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://vault.centos.org/7.N.YYMM/updates/Source/SPackages/&#34;&gt;http://vault.centos.org/7.N.YYMM/updates/Source/SPackages/&lt;/a&gt; 에서 kernel-$(uname -r).src.rpm 파일을 다운로드 및 설치한다.
+설치가 되면 rpmbuild 디렉토리 이하에 관련 files 이 복사되어 있다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# rpm -i http://vault.centos.org/7.2.1511/updates/Source/SPackages/kernel-3.10.0-327.18.2.el7.src.rpm 2&amp;gt;&amp;amp;1 | grep -v exist
+# cd ~rpmbuild/SPECS
+# rpmbuild -bp --target=$(uname -m) kernel.spec
+# cd ~rpmbuild/BUILD
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;module-build&#34;&gt;module build&lt;/h5&gt;
+
+&lt;p&gt;&lt;strong&gt;edit .config&lt;/strong&gt;
+    # cd ~rpmbuild/BUILD/kernel-3.10.0-327.13.1.el7/linux-3.10.0-327.13.1.el7.x86_64
+    # vim .config&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;.config&lt;/strong&gt;
+    &amp;hellip;
+    CONFIG_BCACHE=m
+    &amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;build&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# make modules_install SUBDIRS=drivers/md/bcache
+// modules_install: bcache.ko 복사,depmod -a 수행
+
+# modinfo bcache
+filename:       /lib/modules/3.10.0-327.13.1.el7.x86_64/kernel/drivers/md/bcache/bcache.ko
+author:         Kent Overstreet &amp;lt;kent.overstreet@gmail.com&amp;gt;
+license:        GPL
+license:        GPL
+author:         Kent Overstreet &amp;lt;koverstreet@google.com&amp;gt;
+rhelversion:    7.2
+srcversion:     744AC1548F61C54B1445EF6
+depends:
+vermagic:       3.10.0 SMP mod_unload modversions
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;모듈-적재&#34;&gt;모듈 적재&lt;/h5&gt;
+
+&lt;pre&gt;&lt;code&gt;# modprobe bcache
+insmod: error inserting &#39;bcache.ko&#39;: -1 Invalid module format
+
+# dmesg
+...
+bcache: no symbol version for module_layout
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;모듈 build 할때 signing 이 안되어서 발생하는 문제.  (signing 하는 방법은 추후에 업데이트 할것!!)&lt;/p&gt;
+
+&lt;p&gt;일단은 &amp;ndash;force 으로 해결!!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# modprobe -f bcache
+# lsmod | grep bcache
+bcache                209287  0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;적용후&#34;&gt;적용후&lt;/h3&gt;
+
+&lt;p&gt;동일한 조건에서 dm-cache 와 bcache 를 fio 로 시험을 해보았다.
+결과는 dm-cache 가 random read, sequential read 가 월등히 빨랐다.&lt;/p&gt;
+
+&lt;p&gt;CentOS 에서 bcache 모듈을 제외한게 dm-cache 가 좋다고 판단해서 일까&amp;hellip;&lt;/p&gt;
+
+&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.centos.org/HowTos/Custom_Kernel&#34;&gt;https://wiki.centos.org/HowTos/Custom_Kernel&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.centos.org/HowTos/I_need_the_Kernel_Source&#34;&gt;https://wiki.centos.org/HowTos/I_need_the_Kernel_Source&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.kernel.org/doc/Documentation/module-signing.txt&#34;&gt;https://www.kernel.org/doc/Documentation/module-signing.txt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

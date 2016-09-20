@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Life with Linux</title>
+    <link>http://replace-this-with-your-hugo-site.com/tags/packaging/index.xml</link>
+    <description>Recent content on Life with Linux</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>foobargem</copyright>
+    <atom:link href="http://replace-this-with-your-hugo-site.com/tags/packaging/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>RPM packaging</title>
+      <link>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/rpm-packaging/</link>
+      <pubDate>Sat, 11 Jun 2016 11:36:38 +0900</pubDate>
+      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/rpm-packaging/</guid>
+      <description>
+
+&lt;h3 id=&#34;발단&#34;&gt;발단&lt;/h3&gt;
+
+&lt;p&gt;VMware VM 중 1대의 Disk 공간이 부족해서 resize 를 하려고 했는데 parted-3.1 (CentOS 7) 에는 resize command 가 없어졌다.
+구글링을 해보니 parted-3.2 에 resizepart 가 추가되었다고 한다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://savannah.gnu.org/forum/forum.php?forum_id=8042&#34;&gt;http://savannah.gnu.org/forum/forum.php?forum_id=8042&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;그래서 소스코드를 직접 빌드하고서 내친김에 rpm packaging 까지 하게 되었다.&lt;/p&gt;
+
+&lt;h3 id=&#34;rpm-패키징&#34;&gt;rpm 패키징&lt;/h3&gt;
+
+&lt;h5 id=&#34;build-directory-생성&#34;&gt;Build directory 생성&lt;/h5&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir rpmbuild
+$ cd rpmbuild
+$ mkdir SOURCES SPECS BUILD BUILDROOT RPMS SRPMS
+$ ls
+BUILD  BUILDROOT  RPMS  SOURCES  SPECS  SRPMS
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Directory&lt;/th&gt;
+      &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SOURCES&lt;/td&gt;
+      &lt;td&gt;original sources, patches, icon files 가 포함된 디렉토리&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SPECS&lt;/td&gt;
+      &lt;td&gt;rpm build 를 위한 spec files 가 있는 디렉토리&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BUILD&lt;/td&gt;
+      &lt;td&gt;source file 압축해제 및 build 되는 디렉토리&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BUILDROOT&lt;/td&gt;
+      &lt;td&gt;%install stage 에서 생성되는 files 가 저장되는 디렉토리&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;RPMS&lt;/td&gt;
+      &lt;td&gt;binary package files (*.rpm) 이 만들어지는 디렉토리&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SRPMS&lt;/td&gt;
+      &lt;td&gt;source package files (*.src.rpm) 이 만들어지는 디렉토리&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h5 id=&#34;spec-file-작성&#34;&gt;Spec file 작성&lt;/h5&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd SPECS
+$ vim parted-3.2.spec
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;parted-3.2.spec&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;gist: &lt;a href=&#34;https://gist.github.com/foobargem/f260b896fe030a382b7b18f43633a8a4#file-parted-3-2-spec&#34;&gt;https://gist.github.com/foobargem/f260b896fe030a382b7b18f43633a8a4#file-parted-3-2-spec&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;%global _enable_debug_package 0
+%global debug_package %{nil}
+%define dist .el7.nhnent
+%define _prefix /opt/parted
+
+Name: parted
+Version: 3.2
+Release: 1%{?dist}
+Summary: The GNU disk partition manipulation program
+
+License: GPLv3+
+URL: http://www.gnu.org/software/parted
+Source0: parted-3.2.tar.xz
+
+%description
+The GNU Parted program allows you to create, destroy, resize, move,
+and copy hard disk partitions. Parted can be used for creating space
+for new operating systems, reorganizing disk usage, and copying data
+to new hard disks.
+
+%prep
+%setup -q
+
+%build
+%configure
+make %{?_smp_mflags}
+
+%install
+%make_install
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%{_prefix}
+#%{_datadir}/*
+#%{_includedir}/*
+#%{_libdir}/*
+#%{_sbindir}/*
+
+%changelog
+* Fri Jun 10 2016 makerpm
+- build and packaging
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;build&#34;&gt;Build&lt;/h5&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd SPECS
+$ rpmbuild -bb parted-3.2.spec
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;오류 없으면 rpmbuilds/RPMS/x86_64/parted-3.2-1.el7.nhnent.x86_64.rpm 파일이 생성된다.&lt;/p&gt;
+
+&lt;h3 id=&#34;설명&#34;&gt;설명&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;%global _enable_debug_package 0
+%global debug_package %{nil}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;debug package 를 생성하지 않음&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;%define dist .el7.nhnent
+%define _prefix /opt/parted
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;main stream package 와 구분하기 위해서 release name 에 nhnent 라는 접미사를 붙였고
+package files 의 prefix 를 /opt/parted 로 지정했다.&lt;/p&gt;
+
+&lt;h3 id=&#34;에피소드&#34;&gt;에피소드&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;prefix 와 %files&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;prefix 를 /opt/parted 로 하고 %files 에 각 파일을 기술해줬더니
+패키지 삭제시 empty directory 가 남아있는 이슈가 있었다.
+그래서 %files 를 %{_prefix} 롤 지정했다.&lt;/p&gt;
+
+&lt;p&gt;만약 /usr 디렉토리에 sbin, share, lib 등으로 나누어 설치하게 하려면
+%files 에 아래와 같이 기술해줘야 한다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;%files
+%{_datadir}/*
+%{_includedir}/*
+%{_libdir}/*
+%{_sbindir}/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.tldp.org/HOWTO/RPM-HOWTO/build.html&#34;&gt;http://www.tldp.org/HOWTO/RPM-HOWTO/build.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://fedoraproject.org/wiki/How_to_create_an_RPM_package&#34;&gt;https://fedoraproject.org/wiki/How_to_create_an_RPM_package&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://fedoraproject.org/wiki/Packaging:DistTag&#34;&gt;https://fedoraproject.org/wiki/Packaging:DistTag&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://fedoraproject.org/wiki/How_to_create_a_GNU_Hello_RPM_package&#34;&gt;https://fedoraproject.org/wiki/How_to_create_a_GNU_Hello_RPM_package&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

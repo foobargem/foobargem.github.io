@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Life with Linux</title>
+    <link>http://replace-this-with-your-hugo-site.com/tags/systemd/index.xml</link>
+    <description>Recent content on Life with Linux</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>foobargem</copyright>
+    <atom:link href="http://replace-this-with-your-hugo-site.com/tags/systemd/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>stunnel with ulimit</title>
+      <link>http://replace-this-with-your-hugo-site.com/blog/2016/04/13/stunnel-with-ulimit/</link>
+      <pubDate>Wed, 13 Apr 2016 21:01:22 +0900</pubDate>
+      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/04/13/stunnel-with-ulimit/</guid>
+      <description>
+
+&lt;h3 id=&#34;배경&#34;&gt;배경&lt;/h3&gt;
+
+&lt;p&gt;그림과 같이 L4 에 2대의 Swift proxy server 를 바인딩 한 환경에서
+https 서비스를 제공하기 위해 L4 에서 SSL Offloading 설정을 했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201604/swift_cluster_architecture.png&#34; alt=&#34;swift cluster architecture&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;이슈&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;L4의 SSL Offloading 성능이 떨어짐. 1Gbps 환경에서 download 시20MB/s&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;속도 문제를 해결하기 위해서 swift proxy server 에서 SSL 처리를 시도해 보았다.
+SSL termination 을 위해서 nginx 와 stunnel 을 시험해 보았다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;시험방법&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;100 sessions 로 동시 다운로드 시도시 시스템 리소스 사용율 측정(Load avg.)&lt;/li&gt;
+&lt;li&gt;시험결과
+
+&lt;ul&gt;
+&lt;li&gt;nginx: 5 (1 min)&lt;/li&gt;
+&lt;li&gt;stunnel: 0.5 (1 min)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;시스템 리소스를 적게 사용하는 stunnel 로 채택!!&lt;/p&gt;
+
+&lt;h3 id=&#34;stunnel&#34;&gt;stunnel&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;설치&lt;/strong&gt;
+    # ./configure &amp;ndash;prefix=/usr/local/stunnel &amp;ndash;disable-libwrap &amp;ndash;with-threads=pthread
+    # make
+    # make install&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;stunnel.conf&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;setuid = www-data
+setgid = www-data
+pid = /var/run/stunnel/stunnel.pid
+;chroot = /var/run/stunnel
+
+; error
+debug = 3
+output = /var/log/stunnel/stunnel.log
+
+; Protocol version (all, SSLv2, SSLv3, TLSv1)
+sslVersion = all
+
+fips = no
+
+[swiftproxy]
+accept = 0.0.0.0:443
+connect = 127.0.0.1:80
+TIMEOUTidle = 600
+cert = swift-proxy.crt
+key = swift-proxy.nopass.key
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;process-limits&#34;&gt;process limits&lt;/h3&gt;
+
+&lt;p&gt;swift 사용량이 늘다보니 아래와 같은 log 가 확인되었다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;2016.04.05 12:33:34 LOG3[13353638]: remote socket: Too many open files (24)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;stunnel process 의 limits 확인&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# cat /proc/$(cat /var/run/stunnel/stunnel.pid)/limits
+Limit                     Soft Limit           Hard Limit           Units
+Max cpu time              unlimited            unlimited            seconds
+Max file size             unlimited            unlimited            bytes
+Max data size             unlimited            unlimited            bytes
+Max stack size            8388608              unlimited            bytes
+Max core file size        0                    unlimited            bytes
+Max resident set          unlimited            unlimited            bytes
+Max processes             192299               192299               processes
+Max open files            1024                 4096                 files
+Max locked memory         65536                65536                bytes
+Max address space         unlimited            unlimited            bytes
+Max file locks            unlimited            unlimited            locks
+Max pending signals       192299               192299               signals
+Max msgqueue size         819200               819200               bytes
+Max nice priority         0                    0
+Max realtime priority     0                    0
+Max realtime timeout      unlimited            unlimited            us
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;/etc/security/limits.conf 를 수정해도 프로세스를 기동할 때 적용이 되지 않는다.
+적용하려면 init script or service file 을 수정해주면 된다.&lt;/p&gt;
+
+&lt;h5 id=&#34;init&#34;&gt;init&lt;/h5&gt;
+
+&lt;p&gt;/etc/init.d/stunnel&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+DEFAULTPIDFILE=/var/run/stunnel/stunnel.pid
+DAEMON=/usr/local/stunnel/bin/stunnel
+NAME=stunnel
+DESC=&amp;quot;SSL tunnels&amp;quot;
+OPTIONS=&amp;quot;&amp;quot;
+ENABLED=0
+RLIMITS=&amp;quot;-n 32000&amp;quot;
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;systemd&#34;&gt;systemd&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;systemd 에서는 service file 에서 process 의 resource limits 를 설정해줄 수 있다.&lt;/li&gt;
+&lt;li&gt;참고: &lt;a href=&#34;https://www.freedesktop.org/software/systemd/man/systemd.exec.html&#34;&gt;https://www.freedesktop.org/software/systemd/man/systemd.exec.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;/etc/systemd/system/multi-user.target.wants/stunnel.service&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description=SSL tunnel for network daemons
+After=syslog.target
+
+[Service]
+LimitNOFILE=32000
+ExecStart=/usr/local/stunnel/bin/stunnel /usr/local/stunnel/etc/stunnel/stunnel.conf
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;적용후&#34;&gt;적용후&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;# cat /proc/$(cat /var/run/stunnel/stunnel.pid)/limits
+...
+Max open files            32000                32000                files
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;에피소드&#34;&gt;에피소드&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;다른 동료가 /etc/security/limits.conf 를 수정후 stunnel restart 했으나 max open files 설정은 적용되지 않음.&lt;/li&gt;
+&lt;li&gt;stunnel 의 thread mode 가 pthread 일 때만 limits 설정이 적용됨 확인.&lt;/li&gt;
+&lt;li&gt;역시 manual 과 doc 을 잘 읽어봐야 함.&lt;/li&gt;
+&lt;li&gt;시스템 설정 적용후 실제 적용 여부는 꼭 확인해야 함. (그래서 내가 보긴 했지만..)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.ghostar.org/2014/09/rebooting-linux-temporarily-loses-some-limits-conf-settings/&#34;&gt;http://www.ghostar.org/2014/09/rebooting-linux-temporarily-loses-some-limits-conf-settings/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freedesktop.org/software/systemd/man/systemd.exec.html&#34;&gt;https://www.freedesktop.org/software/systemd/man/systemd.exec.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

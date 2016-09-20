@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+
+    <head>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <meta property="og:title" content=" Raspberry Pi 에서 온습도 센서(DHT-11)로 온/습도 측정하기 &middot;  Life with Linux" />
+        <meta property="og:site_name" content="Life with Linux" />
+        <meta property="og:url" content="http://replace-this-with-your-hugo-site.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/" />
+
+    
+        <meta property="og:type" content="article" />
+        <meta property="og:article:published_time" content="2016-03-27T11:59:47&#43;09:00" />
+        <meta property="og:article:tag" content="raspberrypi" />
+        
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@" />
+        <meta name="twitter:creator" content="@" />
+        <meta name="twitter:title" content="Raspberry Pi 에서 온습도 센서(DHT-11)로 온/습도 측정하기" />
+        <meta name="twitter:description" content="" />
+        <meta name="twitter:url" content="http://replace-this-with-your-hugo-site.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/" />
+    
+
+        <title> Raspberry Pi 에서 온습도 센서(DHT-11)로 온/습도 측정하기 &middot;  Life with Linux</title>
+
+    
+        <meta name="description" content="" />
+    
+        
+        <meta name="p:domain_verify" content="fc173d84e3a4de948ed4bda2908afd3e"/>
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="MobileOptimized" content="320" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        
+          
+
+    
+        <link href="http://replace-this-with-your-hugo-site.com/index.xml" rel="alternate" type="application/rss+xml" title="Life with Linux" />
+    
+
+    
+        <link rel="canonical" href="http://replace-this-with-your-hugo-site.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/" />
+
+    
+    <script type="application/ld+json">
+    { 
+        "@context": "http://schema.org",
+        "@type": "Article",
+        "headline": "Raspberry Pi 에서 온습도 센서(DHT-11)로 온\/습도 측정하기",
+        "author": {
+            "@type": "Person",
+            "name": "http://profiles.google.com/?rel=author"
+        },
+        "datePublished": "2016-03-27",
+        "description": "",
+        "wordCount":  110 
+    }
+    </script>
+    
+    
+    <style>
+*{padding:0;margin:0}body,html{font-size:1em;line-height:1.65em;font-family:"Open Sans",sans-serif;font-weight:300;color:#444}html{height:100%}body{padding:2em 2.5em 1em 20em}header{border-right:1px #eee solid;padding:2em;position:fixed;top:0;left:0;height:100%;width:13.5em}#content{display:block;width:100%}footer{padding:1em 0 2.5em;font-size:.8em;line-height:1.5em;color:#888}article{border-bottom:.1em #eee solid;padding-bottom:1.7em;max-width:56em}h4,h5,h6,hr,p{margin-top:.9em;margin-bottom:.9em}h1,h2,h3,h4,h5,h6{font-family:"Bree Serif",serif;font-weight:400!important}h1{font-size:2.5em;line-height:1.1em;margin-top:.6em;margin-bottom:.6em}h2{font-size:1.9em;line-height:1.2em;margin-top:.7em;margin-bottom:.7em}h3{font-size:1.4em;line-height:1.3em;margin-top:.8em;margin-bottom:.8em}h4{font-size:1.3em}h5{font-size:1.2em}h6{font-size:1.1em}iframe,img{max-width:100%}a{font-weight:700;text-decoration:none;color:#5cc265}a:hover{text-decoration:underline}h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{font-weight:400!important}strong{font-weight:700}blockquote{border-left:.4em solid #eee;padding-left:1.2em;font-size:1.3em}hr{border:0;height:1px;background:#eee}ol,ul{margin-left:3em}code{font-size:1.4em;background:#eee}pre{font-size:.8em;line-height:2em;background:#eee;padding:1em;word-break:break-all;word-wrap:break-word;white-space:pre;white-space:-moz-pre-wrap;white-space:pre-wrap}input{font-size:1em;padding:.3em}header h1{font-size:1.9em;margin-top:.8em;margin-bottom:.6em}header h1 a{color:#444}header h1 a:hover{text-decoration:none}header #logo img{width:9em;height:9em;border-radius:4.5em;-moz-border-radius:4.5em;-webkit-border-radius:4.5em;border:none}#follow-icons{font-size:.7em;margin-top:-.7em;margin-bottom:1.5em}#follow-icons a{color:#ccc}#follow-icons span{vertical-align:top;margin-left:-.15em;margin-right:-.15em}#follow-icons span .fa-stack-1x{font-size:1.05em;line-height:1.9em}header h6{margin-top:.5em}article span.post-stamp{color:#888}h1.post-title{margin-top:.35em;margin-bottom:.6em}h3.post-title{margin-top:.4em;padding-bottom:.9em;border-bottom:1px solid #eee;font-size:1.2em;color:#444}.post-title .feature-star{font-size:.9em}.feature-star,.separator,.taglist{color:#ccc}.taglist a{background-color:#ccc;color:#fff;display:inline-block;line-height:1.5em;padding:.3em .6em;vertical-align:20%;font-size:.5em;font-family:"Open Sans",sans-serif;font-weight:700!important;text-transform:uppercase;letter-spacing:.05em;border-radius:.25em;-moz-border-radius:.25em;-webkit-border-radius:.25em}#social-bar{margin-top:1.5em;background-color:#eee;padding:.5em}#comments{margin-top:.15em;padding-bottom:.2em;border-bottom:1px solid #eee}.pagination{margin-bottom:1em}footer a{font-weight:300;color:#888;text-decoration:underline}footer a:hover{color:#444;text-decoration:none}@media only screen and (min-width:1281px){body,html{font-size:1.1em}}@media only screen and (max-width:800px){body{padding:0}header{border-right:none;border-bottom:1px #eee solid;position:relative;height:auto;width:auto;text-align:center;padding-bottom:1em}#content{margin-left:0;padding:2em 2em 1em;width:auto}footer{padding:0 2.5em 2em}}@media only screen and (max-width:320px){#content,header{padding:1.2em 1.2em .6em}footer{padding:0 1.5em 1.2em}ol,ul{margin-left:2em}}
+</style>
+    </head>
+    <body>
+        <header id="header">
+            <a id="logo" href="http://replace-this-with-your-hugo-site.com/"><img src="/images/panzee.png" alt="Life with Linux" /></a>
+            <h1><a href="http://replace-this-with-your-hugo-site.com/">Life with Linux</a></h1>
+            <p></p>
+
+            <div id="follow-icons">
+	<a href="https://www.facebook.com/eunchul.jung" rel="me"><i class="fa fa-facebook-square fa-2x"></i></a>
+	<a href="http://linkedin.com/in/eunchul" rel="me"><i class="fa fa-linkedin-square fa-2x"></i></a>
+	<a href="http://github.com/foobargem" rel="me"><i class="fa fa-github-square fa-2x"></i></a>
+	<a href="http://replace-this-with-your-hugo-site.com/index.xml" rel="me"><i class="fa fa-rss-square fa-2x"></i></a> 
+</div>  
+
+            
+        </header>
+
+<main id="content">
+
+<article id="" class="blog">
+    <div class="post-stamp">
+        <time datetime="2016-03-27T11:59:47&#43;09:00">
+            27 Mar 2016
+        </time>
+        <span class="taglist">
+        
+        &middot;
+        
+            <a href="http://replace-this-with-your-hugo-site.com/tags/raspberrypi/">raspberrypi</a>
+        
+        
+        </span>
+    </div>
+    <h1 class="post-title">Raspberry Pi 에서 온습도 센서(DHT-11)로 온/습도 측정하기</h1>
+    
+
+<h3 id="dht11-온습도-센서">DHT11 온습도 센서</h3>
+
+<ul>
+<li><a href="http://eleparts.co.kr/EPXF43N9">http://eleparts.co.kr/EPXF43N9</a></li>
+<li>manual: <a href="http://www.micropik.com/PDF/dht11.pdf">http://www.micropik.com/PDF/dht11.pdf</a></li>
+<li>Python library:  <a href="https://github.com/adafruit/Adafruit_Python_DHT">https://github.com/adafruit/Adafruit_Python_DHT</a></li>
+</ul>
+
+<h3 id="시험환경">시험환경</h3>
+
+<ul>
+<li>Raspberry PI B</li>
+<li>GPIO layout: <img src="http://www.raspberrypi-spy.co.uk/wp-content/uploads/2012/09/Raspberry-Pi-GPIO-Layout-Revision-2.png" alt="GPIO Layout" /></li>
+</ul>
+
+<h3 id="시험">시험</h3>
+
+<p><strong>센서연결</strong></p>
+
+<ul>
+<li>pin #1 - 3V</li>
+<li>pin #6 - Ground</li>
+<li>pin #16 - GPIO23 (data)</li>
+</ul>
+
+<p><strong>설치</strong></p>
+
+<pre><code>$ sudo python setup.py install
+</code></pre>
+
+<p><strong>예제코드 수정 및 실행</strong></p>
+
+<p>예제코드: <a href="https://github.com/adafruit/Adafruit_Python_DHT/blob/master/examples/simpletest.py">https://github.com/adafruit/Adafruit_Python_DHT/blob/master/examples/simpletest.py</a></p>
+
+<pre><code>#!/usr/bin/python
+import Adafruit_DHT
+
+sensor = Adafruit_DHT.DHT11
+
+# GPIO23 (pin no: #16)
+pin = 23
+
+humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+
+if humidity is not None and temperature is not None:
+    print &quot;Temp={0:0.1f}*C Humidity={1:0.1f}%&quot;.format(temperature, humidity)
+else:
+    print &quot;Failed to get reading.&quot;
+</code></pre>
+
+<p><strong>실행결과</strong></p>
+
+<pre><code>$ sudo python read.py
+Temp=24.0*C Humidity=21.0%
+</code></pre>
+
+<h3 id="todo">ToDo</h3>
+
+<ul>
+<li>매일 아침 창문 밖의 온습도 측정하여 휴대폰으로 알람 발송.</li>
+<li>매 시간 단위로 온습도 측정하여 influxdb 에 저장. (그 후로는 나중에 생각하자..)</li>
+</ul>
+
+    <div id="social-bar">
+	<ul class="rrssb-buttons clearfix">
+      <li class="facebook">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://replace-this-with-your-hugo-site.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/" class="popup">
+              <span class="icon">
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                      <path d="M27.825,4.783c0-2.427-2.182-4.608-4.608-4.608H4.783c-2.422,0-4.608,2.182-4.608,4.608v18.434 c0,2.427,2.181,4.608,4.608,4.608H14V17.379h-3.379v-4.608H14v-1.795c0-3.089,2.335-5.885,5.192-5.885h3.718v4.608h-3.726 c-0.408,0-0.884,0.492-0.884,1.236v1.836h4.609v4.608h-4.609v10.446h4.916c2.422,0,4.608-2.188,4.608-4.608V4.783z"/>
+                  </svg>
+              </span>
+              <span class="text">Facebook</span>
+          </a>
+      </li>
+			<li class="linkedin">
+          <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://replace-this-with-your-hugo-site.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/&amp;title=Raspberry%20Pi%20%ec%97%90%ec%84%9c%20%ec%98%a8%ec%8a%b5%eb%8f%84%20%ec%84%bc%ec%84%9c%28DHT-11%29%eb%a1%9c%20%ec%98%a8%2f%ec%8a%b5%eb%8f%84%20%ec%b8%a1%ec%a0%95%ed%95%98%ea%b8%b0&amp;summary=DHT11%20%ec%98%a8%ec%8a%b5%eb%8f%84%20%ec%84%bc%ec%84%9c%20%20http%3a%2f%2feleparts.co.kr%2fEPXF43N9%20manual%3a%20http%3a%2f%2fwww.micropik.com%2fPDF%2fdht11.pdf%20Python%20library%3a%20https%3a%2f%2fgithub.com%2fadafruit%2fAdafruit_Python_DHT%20%20%ec%8b%9c%ed%97%98%ed%99%98%ea%b2%bd%20%20Raspberry%20PI%20B%20GPIO%20layout%3a%20%20%20%ec%8b%9c%ed%97%98%20%ec%84%bc%ec%84%9c%ec%97%b0%ea%b2%b0%0a%20pin%20%231%20-%203V%20pin%20%236%20-%20Ground%20pin%20%2316%20-%20GPIO23%20%28data%29%20%20%ec%84%a4%ec%b9%98%0a%24%20sudo%20python%20setup.py%20install%20%20%ec%98%88%ec%a0%9c%ec%bd%94%eb%93%9c%20%ec%88%98%ec%a0%95%20%eb%b0%8f%20%ec%8b%a4%ed%96%89%0a%ec%98%88%ec%a0%9c%ec%bd%94%eb%93%9c%3a%20https%3a%2f%2fgithub.com%2fadafruit%2fAdafruit_Python_DHT%2fblob%2fmaster%2fexamples%2fsimpletest.py%0a%23%21%2fusr%2fbin%2fpython%20import%20Adafruit_DHT%20sensor%20%3d%20Adafruit_DHT.DHT11%20%23%20GPIO23%20%28pin%20no%3a%20%2316%29%20pin%20%3d%2023%20humidity%2c%20temperature%20%3d%20Adafruit_DHT.read_retry%28sensor%2c%20pin%29%20if%20humidity%20is%20not%20None%20and%20temperature%20is%20not%20None%3a%20print%20%26quot%3bTemp%3d%7b0%3a0...." class="popup">
+              <span class="icon">
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                      <path d="M25.424,15.887v8.447h-4.896v-7.882c0-1.979-0.709-3.331-2.48-3.331c-1.354,0-2.158,0.911-2.514,1.803 c-0.129,0.315-0.162,0.753-0.162,1.194v8.216h-4.899c0,0,0.066-13.349,0-14.731h4.899v2.088c-0.01,0.016-0.023,0.032-0.033,0.048 h0.033V11.69c0.65-1.002,1.812-2.435,4.414-2.435C23.008,9.254,25.424,11.361,25.424,15.887z M5.348,2.501 c-1.676,0-2.772,1.092-2.772,2.539c0,1.421,1.066,2.538,2.717,2.546h0.032c1.709,0,2.771-1.132,2.771-2.546 C8.054,3.593,7.019,2.501,5.343,2.501H5.348z M2.867,24.334h4.897V9.603H2.867V24.334z"/>
+                  </svg>
+              </span>
+              <span class="text">LinkedIn</span>
+          </a>
+      </li>
+      <li class="googleplus">
+          <a href="https://plus.google.com/share?url=http://replace-this-with-your-hugo-site.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/" class="popup">
+              <span class="icon">
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" height="28px" viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
+                      <g>
+                          <path d="M14.703,15.854l-1.219-0.948c-0.372-0.308-0.88-0.715-0.88-1.459c0-0.748,0.508-1.223,0.95-1.663 c1.42-1.119,2.839-2.309,2.839-4.817c0-2.58-1.621-3.937-2.399-4.581h2.097l2.202-1.383h-6.67c-1.83,0-4.467,0.433-6.398,2.027 C3.768,4.287,3.059,6.018,3.059,7.576c0,2.634,2.022,5.328,5.604,5.328c0.339,0,0.71-0.033,1.083-0.068 c-0.167,0.408-0.336,0.748-0.336,1.324c0,1.04,0.551,1.685,1.011,2.297c-1.524,0.104-4.37,0.273-6.467,1.562 c-1.998,1.188-2.605,2.916-2.605,4.137c0,2.512,2.358,4.84,7.289,4.84c5.822,0,8.904-3.223,8.904-6.41 c0.008-2.327-1.359-3.489-2.829-4.731H14.703z M10.269,11.951c-2.912,0-4.231-3.765-4.231-6.037c0-0.884,0.168-1.797,0.744-2.511 c0.543-0.679,1.489-1.12,2.372-1.12c2.807,0,4.256,3.798,4.256,6.242c0,0.612-0.067,1.694-0.845,2.478 c-0.537,0.55-1.438,0.948-2.295,0.951V11.951z M10.302,25.609c-3.621,0-5.957-1.732-5.957-4.142c0-2.408,2.165-3.223,2.911-3.492 c1.421-0.479,3.25-0.545,3.555-0.545c0.338,0,0.52,0,0.766,0.034c2.574,1.838,3.706,2.757,3.706,4.479 c-0.002,2.073-1.736,3.665-4.982,3.649L10.302,25.609z"/>
+                          <polygon points="23.254,11.89 23.254,8.521 21.569,8.521 21.569,11.89 18.202,11.89 18.202,13.604 21.569,13.604 21.569,17.004 23.254,17.004 23.254,13.604 26.653,13.604 26.653,11.89"/>
+                      </g>
+                  </svg>
+              </span>
+              <span class="text">Google+</span>
+          </a>
+      </li>
+  </ul>
+</div>
+
+    <div id="comments">
+    
+    
+    
+    
+</div>
+
+</article>
+
+</main>
+		<footer id="footer">
+			<section id="footer-message">&copy; foobargem. All rights reserved. Powered by <a href="http://gohugo.io" target="_blank">Hugo</a>. <a href="https://github.com/kathyqian/crisp-ghost-theme" target="_blank">Crisp</a> theme by <a href="http://kathyqian.com" target="_blank">Kathy Qian</a>.</section>
+		</footer>
+
+    <script>
+      (function(c,f){asyncLoader=function(i,h){i.foreach(function(k,j){e(j,d(j),h)});if(typeof h.callback=="function"){var g=setInterval(function(){if(f.readyState==="complete"){clearInterval(g);h.callback()}},10)}};var d=function(g){var h=g.split(".");return h[h.length-1]},e=function(h,i,g){switch(i){case"js":a(h,g);break;case"css":b(h);break;default:break}},a=function(i,h){var g=document.createElement("script");g.type="text/javascript";g.async=true;g.src=i;document.getElementsByTagName("head")[0].appendChild(g)},b=function(g){var h=document.createElement("link");h.type="text/css";h.rel="stylesheet";h.href=g;document.getElementsByTagName("head")[0].appendChild(h)};Array.prototype.foreach=function(h){for(var g=0;g<this.length;g++){h(g,this[g])}}})(this,document);
+
+      var WebFontConfig={google:{families:["Open Sans:300italic,700italic,300,700","Bree+Serif"]}};
+      asyncLoader([
+        "//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css",
+        "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js",
+        "//cdnjs.cloudflare.com/ajax/libs/webfont/1.5.16/webfontloader.js",
+        "//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"
+      ],{
+        callback:function(){
+          asyncLoader([
+            "http:\/\/replace-this-with-your-hugo-site.com\/css/rrssb.css",
+            "http:\/\/replace-this-with-your-hugo-site.com\/js/gist.min.js", 
+            "http:\/\/replace-this-with-your-hugo-site.com\/js/rrssb.min.js",
+            "//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/default.min.css"
+          ], { callback:function() {
+              hljs.initHighlighting();
+          }});
+        }
+      });
+    </script>
+	
+	</body>
+</html>
+
