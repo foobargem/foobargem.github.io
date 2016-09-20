@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Life with Linux</title>
-    <link>http://replace-this-with-your-hugo-site.com/tags/ruby/index.xml</link>
+    <link>http://blog.foobargem.com/tags/ruby/index.xml</link>
     <description>Recent content on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>foobargem</copyright>
-    <atom:link href="http://replace-this-with-your-hugo-site.com/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.foobargem.com/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Installing rbenv on OS X</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2013/12/01/installing-rbenv/</link>
+      <link>http://blog.foobargem.com/blog/2013/12/01/installing-rbenv/</link>
       <pubDate>Sun, 01 Dec 2013 22:12:48 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2013/12/01/installing-rbenv/</guid>
+      <guid>http://blog.foobargem.com/blog/2013/12/01/installing-rbenv/</guid>
       <description>
 
 &lt;p&gt;늘 하는 얘기지만 Linux 에서는 이런 고민은 안해도 된다.

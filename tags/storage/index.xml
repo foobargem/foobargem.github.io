@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Life with Linux</title>
-    <link>http://replace-this-with-your-hugo-site.com/tags/storage/index.xml</link>
+    <link>http://blog.foobargem.com/tags/storage/index.xml</link>
     <description>Recent content on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>foobargem</copyright>
-    <atom:link href="http://replace-this-with-your-hugo-site.com/tags/storage/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.foobargem.com/tags/storage/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Multipath</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2014/08/27/multipath/</link>
+      <link>http://blog.foobargem.com/blog/2014/08/27/multipath/</link>
       <pubDate>Wed, 27 Aug 2014 11:11:11 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2014/08/27/multipath/</guid>
+      <guid>http://blog.foobargem.com/blog/2014/08/27/multipath/</guid>
       <description>
 
 &lt;p&gt;컴퓨터 스토리지에서 multipath I/O 는 결함감내시스템(Fault tolerance) 과 성능(Performance) 향상을 위한 기술을 말한다.&lt;/p&gt;
@@ -101,19 +101,19 @@ multipaths {
 
 &lt;h5 id=&#34;defaults&#34;&gt;defaults&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_default.png&#34; alt=&#34;multipath default&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_default.png&#34; alt=&#34;multipath default&#34; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;path-grouping-policy-multibus&#34;&gt;path_grouping_policy: multibus&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_multibus.png&#34; alt=&#34;multipath multibus&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_multibus.png&#34; alt=&#34;multipath multibus&#34; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;hwhandler-0&#34;&gt;hwhandler=0&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_disable_hwhandler.png&#34; alt=&#34;multipath disable-hwhandler&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_disable_hwhandler.png&#34; alt=&#34;multipath disable-hwhandler&#34; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;features-0&#34;&gt;features=0&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_disable_features.png&#34; alt=&#34;multipath disable-features&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_disable_features.png&#34; alt=&#34;multipath disable-features&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;failover&#34;&gt;failover&lt;/h3&gt;
 

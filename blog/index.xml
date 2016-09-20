@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog-rsses on Life with Linux</title>
-    <link>http://replace-this-with-your-hugo-site.com/blog/index.xml</link>
+    <link>http://blog.foobargem.com/blog/index.xml</link>
     <description>Recent content in Blog-rsses on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>foobargem</copyright>
     <lastBuildDate>Sat, 11 Jun 2016 16:56:53 +0900</lastBuildDate>
-    <atom:link href="http://replace-this-with-your-hugo-site.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.foobargem.com/blog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Build a kernel module on CentOS</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/build-a-kernel-module-on-centos/</link>
+      <link>http://blog.foobargem.com/blog/2016/06/11/build-a-kernel-module-on-centos/</link>
       <pubDate>Sat, 11 Jun 2016 16:56:53 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/build-a-kernel-module-on-centos/</guid>
+      <guid>http://blog.foobargem.com/blog/2016/06/11/build-a-kernel-module-on-centos/</guid>
       <description>
 
 &lt;h3 id=&#34;발단&#34;&gt;발단&lt;/h3&gt;
@@ -110,9 +110,9 @@ bcache                209287  0
     
     <item>
       <title>RPM packaging</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/rpm-packaging/</link>
+      <link>http://blog.foobargem.com/blog/2016/06/11/rpm-packaging/</link>
       <pubDate>Sat, 11 Jun 2016 11:36:38 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/rpm-packaging/</guid>
+      <guid>http://blog.foobargem.com/blog/2016/06/11/rpm-packaging/</guid>
       <description>
 
 &lt;h3 id=&#34;발단&#34;&gt;발단&lt;/h3&gt;
@@ -283,9 +283,9 @@ package files 의 prefix 를 /opt/parted 로 지정했다.&lt;/p&gt;
     
     <item>
       <title>stunnel with ulimit</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2016/04/13/stunnel-with-ulimit/</link>
+      <link>http://blog.foobargem.com/blog/2016/04/13/stunnel-with-ulimit/</link>
       <pubDate>Wed, 13 Apr 2016 21:01:22 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/04/13/stunnel-with-ulimit/</guid>
+      <guid>http://blog.foobargem.com/blog/2016/04/13/stunnel-with-ulimit/</guid>
       <description>
 
 &lt;h3 id=&#34;배경&#34;&gt;배경&lt;/h3&gt;
@@ -293,7 +293,7 @@ package files 의 prefix 를 /opt/parted 로 지정했다.&lt;/p&gt;
 &lt;p&gt;그림과 같이 L4 에 2대의 Swift proxy server 를 바인딩 한 환경에서
 https 서비스를 제공하기 위해 L4 에서 SSL Offloading 설정을 했다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201604/swift_cluster_architecture.png&#34; alt=&#34;swift cluster architecture&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201604/swift_cluster_architecture.png&#34; alt=&#34;swift cluster architecture&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;이슈&lt;/strong&gt;&lt;/p&gt;
 
@@ -445,9 +445,9 @@ Max open files            32000                32000                files
     
     <item>
       <title>Raspberry Pi 에서 온습도 센서(DHT-11)로 온/습도 측정하기</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</link>
+      <link>http://blog.foobargem.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</link>
       <pubDate>Sun, 27 Mar 2016 11:59:47 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</guid>
+      <guid>http://blog.foobargem.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</guid>
       <description>
 
 &lt;h3 id=&#34;dht11-온습도-센서&#34;&gt;DHT11 온습도 센서&lt;/h3&gt;
@@ -517,9 +517,9 @@ Temp=24.0*C Humidity=21.0%
     
     <item>
       <title>LG 그램 랩탑에서 Linux kernel 빌드하기</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
+      <link>http://blog.foobargem.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
       <pubDate>Sat, 04 Jul 2015 11:06:36 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
+      <guid>http://blog.foobargem.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
       <description>
 
 &lt;p&gt;회사에서 지급받은 랩탑은 LG 그램이다.
@@ -598,14 +598,14 @@ make install 이 수행되면 자동으로 update-grub 가 수행된다.&lt;/p&g
     
     <item>
       <title>보자기카드 샘플 후기</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2015/01/24/i-like-bojagi-card/</link>
+      <link>http://blog.foobargem.com/blog/2015/01/24/i-like-bojagi-card/</link>
       <pubDate>Sat, 24 Jan 2015 21:09:52 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2015/01/24/i-like-bojagi-card/</guid>
+      <guid>http://blog.foobargem.com/blog/2015/01/24/i-like-bojagi-card/</guid>
       <description>
 
 &lt;h3 id=&#34;보자기카드엔-꿈과-사랑과-선물이-한-보자기&#34;&gt;보자기카드엔 꿈과 사랑과 선물이 한 보자기&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201501/bojagi_card_sample.jpg&#34; alt=&#34;card sample&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201501/bojagi_card_sample.jpg&#34; alt=&#34;card sample&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;
 4월 결혼을 준비하며무엇을 준비해야할지 모르고있을때&lt;br&gt;
@@ -635,9 +635,9 @@ make install 이 수행되면 자동으로 update-grub 가 수행된다.&lt;/p&g
     
     <item>
       <title>Multipath</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2014/08/27/multipath/</link>
+      <link>http://blog.foobargem.com/blog/2014/08/27/multipath/</link>
       <pubDate>Wed, 27 Aug 2014 11:11:11 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2014/08/27/multipath/</guid>
+      <guid>http://blog.foobargem.com/blog/2014/08/27/multipath/</guid>
       <description>
 
 &lt;p&gt;컴퓨터 스토리지에서 multipath I/O 는 결함감내시스템(Fault tolerance) 과 성능(Performance) 향상을 위한 기술을 말한다.&lt;/p&gt;
@@ -725,19 +725,19 @@ multipaths {
 
 &lt;h5 id=&#34;defaults&#34;&gt;defaults&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_default.png&#34; alt=&#34;multipath default&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_default.png&#34; alt=&#34;multipath default&#34; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;path-grouping-policy-multibus&#34;&gt;path_grouping_policy: multibus&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_multibus.png&#34; alt=&#34;multipath multibus&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_multibus.png&#34; alt=&#34;multipath multibus&#34; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;hwhandler-0&#34;&gt;hwhandler=0&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_disable_hwhandler.png&#34; alt=&#34;multipath disable-hwhandler&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_disable_hwhandler.png&#34; alt=&#34;multipath disable-hwhandler&#34; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;features-0&#34;&gt;features=0&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_disable_features.png&#34; alt=&#34;multipath disable-features&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_disable_features.png&#34; alt=&#34;multipath disable-features&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;failover&#34;&gt;failover&lt;/h3&gt;
 
@@ -773,9 +773,9 @@ features=0 을 설정하기 위해서는 multipath 섹션을 따로 기술해주
     
     <item>
       <title>한글2007 설치하기 - 여자친구를 위한</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2014/07/14/installing-hangul-application/</link>
+      <link>http://blog.foobargem.com/blog/2014/07/14/installing-hangul-application/</link>
       <pubDate>Mon, 14 Jul 2014 21:31:05 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2014/07/14/installing-hangul-application/</guid>
+      <guid>http://blog.foobargem.com/blog/2014/07/14/installing-hangul-application/</guid>
       <description>
 
 &lt;h3 id=&#34;머리말&#34;&gt;머리말&lt;/h3&gt;
@@ -792,61 +792,61 @@ features=0 을 설정하기 위해서는 multipath 섹션을 따로 기술해주
 
 &lt;p&gt;한글2007 iso 파일을 7Zip 으로 압축을 해제한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_001.png&#34; alt=&#34;step1&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_001.png&#34; alt=&#34;step1&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_002.png&#34; alt=&#34;step2&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_002.png&#34; alt=&#34;step2&#34; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;2-install-exe-파일-실행&#34;&gt;2. install.exe 파일 실행&lt;/h5&gt;
 
 &lt;p&gt;압축이 풀려진 폴더로 가서 install.exe 파일을 실행(더블클릭)한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_003.png&#34; alt=&#34;step3&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_003.png&#34; alt=&#34;step3&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&amp;ldquo;게시자를 알 수 없는 다음 프로그램이 이 컴퓨터를 변경할 수 있도록 허용하시겠습니까?&amp;rdquo; 라는 질문에 &amp;ldquo;예&amp;rdquo;라고 선택을 한다.&lt;/p&gt;
 
 &lt;h5 id=&#34;3-한글2007-설치-단계-진행&#34;&gt;3. 한글2007 설치 단계 진행&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_004.png&#34; alt=&#34;step4&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_004.png&#34; alt=&#34;step4&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&amp;ldquo;한글과컴퓨터 한글2007 설치&amp;rdquo;를 클릭!!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_005.png&#34; alt=&#34;step5&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_005.png&#34; alt=&#34;step5&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&amp;ldquo;다음&amp;rdquo;을 클릭!!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_006.png&#34; alt=&#34;step6&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_006.png&#34; alt=&#34;step6&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;사용권 계약서는 읽을수록 혼동되니 읽지말고 &amp;ldquo;동의함&amp;rdquo;을 선택후 &amp;ldquo;다음&amp;rdquo; 클릭!!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_007.png&#34; alt=&#34;step7&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_007.png&#34; alt=&#34;step7&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&amp;ldquo;사용자 이름&amp;rdquo;, &amp;ldquo;단체&amp;rdquo;, &amp;ldquo;제품번호&amp;rdquo;를 입력 후 &amp;ldquo;다음&amp;rdquo; 클릭!!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_008.png&#34; alt=&#34;step8&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_008.png&#34; alt=&#34;step8&#34; /&gt;
 &amp;ldquo;권장설치&amp;rdquo;를 선택후 &amp;ldquo;다음&amp;rdquo; 클릭!!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_009.png&#34; alt=&#34;step9&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_009.png&#34; alt=&#34;step9&#34; /&gt;
 &amp;ldquo;설치 폴더 선택&amp;rdquo;도 기본값(C:\HNC)을 변경하지 않고 &amp;ldquo;다음&amp;rdquo; 클릭!!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_010.png&#34; alt=&#34;step10&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_010.png&#34; alt=&#34;step10&#34; /&gt;
 &amp;ldquo;설치&amp;rdquo;버튼을 클릭하여 설치 진행!!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_012.png&#34; alt=&#34;step12&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_012.png&#34; alt=&#34;step12&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_013.png&#34; alt=&#34;step13&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_013.png&#34; alt=&#34;step13&#34; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;4-자동-업데이트-설정&#34;&gt;4. 자동 업데이트 설정&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_014.png&#34; alt=&#34;step14&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_014.png&#34; alt=&#34;step14&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;자동업데이트는 사용해도 좋지만 실제 업데이트 하는 경우는 적기 때문에 체크해제 후 &amp;ldquo;닫기&amp;rdquo;버튼 클릭!!&lt;/p&gt;
 
 &lt;h5 id=&#34;5-한글2007-실행&#34;&gt;5. 한글2007 실행&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_015.png&#34; alt=&#34;step15&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_015.png&#34; alt=&#34;step15&#34; /&gt;
 시작 -&amp;gt; 프로그램 -&amp;gt; &amp;ldquo;한글과컴퓨터 한글2008&amp;rdquo;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201407/step_016.png&#34; alt=&#34;step16&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_016.png&#34; alt=&#34;step16&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;맺음&#34;&gt;맺음&lt;/h3&gt;
 
@@ -859,9 +859,9 @@ features=0 을 설정하기 위해서는 multipath 섹션을 따로 기술해주
     
     <item>
       <title>Macbook Air 에 Debian(wheezy) 설치하기</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2013/12/14/installing-debian-on-macbook-air/</link>
+      <link>http://blog.foobargem.com/blog/2013/12/14/installing-debian-on-macbook-air/</link>
       <pubDate>Sat, 14 Dec 2013 23:09:46 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2013/12/14/installing-debian-on-macbook-air/</guid>
+      <guid>http://blog.foobargem.com/blog/2013/12/14/installing-debian-on-macbook-air/</guid>
       <description>
 
 &lt;h3 id=&#34;macbook-air&#34;&gt;Macbook Air&lt;/h3&gt;
@@ -943,9 +943,9 @@ alt+F2 를 눌러서 콘솔로 접속을 한다. 이시점이면 /target 디렉�
     
     <item>
       <title>Installing rbenv on OS X</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2013/12/01/installing-rbenv/</link>
+      <link>http://blog.foobargem.com/blog/2013/12/01/installing-rbenv/</link>
       <pubDate>Sun, 01 Dec 2013 22:12:48 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2013/12/01/installing-rbenv/</guid>
+      <guid>http://blog.foobargem.com/blog/2013/12/01/installing-rbenv/</guid>
       <description>
 
 &lt;p&gt;늘 하는 얘기지만 Linux 에서는 이런 고민은 안해도 된다.

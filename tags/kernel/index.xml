@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Life with Linux</title>
-    <link>http://replace-this-with-your-hugo-site.com/tags/kernel/index.xml</link>
+    <link>http://blog.foobargem.com/tags/kernel/index.xml</link>
     <description>Recent content on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>foobargem</copyright>
-    <atom:link href="http://replace-this-with-your-hugo-site.com/tags/kernel/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.foobargem.com/tags/kernel/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Build a kernel module on CentOS</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/build-a-kernel-module-on-centos/</link>
+      <link>http://blog.foobargem.com/blog/2016/06/11/build-a-kernel-module-on-centos/</link>
       <pubDate>Sat, 11 Jun 2016 16:56:53 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/build-a-kernel-module-on-centos/</guid>
+      <guid>http://blog.foobargem.com/blog/2016/06/11/build-a-kernel-module-on-centos/</guid>
       <description>
 
 &lt;h3 id=&#34;발단&#34;&gt;발단&lt;/h3&gt;
@@ -109,9 +109,9 @@ bcache                209287  0
     
     <item>
       <title>LG 그램 랩탑에서 Linux kernel 빌드하기</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
+      <link>http://blog.foobargem.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
       <pubDate>Sat, 04 Jul 2015 11:06:36 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
+      <guid>http://blog.foobargem.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
       <description>
 
 &lt;p&gt;회사에서 지급받은 랩탑은 LG 그램이다.

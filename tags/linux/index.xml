@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Life with Linux</title>
-    <link>http://replace-this-with-your-hugo-site.com/tags/linux/index.xml</link>
+    <link>http://blog.foobargem.com/tags/linux/index.xml</link>
     <description>Recent content on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>foobargem</copyright>
-    <atom:link href="http://replace-this-with-your-hugo-site.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.foobargem.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Build a kernel module on CentOS</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/build-a-kernel-module-on-centos/</link>
+      <link>http://blog.foobargem.com/blog/2016/06/11/build-a-kernel-module-on-centos/</link>
       <pubDate>Sat, 11 Jun 2016 16:56:53 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/build-a-kernel-module-on-centos/</guid>
+      <guid>http://blog.foobargem.com/blog/2016/06/11/build-a-kernel-module-on-centos/</guid>
       <description>
 
 &lt;h3 id=&#34;발단&#34;&gt;발단&lt;/h3&gt;
@@ -109,9 +109,9 @@ bcache                209287  0
     
     <item>
       <title>RPM packaging</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/rpm-packaging/</link>
+      <link>http://blog.foobargem.com/blog/2016/06/11/rpm-packaging/</link>
       <pubDate>Sat, 11 Jun 2016 11:36:38 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/06/11/rpm-packaging/</guid>
+      <guid>http://blog.foobargem.com/blog/2016/06/11/rpm-packaging/</guid>
       <description>
 
 &lt;h3 id=&#34;발단&#34;&gt;발단&lt;/h3&gt;
@@ -282,9 +282,9 @@ package files 의 prefix 를 /opt/parted 로 지정했다.&lt;/p&gt;
     
     <item>
       <title>LG 그램 랩탑에서 Linux kernel 빌드하기</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
+      <link>http://blog.foobargem.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
       <pubDate>Sat, 04 Jul 2015 11:06:36 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
+      <guid>http://blog.foobargem.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
       <description>
 
 &lt;p&gt;회사에서 지급받은 랩탑은 LG 그램이다.
@@ -363,9 +363,9 @@ make install 이 수행되면 자동으로 update-grub 가 수행된다.&lt;/p&g
     
     <item>
       <title>Multipath</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2014/08/27/multipath/</link>
+      <link>http://blog.foobargem.com/blog/2014/08/27/multipath/</link>
       <pubDate>Wed, 27 Aug 2014 11:11:11 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2014/08/27/multipath/</guid>
+      <guid>http://blog.foobargem.com/blog/2014/08/27/multipath/</guid>
       <description>
 
 &lt;p&gt;컴퓨터 스토리지에서 multipath I/O 는 결함감내시스템(Fault tolerance) 과 성능(Performance) 향상을 위한 기술을 말한다.&lt;/p&gt;
@@ -453,19 +453,19 @@ multipaths {
 
 &lt;h5 id=&#34;defaults&#34;&gt;defaults&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_default.png&#34; alt=&#34;multipath default&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_default.png&#34; alt=&#34;multipath default&#34; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;path-grouping-policy-multibus&#34;&gt;path_grouping_policy: multibus&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_multibus.png&#34; alt=&#34;multipath multibus&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_multibus.png&#34; alt=&#34;multipath multibus&#34; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;hwhandler-0&#34;&gt;hwhandler=0&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_disable_hwhandler.png&#34; alt=&#34;multipath disable-hwhandler&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_disable_hwhandler.png&#34; alt=&#34;multipath disable-hwhandler&#34; /&gt;&lt;/p&gt;
 
 &lt;h5 id=&#34;features-0&#34;&gt;features=0&lt;/h5&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201408/multipath_disable_features.png&#34; alt=&#34;multipath disable-features&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_disable_features.png&#34; alt=&#34;multipath disable-features&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;failover&#34;&gt;failover&lt;/h3&gt;
 
@@ -501,9 +501,9 @@ features=0 을 설정하기 위해서는 multipath 섹션을 따로 기술해주
     
     <item>
       <title>Macbook Air 에 Debian(wheezy) 설치하기</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2013/12/14/installing-debian-on-macbook-air/</link>
+      <link>http://blog.foobargem.com/blog/2013/12/14/installing-debian-on-macbook-air/</link>
       <pubDate>Sat, 14 Dec 2013 23:09:46 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2013/12/14/installing-debian-on-macbook-air/</guid>
+      <guid>http://blog.foobargem.com/blog/2013/12/14/installing-debian-on-macbook-air/</guid>
       <description>
 
 &lt;h3 id=&#34;macbook-air&#34;&gt;Macbook Air&lt;/h3&gt;

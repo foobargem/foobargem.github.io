@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Life with Linux</title>
-    <link>http://replace-this-with-your-hugo-site.com/tags/ulimit/index.xml</link>
+    <link>http://blog.foobargem.com/tags/ulimit/index.xml</link>
     <description>Recent content on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>foobargem</copyright>
-    <atom:link href="http://replace-this-with-your-hugo-site.com/tags/ulimit/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.foobargem.com/tags/ulimit/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>stunnel with ulimit</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2016/04/13/stunnel-with-ulimit/</link>
+      <link>http://blog.foobargem.com/blog/2016/04/13/stunnel-with-ulimit/</link>
       <pubDate>Wed, 13 Apr 2016 21:01:22 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/04/13/stunnel-with-ulimit/</guid>
+      <guid>http://blog.foobargem.com/blog/2016/04/13/stunnel-with-ulimit/</guid>
       <description>
 
 &lt;h3 id=&#34;배경&#34;&gt;배경&lt;/h3&gt;
@@ -21,7 +21,7 @@
 &lt;p&gt;그림과 같이 L4 에 2대의 Swift proxy server 를 바인딩 한 환경에서
 https 서비스를 제공하기 위해 L4 에서 SSL Offloading 설정을 했다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://replace-this-with-your-hugo-site.com/images/201604/swift_cluster_architecture.png&#34; alt=&#34;swift cluster architecture&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201604/swift_cluster_architecture.png&#34; alt=&#34;swift cluster architecture&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;이슈&lt;/strong&gt;&lt;/p&gt;
 

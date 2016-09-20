@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Life with Linux</title>
-    <link>http://replace-this-with-your-hugo-site.com/tags/raspberrypi/index.xml</link>
+    <link>http://blog.foobargem.com/tags/raspberrypi/index.xml</link>
     <description>Recent content on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>foobargem</copyright>
-    <atom:link href="http://replace-this-with-your-hugo-site.com/tags/raspberrypi/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://blog.foobargem.com/tags/raspberrypi/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Raspberry Pi 에서 온습도 센서(DHT-11)로 온/습도 측정하기</title>
-      <link>http://replace-this-with-your-hugo-site.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</link>
+      <link>http://blog.foobargem.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</link>
       <pubDate>Sun, 27 Mar 2016 11:59:47 +0900</pubDate>
-      <guid>http://replace-this-with-your-hugo-site.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</guid>
+      <guid>http://blog.foobargem.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</guid>
       <description>
 
 &lt;h3 id=&#34;dht11-온습도-센서&#34;&gt;DHT11 온습도 센서&lt;/h3&gt;
