@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Life with Linux</title>
+    <link>http://blog.foobargem.com/tags/</link>
+    <description>Recent content in Tags on Life with Linux</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 Jun 2016 16:56:53 +0900</lastBuildDate>
+    
+	<atom:link href="http://blog.foobargem.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>centos</title>
+      <link>http://blog.foobargem.com/tags/centos/</link>
+      <pubDate>Sat, 11 Jun 2016 16:56:53 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/centos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kernel</title>
+      <link>http://blog.foobargem.com/tags/kernel/</link>
+      <pubDate>Sat, 11 Jun 2016 16:56:53 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/kernel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>http://blog.foobargem.com/tags/linux/</link>
+      <pubDate>Sat, 11 Jun 2016 16:56:53 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>module</title>
+      <link>http://blog.foobargem.com/tags/module/</link>
+      <pubDate>Sat, 11 Jun 2016 16:56:53 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/module/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>packaging</title>
+      <link>http://blog.foobargem.com/tags/packaging/</link>
+      <pubDate>Sat, 11 Jun 2016 11:36:38 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/packaging/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rpm</title>
+      <link>http://blog.foobargem.com/tags/rpm/</link>
+      <pubDate>Sat, 11 Jun 2016 11:36:38 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/rpm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>stunnel</title>
+      <link>http://blog.foobargem.com/tags/stunnel/</link>
+      <pubDate>Wed, 13 Apr 2016 21:01:22 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/stunnel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>systemd</title>
+      <link>http://blog.foobargem.com/tags/systemd/</link>
+      <pubDate>Wed, 13 Apr 2016 21:01:22 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/systemd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ulimit</title>
+      <link>http://blog.foobargem.com/tags/ulimit/</link>
+      <pubDate>Wed, 13 Apr 2016 21:01:22 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/ulimit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>raspberrypi</title>
+      <link>http://blog.foobargem.com/tags/raspberrypi/</link>
+      <pubDate>Sun, 27 Mar 2016 11:59:47 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/raspberrypi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>firmware</title>
+      <link>http://blog.foobargem.com/tags/firmware/</link>
+      <pubDate>Sat, 04 Jul 2015 11:06:36 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/firmware/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>wireless</title>
+      <link>http://blog.foobargem.com/tags/wireless/</link>
+      <pubDate>Sat, 04 Jul 2015 11:06:36 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/wireless/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>보자기카드</title>
+      <link>http://blog.foobargem.com/tags/%EB%B3%B4%EC%9E%90%EA%B8%B0%EC%B9%B4%EB%93%9C/</link>
+      <pubDate>Sat, 24 Jan 2015 21:09:52 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/%EB%B3%B4%EC%9E%90%EA%B8%B0%EC%B9%B4%EB%93%9C/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>청첩장</title>
+      <link>http://blog.foobargem.com/tags/%EC%B2%AD%EC%B2%A9%EC%9E%A5/</link>
+      <pubDate>Sat, 24 Jan 2015 21:09:52 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/%EC%B2%AD%EC%B2%A9%EC%9E%A5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>debian</title>
+      <link>http://blog.foobargem.com/tags/debian/</link>
+      <pubDate>Wed, 27 Aug 2014 11:11:11 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/debian/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>storage</title>
+      <link>http://blog.foobargem.com/tags/storage/</link>
+      <pubDate>Wed, 27 Aug 2014 11:11:11 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/storage/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>life</title>
+      <link>http://blog.foobargem.com/tags/life/</link>
+      <pubDate>Mon, 14 Jul 2014 21:31:05 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/life/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ruby</title>
+      <link>http://blog.foobargem.com/tags/ruby/</link>
+      <pubDate>Sun, 01 Dec 2013 22:12:48 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/ruby/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

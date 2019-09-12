@@ -2,1007 +2,141 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Life with Linux</title>
-    <link>http://blog.foobargem.com/index.xml</link>
+    <link>http://blog.foobargem.com/</link>
     <description>Recent content on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>foobargem</copyright>
     <lastBuildDate>Sat, 11 Jun 2016 16:56:53 +0900</lastBuildDate>
-    <atom:link href="http://blog.foobargem.com/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="http://blog.foobargem.com/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Build a kernel module on CentOS</title>
-      <link>http://blog.foobargem.com/blog/2016/06/11/build-a-kernel-module-on-centos/</link>
+      <link>http://blog.foobargem.com/posts/2016/06/11/build-a-kernel-module-on-centos/</link>
       <pubDate>Sat, 11 Jun 2016 16:56:53 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2016/06/11/build-a-kernel-module-on-centos/</guid>
-      <description>
-
-&lt;h3 id=&#34;발단&#34;&gt;발단&lt;/h3&gt;
-
-&lt;p&gt;bcache (Linux kernel block layer cache) 를 적용하려고 알아보니 CentOS 7 의 커널은 bcache module 이 disabled 였다.
-그래서 kernel source 를 받아서 bcache module 을 build 시도했다.&lt;/p&gt;
-
-&lt;p&gt;경험하면 할 수록 CentOS 는 서버환경에서 별로이다. - Debian 추천!! :)&lt;/p&gt;
-
-&lt;h3 id=&#34;build-환경-구축&#34;&gt;Build 환경 구축&lt;/h3&gt;
-
-&lt;h5 id=&#34;required-packages-설치&#34;&gt;required packages 설치&lt;/h5&gt;
-
-&lt;pre&gt;&lt;code&gt;# yum install rpm-build redhat-rpm-config asciidoc hmaccalc perl-ExtUtils-Embed pesign xmlto \
-              audit-libs-devel binutils-devel elfutils-devel elfutils-libelf-devel \
-              ncurses-devel newt-devel numactl-devel pciutils-devel python-devel zlib-devel
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;kernel-source-다운로드&#34;&gt;kernel source 다운로드&lt;/h5&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://vault.centos.org/7.N.YYMM/updates/Source/SPackages/&#34;&gt;http://vault.centos.org/7.N.YYMM/updates/Source/SPackages/&lt;/a&gt; 에서 kernel-$(uname -r).src.rpm 파일을 다운로드 및 설치한다.
-설치가 되면 rpmbuild 디렉토리 이하에 관련 files 이 복사되어 있다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# rpm -i http://vault.centos.org/7.2.1511/updates/Source/SPackages/kernel-3.10.0-327.18.2.el7.src.rpm 2&amp;gt;&amp;amp;1 | grep -v exist
-# cd ~rpmbuild/SPECS
-# rpmbuild -bp --target=$(uname -m) kernel.spec
-# cd ~rpmbuild/BUILD
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;module-build&#34;&gt;module build&lt;/h5&gt;
-
-&lt;p&gt;&lt;strong&gt;edit .config&lt;/strong&gt;
-    # cd ~rpmbuild/BUILD/kernel-3.10.0-327.13.1.el7/linux-3.10.0-327.13.1.el7.x86_64
-    # vim .config&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;.config&lt;/strong&gt;
-    &amp;hellip;
-    CONFIG_BCACHE=m
-    &amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;build&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# make modules_install SUBDIRS=drivers/md/bcache
-// modules_install: bcache.ko 복사,depmod -a 수행
-
-# modinfo bcache
-filename:       /lib/modules/3.10.0-327.13.1.el7.x86_64/kernel/drivers/md/bcache/bcache.ko
-author:         Kent Overstreet &amp;lt;kent.overstreet@gmail.com&amp;gt;
-license:        GPL
-license:        GPL
-author:         Kent Overstreet &amp;lt;koverstreet@google.com&amp;gt;
-rhelversion:    7.2
-srcversion:     744AC1548F61C54B1445EF6
-depends:
-vermagic:       3.10.0 SMP mod_unload modversions
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;모듈-적재&#34;&gt;모듈 적재&lt;/h5&gt;
-
-&lt;pre&gt;&lt;code&gt;# modprobe bcache
-insmod: error inserting &#39;bcache.ko&#39;: -1 Invalid module format
-
-# dmesg
-...
-bcache: no symbol version for module_layout
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;모듈 build 할때 signing 이 안되어서 발생하는 문제.  (signing 하는 방법은 추후에 업데이트 할것!!)&lt;/p&gt;
-
-&lt;p&gt;일단은 &amp;ndash;force 으로 해결!!&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# modprobe -f bcache
-# lsmod | grep bcache
-bcache                209287  0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;적용후&#34;&gt;적용후&lt;/h3&gt;
-
-&lt;p&gt;동일한 조건에서 dm-cache 와 bcache 를 fio 로 시험을 해보았다.
-결과는 dm-cache 가 random read, sequential read 가 월등히 빨랐다.&lt;/p&gt;
-
-&lt;p&gt;CentOS 에서 bcache 모듈을 제외한게 dm-cache 가 좋다고 판단해서 일까&amp;hellip;&lt;/p&gt;
-
-&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://wiki.centos.org/HowTos/Custom_Kernel&#34;&gt;https://wiki.centos.org/HowTos/Custom_Kernel&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://wiki.centos.org/HowTos/I_need_the_Kernel_Source&#34;&gt;https://wiki.centos.org/HowTos/I_need_the_Kernel_Source&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.kernel.org/doc/Documentation/module-signing.txt&#34;&gt;https://www.kernel.org/doc/Documentation/module-signing.txt&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2016/06/11/build-a-kernel-module-on-centos/</guid>
+      <description>발단 bcache (Linux kernel block layer cache) 를 적용하려고 알아보니 CentOS 7 의 커널은 bcache module 이 disabled 였다. 그래서 kernel source 를 받아서 bcache module 을 build 시도했다.
+경험하면 할 수록 CentOS 는 서버환경에서 별로이다. - Debian 추천!! :)
+Build 환경 구축 required packages 설치 # yum install rpm-build redhat-rpm-config asciidoc hmaccalc perl-ExtUtils-Embed pesign xmlto \ audit-libs-devel binutils-devel elfutils-devel elfutils-libelf-devel \ ncurses-devel newt-devel numactl-devel pciutils-devel python-devel zlib-devel  kernel source 다운로드 http://vault.</description>
     </item>
     
     <item>
       <title>RPM packaging</title>
-      <link>http://blog.foobargem.com/blog/2016/06/11/rpm-packaging/</link>
+      <link>http://blog.foobargem.com/posts/2016/06/11/rpm-packaging/</link>
       <pubDate>Sat, 11 Jun 2016 11:36:38 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2016/06/11/rpm-packaging/</guid>
-      <description>
-
-&lt;h3 id=&#34;발단&#34;&gt;발단&lt;/h3&gt;
-
-&lt;p&gt;VMware VM 중 1대의 Disk 공간이 부족해서 resize 를 하려고 했는데 parted-3.1 (CentOS 7) 에는 resize command 가 없어졌다.
-구글링을 해보니 parted-3.2 에 resizepart 가 추가되었다고 한다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://savannah.gnu.org/forum/forum.php?forum_id=8042&#34;&gt;http://savannah.gnu.org/forum/forum.php?forum_id=8042&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;그래서 소스코드를 직접 빌드하고서 내친김에 rpm packaging 까지 하게 되었다.&lt;/p&gt;
-
-&lt;h3 id=&#34;rpm-패키징&#34;&gt;rpm 패키징&lt;/h3&gt;
-
-&lt;h5 id=&#34;build-directory-생성&#34;&gt;Build directory 생성&lt;/h5&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mkdir rpmbuild
-$ cd rpmbuild
-$ mkdir SOURCES SPECS BUILD BUILDROOT RPMS SRPMS
-$ ls
-BUILD  BUILDROOT  RPMS  SOURCES  SPECS  SRPMS
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Directory&lt;/th&gt;
-      &lt;th&gt;Description&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;SOURCES&lt;/td&gt;
-      &lt;td&gt;original sources, patches, icon files 가 포함된 디렉토리&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;SPECS&lt;/td&gt;
-      &lt;td&gt;rpm build 를 위한 spec files 가 있는 디렉토리&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;BUILD&lt;/td&gt;
-      &lt;td&gt;source file 압축해제 및 build 되는 디렉토리&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;BUILDROOT&lt;/td&gt;
-      &lt;td&gt;%install stage 에서 생성되는 files 가 저장되는 디렉토리&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;RPMS&lt;/td&gt;
-      &lt;td&gt;binary package files (*.rpm) 이 만들어지는 디렉토리&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;SRPMS&lt;/td&gt;
-      &lt;td&gt;source package files (*.src.rpm) 이 만들어지는 디렉토리&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h5 id=&#34;spec-file-작성&#34;&gt;Spec file 작성&lt;/h5&gt;
-
-&lt;pre&gt;&lt;code&gt;$ cd SPECS
-$ vim parted-3.2.spec
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;parted-3.2.spec&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;gist: &lt;a href=&#34;https://gist.github.com/foobargem/f260b896fe030a382b7b18f43633a8a4#file-parted-3-2-spec&#34;&gt;https://gist.github.com/foobargem/f260b896fe030a382b7b18f43633a8a4#file-parted-3-2-spec&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;%global _enable_debug_package 0
-%global debug_package %{nil}
-%define dist .el7.nhnent
-%define _prefix /opt/parted
-
-Name: parted
-Version: 3.2
-Release: 1%{?dist}
-Summary: The GNU disk partition manipulation program
-
-License: GPLv3+
-URL: http://www.gnu.org/software/parted
-Source0: parted-3.2.tar.xz
-
-%description
-The GNU Parted program allows you to create, destroy, resize, move,
-and copy hard disk partitions. Parted can be used for creating space
-for new operating systems, reorganizing disk usage, and copying data
-to new hard disks.
-
-%prep
-%setup -q
-
-%build
-%configure
-make %{?_smp_mflags}
-
-%install
-%make_install
-
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%files
-%{_prefix}
-#%{_datadir}/*
-#%{_includedir}/*
-#%{_libdir}/*
-#%{_sbindir}/*
-
-%changelog
-* Fri Jun 10 2016 makerpm
-- build and packaging
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;build&#34;&gt;Build&lt;/h5&gt;
-
-&lt;pre&gt;&lt;code&gt;$ cd SPECS
-$ rpmbuild -bb parted-3.2.spec
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;오류 없으면 rpmbuilds/RPMS/x86_64/parted-3.2-1.el7.nhnent.x86_64.rpm 파일이 생성된다.&lt;/p&gt;
-
-&lt;h3 id=&#34;설명&#34;&gt;설명&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;%global _enable_debug_package 0
-%global debug_package %{nil}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;debug package 를 생성하지 않음&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;%define dist .el7.nhnent
-%define _prefix /opt/parted
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;main stream package 와 구분하기 위해서 release name 에 nhnent 라는 접미사를 붙였고
-package files 의 prefix 를 /opt/parted 로 지정했다.&lt;/p&gt;
-
-&lt;h3 id=&#34;에피소드&#34;&gt;에피소드&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;prefix 와 %files&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;prefix 를 /opt/parted 로 하고 %files 에 각 파일을 기술해줬더니
-패키지 삭제시 empty directory 가 남아있는 이슈가 있었다.
-그래서 %files 를 %{_prefix} 롤 지정했다.&lt;/p&gt;
-
-&lt;p&gt;만약 /usr 디렉토리에 sbin, share, lib 등으로 나누어 설치하게 하려면
-%files 에 아래와 같이 기술해줘야 한다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;%files
-%{_datadir}/*
-%{_includedir}/*
-%{_libdir}/*
-%{_sbindir}/*
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.tldp.org/HOWTO/RPM-HOWTO/build.html&#34;&gt;http://www.tldp.org/HOWTO/RPM-HOWTO/build.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://fedoraproject.org/wiki/How_to_create_an_RPM_package&#34;&gt;https://fedoraproject.org/wiki/How_to_create_an_RPM_package&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://fedoraproject.org/wiki/Packaging:DistTag&#34;&gt;https://fedoraproject.org/wiki/Packaging:DistTag&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://fedoraproject.org/wiki/How_to_create_a_GNU_Hello_RPM_package&#34;&gt;https://fedoraproject.org/wiki/How_to_create_a_GNU_Hello_RPM_package&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2016/06/11/rpm-packaging/</guid>
+      <description>발단 VMware VM 중 1대의 Disk 공간이 부족해서 resize 를 하려고 했는데 parted-3.1 (CentOS 7) 에는 resize command 가 없어졌다. 구글링을 해보니 parted-3.2 에 resizepart 가 추가되었다고 한다.
+ http://savannah.gnu.org/forum/forum.php?forum_id=8042  그래서 소스코드를 직접 빌드하고서 내친김에 rpm packaging 까지 하게 되었다.
+rpm 패키징 Build directory 생성 $ mkdir rpmbuild $ cd rpmbuild $ mkdir SOURCES SPECS BUILD BUILDROOT RPMS SRPMS $ ls BUILD BUILDROOT RPMS SOURCES SPECS SRPMS     Directory Description     SOURCES original sources, patches, icon files 가 포함된 디렉토리   SPECS rpm build 를 위한 spec files 가 있는 디렉토리   BUILD source file 압축해제 및 build 되는 디렉토리   BUILDROOT %install stage 에서 생성되는 files 가 저장되는 디렉토리   RPMS binary package files (*.</description>
     </item>
     
     <item>
       <title>stunnel with ulimit</title>
-      <link>http://blog.foobargem.com/blog/2016/04/13/stunnel-with-ulimit/</link>
+      <link>http://blog.foobargem.com/posts/2016/04/13/stunnel-with-ulimit/</link>
       <pubDate>Wed, 13 Apr 2016 21:01:22 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2016/04/13/stunnel-with-ulimit/</guid>
-      <description>
-
-&lt;h3 id=&#34;배경&#34;&gt;배경&lt;/h3&gt;
-
-&lt;p&gt;그림과 같이 L4 에 2대의 Swift proxy server 를 바인딩 한 환경에서
-https 서비스를 제공하기 위해 L4 에서 SSL Offloading 설정을 했다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201604/swift_cluster_architecture.png&#34; alt=&#34;swift cluster architecture&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;이슈&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;L4의 SSL Offloading 성능이 떨어짐. 1Gbps 환경에서 download 시20MB/s&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;속도 문제를 해결하기 위해서 swift proxy server 에서 SSL 처리를 시도해 보았다.
-SSL termination 을 위해서 nginx 와 stunnel 을 시험해 보았다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;시험방법&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;100 sessions 로 동시 다운로드 시도시 시스템 리소스 사용율 측정(Load avg.)&lt;/li&gt;
-&lt;li&gt;시험결과
-
-&lt;ul&gt;
-&lt;li&gt;nginx: 5 (1 min)&lt;/li&gt;
-&lt;li&gt;stunnel: 0.5 (1 min)&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;시스템 리소스를 적게 사용하는 stunnel 로 채택!!&lt;/p&gt;
-
-&lt;h3 id=&#34;stunnel&#34;&gt;stunnel&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;설치&lt;/strong&gt;
-    # ./configure &amp;ndash;prefix=/usr/local/stunnel &amp;ndash;disable-libwrap &amp;ndash;with-threads=pthread
-    # make
-    # make install&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;stunnel.conf&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;setuid = www-data
-setgid = www-data
-pid = /var/run/stunnel/stunnel.pid
-;chroot = /var/run/stunnel
-
-; error
-debug = 3
-output = /var/log/stunnel/stunnel.log
-
-; Protocol version (all, SSLv2, SSLv3, TLSv1)
-sslVersion = all
-
-fips = no
-
-[swiftproxy]
-accept = 0.0.0.0:443
-connect = 127.0.0.1:80
-TIMEOUTidle = 600
-cert = swift-proxy.crt
-key = swift-proxy.nopass.key
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;process-limits&#34;&gt;process limits&lt;/h3&gt;
-
-&lt;p&gt;swift 사용량이 늘다보니 아래와 같은 log 가 확인되었다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;2016.04.05 12:33:34 LOG3[13353638]: remote socket: Too many open files (24)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;stunnel process 의 limits 확인&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# cat /proc/$(cat /var/run/stunnel/stunnel.pid)/limits
-Limit                     Soft Limit           Hard Limit           Units
-Max cpu time              unlimited            unlimited            seconds
-Max file size             unlimited            unlimited            bytes
-Max data size             unlimited            unlimited            bytes
-Max stack size            8388608              unlimited            bytes
-Max core file size        0                    unlimited            bytes
-Max resident set          unlimited            unlimited            bytes
-Max processes             192299               192299               processes
-Max open files            1024                 4096                 files
-Max locked memory         65536                65536                bytes
-Max address space         unlimited            unlimited            bytes
-Max file locks            unlimited            unlimited            locks
-Max pending signals       192299               192299               signals
-Max msgqueue size         819200               819200               bytes
-Max nice priority         0                    0
-Max realtime priority     0                    0
-Max realtime timeout      unlimited            unlimited            us
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;/etc/security/limits.conf 를 수정해도 프로세스를 기동할 때 적용이 되지 않는다.
-적용하려면 init script or service file 을 수정해주면 된다.&lt;/p&gt;
-
-&lt;h5 id=&#34;init&#34;&gt;init&lt;/h5&gt;
-
-&lt;p&gt;/etc/init.d/stunnel&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;...
-DEFAULTPIDFILE=/var/run/stunnel/stunnel.pid
-DAEMON=/usr/local/stunnel/bin/stunnel
-NAME=stunnel
-DESC=&amp;quot;SSL tunnels&amp;quot;
-OPTIONS=&amp;quot;&amp;quot;
-ENABLED=0
-RLIMITS=&amp;quot;-n 32000&amp;quot;
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;systemd&#34;&gt;systemd&lt;/h5&gt;
-
-&lt;ul&gt;
-&lt;li&gt;systemd 에서는 service file 에서 process 의 resource limits 를 설정해줄 수 있다.&lt;/li&gt;
-&lt;li&gt;참고: &lt;a href=&#34;https://www.freedesktop.org/software/systemd/man/systemd.exec.html&#34;&gt;https://www.freedesktop.org/software/systemd/man/systemd.exec.html&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;/etc/systemd/system/multi-user.target.wants/stunnel.service&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[Unit]
-Description=SSL tunnel for network daemons
-After=syslog.target
-
-[Service]
-LimitNOFILE=32000
-ExecStart=/usr/local/stunnel/bin/stunnel /usr/local/stunnel/etc/stunnel/stunnel.conf
-Type=forking
-
-[Install]
-WantedBy=multi-user.target
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;적용후&#34;&gt;적용후&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;# cat /proc/$(cat /var/run/stunnel/stunnel.pid)/limits
-...
-Max open files            32000                32000                files
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;에피소드&#34;&gt;에피소드&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;다른 동료가 /etc/security/limits.conf 를 수정후 stunnel restart 했으나 max open files 설정은 적용되지 않음.&lt;/li&gt;
-&lt;li&gt;stunnel 의 thread mode 가 pthread 일 때만 limits 설정이 적용됨 확인.&lt;/li&gt;
-&lt;li&gt;역시 manual 과 doc 을 잘 읽어봐야 함.&lt;/li&gt;
-&lt;li&gt;시스템 설정 적용후 실제 적용 여부는 꼭 확인해야 함. (그래서 내가 보긴 했지만..)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.ghostar.org/2014/09/rebooting-linux-temporarily-loses-some-limits-conf-settings/&#34;&gt;http://www.ghostar.org/2014/09/rebooting-linux-temporarily-loses-some-limits-conf-settings/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.freedesktop.org/software/systemd/man/systemd.exec.html&#34;&gt;https://www.freedesktop.org/software/systemd/man/systemd.exec.html&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2016/04/13/stunnel-with-ulimit/</guid>
+      <description>배경 그림과 같이 L4 에 2대의 Swift proxy server 를 바인딩 한 환경에서 https 서비스를 제공하기 위해 L4 에서 SSL Offloading 설정을 했다.
+이슈
+ L4의 SSL Offloading 성능이 떨어짐. 1Gbps 환경에서 download 시20MB/s  속도 문제를 해결하기 위해서 swift proxy server 에서 SSL 처리를 시도해 보았다. SSL termination 을 위해서 nginx 와 stunnel 을 시험해 보았다.
+시험방법
+ 100 sessions 로 동시 다운로드 시도시 시스템 리소스 사용율 측정(Load avg.</description>
     </item>
     
     <item>
       <title>Raspberry Pi 에서 온습도 센서(DHT-11)로 온/습도 측정하기</title>
-      <link>http://blog.foobargem.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</link>
+      <link>http://blog.foobargem.com/posts/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</link>
       <pubDate>Sun, 27 Mar 2016 11:59:47 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</guid>
-      <description>
-
-&lt;h3 id=&#34;dht11-온습도-센서&#34;&gt;DHT11 온습도 센서&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://eleparts.co.kr/EPXF43N9&#34;&gt;http://eleparts.co.kr/EPXF43N9&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;manual: &lt;a href=&#34;http://www.micropik.com/PDF/dht11.pdf&#34;&gt;http://www.micropik.com/PDF/dht11.pdf&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Python library:  &lt;a href=&#34;https://github.com/adafruit/Adafruit_Python_DHT&#34;&gt;https://github.com/adafruit/Adafruit_Python_DHT&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;시험환경&#34;&gt;시험환경&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Raspberry PI B&lt;/li&gt;
-&lt;li&gt;GPIO layout: &lt;img src=&#34;http://www.raspberrypi-spy.co.uk/wp-content/uploads/2012/09/Raspberry-Pi-GPIO-Layout-Revision-2.png&#34; alt=&#34;GPIO Layout&#34; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;시험&#34;&gt;시험&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;센서연결&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;pin #1 - 3V&lt;/li&gt;
-&lt;li&gt;pin #6 - Ground&lt;/li&gt;
-&lt;li&gt;pin #16 - GPIO23 (data)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;설치&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo python setup.py install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;예제코드 수정 및 실행&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;예제코드: &lt;a href=&#34;https://github.com/adafruit/Adafruit_Python_DHT/blob/master/examples/simpletest.py&#34;&gt;https://github.com/adafruit/Adafruit_Python_DHT/blob/master/examples/simpletest.py&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/usr/bin/python
-import Adafruit_DHT
-
-sensor = Adafruit_DHT.DHT11
-
-# GPIO23 (pin no: #16)
-pin = 23
-
-humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-
-if humidity is not None and temperature is not None:
-    print &amp;quot;Temp={0:0.1f}*C Humidity={1:0.1f}%&amp;quot;.format(temperature, humidity)
-else:
-    print &amp;quot;Failed to get reading.&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;실행결과&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo python read.py
-Temp=24.0*C Humidity=21.0%
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;todo&#34;&gt;ToDo&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;매일 아침 창문 밖의 온습도 측정하여 휴대폰으로 알람 발송.&lt;/li&gt;
-&lt;li&gt;매 시간 단위로 온습도 측정하여 influxdb 에 저장. (그 후로는 나중에 생각하자..)&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</guid>
+      <description>DHT11 온습도 센서  http://eleparts.co.kr/EPXF43N9 manual: http://www.micropik.com/PDF/dht11.pdf Python library: https://github.com/adafruit/Adafruit_Python_DHT  시험환경  Raspberry PI B GPIO layout:   시험 센서연결
+ pin #1 - 3V pin #6 - Ground pin #16 - GPIO23 (data)  설치
+$ sudo python setup.py install  예제코드 수정 및 실행
+예제코드: https://github.com/adafruit/Adafruit_Python_DHT/blob/master/examples/simpletest.py
+#!/usr/bin/python import Adafruit_DHT sensor = Adafruit_DHT.DHT11 # GPIO23 (pin no: #16) pin = 23 humidity, temperature = Adafruit_DHT.read_retry(sensor, pin) if humidity is not None and temperature is not None: print &amp;quot;Temp={0:0.</description>
     </item>
     
     <item>
       <title>LG 그램 랩탑에서 Linux kernel 빌드하기</title>
-      <link>http://blog.foobargem.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
+      <link>http://blog.foobargem.com/posts/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
       <pubDate>Sat, 04 Jul 2015 11:06:36 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
-      <description>
-
-&lt;p&gt;회사에서 지급받은 랩탑은 LG 그램이다.
-OS는 LMDE(Linux Mint Debian Edition) 을 설치해서 잘 쓰고 있다.&lt;/p&gt;
-
-&lt;p&gt;처음에는 i915 driver 버그로 LED 밝기조절이 안되고
-밝기조절 기능을 활성화 하는경우 시스템이 멎는 문제가 있었다.
-삽질을 하던중 KLDP 에서 커널 업데이트하면 해결된다는 글(&lt;a href=&#34;https://kldp.org/node/151205)을&#34;&gt;https://kldp.org/node/151205)을&lt;/a&gt; 읽었다.
-그리고 바로 3.18.8 커널로 빌드를 했고 문제는 깔끔하게 해결되었다. :D&lt;/p&gt;
-
-&lt;p&gt;커널 업데이트 후 wireless device (Intel Wireless 7620) 가 인식이 안되었는데
-원인은 firmware 버전이 안맞아서였다.
-그래서 &lt;a href=&#34;https://wireless.wiki.kernel.org/en/users/Drivers/iwlwifi&#34;&gt;linux wireless driver website&lt;/a&gt; 에서
-커널버전에 맞는 firmware 를 다운로드 받아 설치를 했고 아주 잘 동작함을 확인했다.&lt;/p&gt;
-
-&lt;p&gt;이번주에 오랜만에 커널을 4.1.1 버전으로 업데이트하고 wireless device 가 동작을 안해서
-이전의 firmware 설치한 기억을 잊어버리고 dmesg, log 를 추적해서 firmware 버전이 안맞는것이
-원인이라는 것을 찾아서 다시 4.1 버전 이상에 맞는 firmware 를 설치했다.&lt;/p&gt;
-
-&lt;p&gt;나의 믿을수 없는 기억으로 또 삽질하는 것을 방지하고자 커널 빌드과정을 정리한다.&lt;/p&gt;
-
-&lt;h3 id=&#34;prepare&#34;&gt;prepare&lt;/h3&gt;
-
-&lt;h5 id=&#34;kernel-source&#34;&gt;Kernel source&lt;/h5&gt;
-
-&lt;pre&gt;&lt;code&gt;https://www.kernel.org/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;wireless-device-firmware&#34;&gt;Wireless device firmware&lt;/h5&gt;
-
-&lt;p&gt;설치하려는 커널 버전에 맞는 firmware 다운로드
-    # tar xvzf iwlwifi-7260-ucode-25.30.13.0.tgz
-    # cp iwlwifi-7260-13.ucode /lib/firmware&lt;/p&gt;
-
-&lt;h3 id=&#34;kernel-build&#34;&gt;kernel build&lt;/h3&gt;
-
-&lt;h5 id=&#34;configuration&#34;&gt;Configuration&lt;/h5&gt;
-
-&lt;p&gt;설정 하나하나를 살펴보고 활성/모듈/비활성을 선택해야 한다.
-그러나 지금버전 커널의 config 파일를 기반으로 설정을 하면 좀 수월하다.
-그래서 /boot/config-$(uname -r) 파일을 복사해온다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# cd /usr/src
-# tar xvf linux-4.1.1.tar.xz
-...
-# cd linux-4.1.1
-# cp /boot/config-$(uname -r) /usr/src/linux-4.1.1/.config
-# make menuconfig
-// Load -&amp;gt; .config 후 전체 설정을 확인
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;build&#34;&gt;Build&lt;/h5&gt;
-
-&lt;p&gt;빌드 수행시 -jN (N은 cpu core 개수의 1/2정도) 옵션으로 병렬로 할수 있다.
-make install 이 수행되면 자동으로 update-grub 가 수행된다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# make -j2
-# make modules_install install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;done&#34;&gt;Done&lt;/h5&gt;
-
-&lt;pre&gt;&lt;code&gt;# reboot
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.kernel.org/&#34;&gt;https://www.kernel.org/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://kernelnewbies.org/KernelBuild&#34;&gt;http://kernelnewbies.org/KernelBuild&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://wireless.wiki.kernel.org/en/users/Drivers/iwlwifi&#34;&gt;https://wireless.wiki.kernel.org/en/users/Drivers/iwlwifi&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://kldp.org/node/151205&#34;&gt;https://kldp.org/node/151205&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
+      <description>회사에서 지급받은 랩탑은 LG 그램이다. OS는 LMDE(Linux Mint Debian Edition) 을 설치해서 잘 쓰고 있다.
+처음에는 i915 driver 버그로 LED 밝기조절이 안되고 밝기조절 기능을 활성화 하는경우 시스템이 멎는 문제가 있었다. 삽질을 하던중 KLDP 에서 커널 업데이트하면 해결된다는 글(https://kldp.org/node/151205)을 읽었다. 그리고 바로 3.18.8 커널로 빌드를 했고 문제는 깔끔하게 해결되었다. :D
+커널 업데이트 후 wireless device (Intel Wireless 7620) 가 인식이 안되었는데 원인은 firmware 버전이 안맞아서였다. 그래서 linux wireless driver website 에서 커널버전에 맞는 firmware 를 다운로드 받아 설치를 했고 아주 잘 동작함을 확인했다.</description>
     </item>
     
     <item>
       <title>보자기카드 샘플 후기</title>
-      <link>http://blog.foobargem.com/blog/2015/01/24/i-like-bojagi-card/</link>
+      <link>http://blog.foobargem.com/posts/2015/01/24/i-like-bojagi-card/</link>
       <pubDate>Sat, 24 Jan 2015 21:09:52 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2015/01/24/i-like-bojagi-card/</guid>
-      <description>
-
-&lt;h3 id=&#34;보자기카드엔-꿈과-사랑과-선물이-한-보자기&#34;&gt;보자기카드엔 꿈과 사랑과 선물이 한 보자기&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201501/bojagi_card_sample.jpg&#34; alt=&#34;card sample&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;
-4월 결혼을 준비하며무엇을 준비해야할지 모르고있을때&lt;br&gt;
-옆반 선생님의 권유로 알게된 보자기카드^^&lt;br&gt;
-자신도 보자기카드에서 주문했다며 반신반의로 회원가입하였는데..
-&lt;/p&gt;
-&lt;p&gt;
-막상 들어가보니 예쁜 카드가 한가득^^&lt;br&gt;
-이것저것 남자친구와 고르던중 마음에 드는 카드를 골라 배송^^&lt;br&gt;
-직장으로 도착하여 동료들과 어느 청첩장이 이쁘냐며 이야기도 듣고&lt;br&gt;
-결국은 남자친구와 고른 예쁜 나비가 있는 카드 당첨!!
-&lt;/p&gt;
-&lt;p&gt;
-다른 곳에서도 같이 받아보았으나&lt;br&gt;
-이곳만의 특별한 매력은&lt;br&gt;
-바로 큰 봉투에 같이 온 보자기카드의 편지^^
-&lt;/p&gt;
-&lt;p&gt;
-그냥 카드를 사는곳이 아닌 결혼을 축하받는 기분이었답니다.
-&lt;/p&gt;
-&lt;p&gt;
-바로 보자키 카드에서 청접장을 받고 싶네요~~&lt;br&gt;
-결혼을 앞둔 친구들에게 꼭 소개해주고싶네요^^
-&lt;/p&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2015/01/24/i-like-bojagi-card/</guid>
+      <description>보자기카드엔 꿈과 사랑과 선물이 한 보자기  4월 결혼을 준비하며무엇을 준비해야할지 모르고있을때
+옆반 선생님의 권유로 알게된 보자기카드^^
+자신도 보자기카드에서 주문했다며 반신반의로 회원가입하였는데..  막상 들어가보니 예쁜 카드가 한가득^^
+이것저것 남자친구와 고르던중 마음에 드는 카드를 골라 배송^^
+직장으로 도착하여 동료들과 어느 청첩장이 이쁘냐며 이야기도 듣고
+결국은 남자친구와 고른 예쁜 나비가 있는 카드 당첨!!  다른 곳에서도 같이 받아보았으나
+이곳만의 특별한 매력은
+바로 큰 봉투에 같이 온 보자기카드의 편지^^  그냥 카드를 사는곳이 아닌 결혼을 축하받는 기분이었답니다.</description>
     </item>
     
     <item>
       <title>Multipath</title>
-      <link>http://blog.foobargem.com/blog/2014/08/27/multipath/</link>
+      <link>http://blog.foobargem.com/posts/2014/08/27/multipath/</link>
       <pubDate>Wed, 27 Aug 2014 11:11:11 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2014/08/27/multipath/</guid>
-      <description>
-
-&lt;p&gt;컴퓨터 스토리지에서 multipath I/O 는 결함감내시스템(Fault tolerance) 과 성능(Performance) 향상을 위한 기술을 말한다.&lt;/p&gt;
-
-&lt;p&gt;버스(buses), 컨트롤러(controllers), 스위치(switches), 브리지 장치(bridge devices) 로 구성된 대량의 스토리지 장치(mass storage devices)와 컴퓨터 시스템의 CPU 사이에 한개 이상의 경로(path)를 두어서 구성을 한다.&lt;/p&gt;
-
-&lt;p&gt;예를 들면 하나의 SCSI 디스크가 연결된 두개의 SCSI 컨트롤러(controllers) 가 같은 컴퓨터에 장착되어 있거나 두개의 파이버 채널(Fiber Channel) 포트(port)가 연결되어 있는 것을 말한다.
-만약 한개의 컨트롤러나 포트 또는 스위치가 장애가 발생하면 운영체제(OS)는 장애가 나지 않은 다른 컨트롤러를 통해서 반드시 I/O 작업이 이뤄져야 한다.&lt;/p&gt;
-
-&lt;p&gt;Multipath software layers 는 아래와 같은 성능 향상을 위한 기능을 제공한다.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Dynamic load balancing&lt;/li&gt;
-&lt;li&gt;Traffic shaping&lt;/li&gt;
-&lt;li&gt;Automatic path management&lt;/li&gt;
-&lt;li&gt;Dynamic reconfiguration&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;설정&#34;&gt;설정&lt;/h3&gt;
-
-&lt;p&gt;Debian wheezy 에서multipath-tools_0.4.9+git0.4dfdaf2b-7~deb7u2_amd64.deb 패키지를 설치하여 구성하였다.&lt;/p&gt;
-
-&lt;h4 id=&#34;wwn-or-wwid&#34;&gt;WWN or WWID&lt;/h4&gt;
-
-&lt;p&gt;WWN(World Wide Name) 또는 WWID(World Wide Identifier) 라고 불리운다.
-이것은 FC(Fiber Channel), SAS(Serial Attached SCSI), ATA(Advanced Technology Attachment) 의 스토리지 기술에서 고유한 식별자(unique identifier)로 사용된다.&lt;/p&gt;
-
-&lt;p&gt;참고: &lt;a href=&#34;http://en.wikipedia.org/wiki/World_Wide_Name&#34;&gt;http://en.wikipedia.org/wiki/World_Wide_Name&lt;/a&gt;&lt;/p&gt;
-
-&lt;h5 id=&#34;fc-주소-확인&#34;&gt;FC 주소 확인&lt;/h5&gt;
-
-&lt;p&gt;HBA 가 장착된 리눅스 시스템에서 /sys/class/fc_host 디렉토리 이하를 살펴보면 확인할 수 있다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# ls /sys/class/fc_host
-host0
-# cat /sys/class/fc_host/host0/port_name
-0x2100001b32939df8
-# cat /sys/class/fc_host/host0/node_name
-0x2000001b32939df8
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;wwn-확인&#34;&gt;WWN 확인&lt;/h5&gt;
-
-&lt;p&gt;리눅스 시스템에서는 /sys/class/fc_transport 디렉토리 이하를 살펴보면 확인할 수 있다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# ls /sys/class/fc_transport
-target0:0:0  target0:0:1
-# cat /sys/class/fc_transport/target0\:0\:0/node_name 
-0x2000001b4d01a9f2
-# cat /sys/class/fc_transport/target0\:0\:0/port_name 
-0x2100001b4d01a9f2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;multipath-conf&#34;&gt;multipath.conf&lt;/h5&gt;
-
-&lt;p&gt;Debian wheezy 에 4개의 FC path 가 할당 되었다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;defaults {
-    user_friendly_names yes 
-    fast_io_fail_tmo 15  
-}
-
-blacklist {
-    devnode &amp;quot;^sd[a-z][[0-9]*]&amp;quot;
-    wwid 36b82a720d8d964001b5dbbc31d351fe1
-}
-
-multipaths {
-    multipath {
-        wwid 3600601601c203900cff81153e321e411
-    }   
-    multipath {
-        wwid 3600601601c203900d0f81153e321e411
-    }   
-    multipath {
-        wwid 3600601601c203900ee1d1460e321e411
-    }   
-    multipath {
-        wwid 3600601601c203900ef1d1460e321e411
-    }   
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;설정-예&#34;&gt;설정 예&lt;/h4&gt;
-
-&lt;h5 id=&#34;defaults&#34;&gt;defaults&lt;/h5&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_default.png&#34; alt=&#34;multipath default&#34; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&#34;path-grouping-policy-multibus&#34;&gt;path_grouping_policy: multibus&lt;/h5&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_multibus.png&#34; alt=&#34;multipath multibus&#34; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&#34;hwhandler-0&#34;&gt;hwhandler=0&lt;/h5&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_disable_hwhandler.png&#34; alt=&#34;multipath disable-hwhandler&#34; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&#34;features-0&#34;&gt;features=0&lt;/h5&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201408/multipath_disable_features.png&#34; alt=&#34;multipath disable-features&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;failover&#34;&gt;failover&lt;/h3&gt;
-
-&lt;p&gt;Debian wheezy 에서 multipath 를 구성한뒤 failover 시험을 했다.
-2개의 HBA에 연결된 port 를 하나 뽑았을 때 I/O 작업이 지속되는지를 체크 했는데
-300초 동안 I/O 작업이 멈춰있었다.
-실제로는 OCFS2 로 구성되어 있었는데 OCFS2 의 self-fencing 으로인해 재부팅이 되었다.&lt;/p&gt;
-
-&lt;p&gt;이를 해결하기 위해서 Debian 시스템을 확인하던 중
-dev_loss_tmo 의 기본값이 300초, fast_io_fail_tmo 의 기본값이 off 임을 발견하였다.&lt;/p&gt;
-
-&lt;p&gt;그래서 fast_io_fail_tmo 를 15초로 설정해주니 15초의 I/O 지연이 발생하지만 failover 가 정상적으로 수행됨을 확인했다.&lt;/p&gt;
-
-&lt;h3 id=&#34;문제점&#34;&gt;문제점&lt;/h3&gt;
-
-&lt;p&gt;multipath.conf 의 man page 에 따라 defaults 섹션에 기술한 설정값이 적용이 안됨을 발견했다.
-features=0 을 설정하기 위해서는 multipath 섹션을 따로 기술해주고 no_path_retry fail 을 추가해주면 된다.&lt;/p&gt;
-
-&lt;p&gt;이는 좀더 확인이 필요하다.&lt;/p&gt;
-
-&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/documentation/ko-KR/Red_Hat_Enterprise_Linux/6/html/DM_Multipath/&#34;&gt;https://access.redhat.com/documentation/ko-KR/Red_Hat_Enterprise_Linux/6/html/DM_Multipath/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.sourceware.org/lvm2/wiki/MultipathUsageGuide&#34;&gt;http://www.sourceware.org/lvm2/wiki/MultipathUsageGuide&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://docs.oracle.com/cd/E19253-01/820-1931/&#34;&gt;http://docs.oracle.com/cd/E19253-01/820-1931/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.brentozar.com/archive/2009/05/san-multipathing-part-1-what-are-paths/&#34;&gt;http://www.brentozar.com/archive/2009/05/san-multipathing-part-1-what-are-paths/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.brentozar.com/archive/2009/05/san-multipathing-part-2-what-multipathing-does/&#34;&gt;http://www.brentozar.com/archive/2009/05/san-multipathing-part-2-what-multipathing-does/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.sit.auckland.ac.nz/Configuring_SAN_access_with_Linux_multipath&#34;&gt;https://www.sit.auckland.ac.nz/Configuring_SAN_access_with_Linux_multipath&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2014/08/27/multipath/</guid>
+      <description>컴퓨터 스토리지에서 multipath I/O 는 결함감내시스템(Fault tolerance) 과 성능(Performance) 향상을 위한 기술을 말한다.
+버스(buses), 컨트롤러(controllers), 스위치(switches), 브리지 장치(bridge devices) 로 구성된 대량의 스토리지 장치(mass storage devices)와 컴퓨터 시스템의 CPU 사이에 한개 이상의 경로(path)를 두어서 구성을 한다.
+예를 들면 하나의 SCSI 디스크가 연결된 두개의 SCSI 컨트롤러(controllers) 가 같은 컴퓨터에 장착되어 있거나 두개의 파이버 채널(Fiber Channel) 포트(port)가 연결되어 있는 것을 말한다. 만약 한개의 컨트롤러나 포트 또는 스위치가 장애가 발생하면 운영체제(OS)는 장애가 나지 않은 다른 컨트롤러를 통해서 반드시 I/O 작업이 이뤄져야 한다.</description>
     </item>
     
     <item>
       <title>한글2007 설치하기 - 여자친구를 위한</title>
-      <link>http://blog.foobargem.com/blog/2014/07/14/installing-hangul-application/</link>
+      <link>http://blog.foobargem.com/posts/2014/07/14/installing-hangul-application/</link>
       <pubDate>Mon, 14 Jul 2014 21:31:05 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2014/07/14/installing-hangul-application/</guid>
-      <description>
-
-&lt;h3 id=&#34;머리말&#34;&gt;머리말&lt;/h3&gt;
-
-&lt;p&gt;나의 사랑하는 여자친구는 유치원 교사이다.
-이 글은 그녀가 가지고 있는 넷북에 한글2010을 설치하는 방법을 알려주기 위해 작성했다.
-안타깝게도 내가 가지고 있는것은 한글2007뿐이다.
-한글2010과 한글2007 두 버전의 차이는 센스쟁이 여자친구가 거뜬히 극복할 것을 믿기에
-한글2007을 기준으로 글을 작성한다.&lt;/p&gt;
-
-&lt;h3 id=&#34;설치과정&#34;&gt;설치과정&lt;/h3&gt;
-
-&lt;h5 id=&#34;1-iso-파일의-압축-해제&#34;&gt;1. iso 파일의 압축 해제&lt;/h5&gt;
-
-&lt;p&gt;한글2007 iso 파일을 7Zip 으로 압축을 해제한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_001.png&#34; alt=&#34;step1&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_002.png&#34; alt=&#34;step2&#34; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&#34;2-install-exe-파일-실행&#34;&gt;2. install.exe 파일 실행&lt;/h5&gt;
-
-&lt;p&gt;압축이 풀려진 폴더로 가서 install.exe 파일을 실행(더블클릭)한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_003.png&#34; alt=&#34;step3&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&amp;ldquo;게시자를 알 수 없는 다음 프로그램이 이 컴퓨터를 변경할 수 있도록 허용하시겠습니까?&amp;rdquo; 라는 질문에 &amp;ldquo;예&amp;rdquo;라고 선택을 한다.&lt;/p&gt;
-
-&lt;h5 id=&#34;3-한글2007-설치-단계-진행&#34;&gt;3. 한글2007 설치 단계 진행&lt;/h5&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_004.png&#34; alt=&#34;step4&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&amp;ldquo;한글과컴퓨터 한글2007 설치&amp;rdquo;를 클릭!!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_005.png&#34; alt=&#34;step5&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&amp;ldquo;다음&amp;rdquo;을 클릭!!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_006.png&#34; alt=&#34;step6&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;사용권 계약서는 읽을수록 혼동되니 읽지말고 &amp;ldquo;동의함&amp;rdquo;을 선택후 &amp;ldquo;다음&amp;rdquo; 클릭!!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_007.png&#34; alt=&#34;step7&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&amp;ldquo;사용자 이름&amp;rdquo;, &amp;ldquo;단체&amp;rdquo;, &amp;ldquo;제품번호&amp;rdquo;를 입력 후 &amp;ldquo;다음&amp;rdquo; 클릭!!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_008.png&#34; alt=&#34;step8&#34; /&gt;
-&amp;ldquo;권장설치&amp;rdquo;를 선택후 &amp;ldquo;다음&amp;rdquo; 클릭!!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_009.png&#34; alt=&#34;step9&#34; /&gt;
-&amp;ldquo;설치 폴더 선택&amp;rdquo;도 기본값(C:\HNC)을 변경하지 않고 &amp;ldquo;다음&amp;rdquo; 클릭!!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_010.png&#34; alt=&#34;step10&#34; /&gt;
-&amp;ldquo;설치&amp;rdquo;버튼을 클릭하여 설치 진행!!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_012.png&#34; alt=&#34;step12&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_013.png&#34; alt=&#34;step13&#34; /&gt;&lt;/p&gt;
-
-&lt;h5 id=&#34;4-자동-업데이트-설정&#34;&gt;4. 자동 업데이트 설정&lt;/h5&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_014.png&#34; alt=&#34;step14&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;자동업데이트는 사용해도 좋지만 실제 업데이트 하는 경우는 적기 때문에 체크해제 후 &amp;ldquo;닫기&amp;rdquo;버튼 클릭!!&lt;/p&gt;
-
-&lt;h5 id=&#34;5-한글2007-실행&#34;&gt;5. 한글2007 실행&lt;/h5&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_015.png&#34; alt=&#34;step15&#34; /&gt;
-시작 -&amp;gt; 프로그램 -&amp;gt; &amp;ldquo;한글과컴퓨터 한글2008&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201407/step_016.png&#34; alt=&#34;step16&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;맺음&#34;&gt;맺음&lt;/h3&gt;
-
-&lt;p&gt;소프트웨어 설치는 쉬워보이지만 생소한 용어들이 어렵게 느껴지게 하는것 같다.
-누구나 쓰기 쉬운 소프트웨어를 만드는 일은 그만큼 고려해야 할 게 많은것 같다.&lt;/p&gt;
-
-&lt;p&gt;여자친구가 한글(한컴오피스) 프로그램을 설치하는데 도움이 되길 바라며..&lt;/p&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2014/07/14/installing-hangul-application/</guid>
+      <description>머리말 나의 사랑하는 여자친구는 유치원 교사이다. 이 글은 그녀가 가지고 있는 넷북에 한글2010을 설치하는 방법을 알려주기 위해 작성했다. 안타깝게도 내가 가지고 있는것은 한글2007뿐이다. 한글2010과 한글2007 두 버전의 차이는 센스쟁이 여자친구가 거뜬히 극복할 것을 믿기에 한글2007을 기준으로 글을 작성한다.
+설치과정 1. iso 파일의 압축 해제 한글2007 iso 파일을 7Zip 으로 압축을 해제한다.
+2. install.exe 파일 실행 압축이 풀려진 폴더로 가서 install.exe 파일을 실행(더블클릭)한다.
+&amp;ldquo;게시자를 알 수 없는 다음 프로그램이 이 컴퓨터를 변경할 수 있도록 허용하시겠습니까?</description>
     </item>
     
     <item>
       <title>Macbook Air 에 Debian(wheezy) 설치하기</title>
-      <link>http://blog.foobargem.com/blog/2013/12/14/installing-debian-on-macbook-air/</link>
+      <link>http://blog.foobargem.com/posts/2013/12/14/installing-debian-on-macbook-air/</link>
       <pubDate>Sat, 14 Dec 2013 23:09:46 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2013/12/14/installing-debian-on-macbook-air/</guid>
-      <description>
-
-&lt;h3 id=&#34;macbook-air&#34;&gt;Macbook Air&lt;/h3&gt;
-
-&lt;p&gt;난 맥북 에어를 좋아한다.
-가볍고, 13인치 화면에서 1400x900 해상도가 지원이 되며 전력관리가 우수하기 때문이다.
-2010년에 처음으로 맥북 에어를 구입하고 OS X 를 사용하면서 리눅스가 너무너무 그리웠다.
-예쁘고 멋진 인터페이스에 나름 안정적인 OS X 였지만
-어느날 iTunes 를 업데이트한뒤 iTunes 의 버그로 시스템이 멈추는 현상이 생겼고
-그 후로 Update 할때마다 시스템이 죽는게 아닐까 걱정이 되더라. :(&lt;/p&gt;
-
-&lt;p&gt;v10.6 &amp;gt; v10.7 &amp;gt; v10.8 &amp;gt; v10.9 까지 판올림을 해오면서 잘 써왔지만 이젠 리눅스로 돌아가기로 결심!&lt;/p&gt;
-
-&lt;h3 id=&#34;준비&#34;&gt;준비&lt;/h3&gt;
-
-&lt;p&gt;Debian wheezy(7.2.0-amd64-netinst) iso 파일을 다운로드 받아서 USB drive 를 만든다.
-또한 네트워크 &lt;a href=&#34;http://ftp.kr.debian.org/debian/pool/non-free/f/firmware-nonfree/firmware-brcm80211_0.36+wheezy.1_all.deb&#34;&gt;firmware (firmware-brcm80211)&lt;/a&gt; 도 다운로드 받아서 다른 USB 에 저장한다.
-여유가 있을때 macbook air 에 설치할 수 있는 netinst 로 패키징을 해야겠다.&lt;/p&gt;
-
-&lt;p&gt;만들어진 USB 를 꼽고 부팅을 한다. 부팅할때 Option 키를 누르고 있어야 설치디스크 선택 화면이 나온다.
-EFI 장치를 선택하고 부팅하면 Debian Installer 화면이 보인다.&lt;/p&gt;
-
-&lt;h3 id=&#34;설치&#34;&gt;설치&lt;/h3&gt;
-
-&lt;p&gt;설치는 installer 인터페이스로 디스크 파티셔닝까지 진행을 한뒤 콘솔로 수동 작업을 해줘야 한다.&lt;/p&gt;
-
-&lt;p&gt;파티션은 200MB를 EFI system partition 으로, 30GB를 시스템의 루트(/) 파티션으로, 2GB를 스왑으로 잡았다.
-남은 디스크는 OS 설치후 추가 하기 위해 놔두었다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Base system&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;파티션을 잡은 뒤 Base system 설치가 진행되다가 실패한다. 원인은 정확하게 모르겠다.;;
-alt+F2 를 눌러서 콘솔로 접속을 한다. 이시점이면 /target 디렉토리가 존재할것이다. 없다면 mkdir!!&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# debootstrap --arch amd64 wheezy /target http://ftp.neowiz.com/debian
-...
-# mount -o bind /proc /target/proc
-# mount -o bind /sys /target/sys
-# mount -o bind /dev /target/dev
-# mount -o bind /dev/pts /target/dev/pts
-# chroot /target /bin/bash
-# mkdir /boot/efi
-# mount /dev/sda1 /boot/efi
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;패키지 설치&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# modprobe efivars
-# apt-get install initramfs-tools linux-image-3.2.0-4-amd64 grub-efi-amd64 firmware-brcm80211 wireless-tools wpasupplicant
-# update-initramfs -u
-# grub-install /dev/sda
-# update-grub
-# umount /dev/sda1
-# exit
-# umount /target/dev/pts
-# umount /target/dev
-# umount /target/sys
-# umount /target/proc
-# reboot
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;완료&#34;&gt;완료&lt;/h3&gt;
-
-&lt;p&gt;이제 부팅이 되면 바로 grub 화면이 보이고 Debian 으로 부팅할 수 있게 된다.&lt;/p&gt;
-
-&lt;h3 id=&#34;남은것들&#34;&gt;남은것들&lt;/h3&gt;
-
-&lt;p&gt;이제 Macbook Air 가 가지고 있는 하드웨어의 기능을 사용하기 위해 이런저런 삽질이 남았다.&lt;/p&gt;
-
-&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://alexandre.delanoe.org/blog/archives/2012/10/index.html#e2012-10-05T09_04_38.txt&#34;&gt;http://alexandre.delanoe.org/blog/archives/2012/10/index.html#e2012-10-05T09_04_38.txt&lt;/a&gt;&lt;br/ &gt;
-&lt;a href=&#34;http://dentifrice.poivron.org/laptops/macbookair3,1/&#34;&gt;http://dentifrice.poivron.org/laptops/macbookair3,1/&lt;/a&gt;&lt;br/ &gt;
-&lt;a href=&#34;http://blog.felipe-alfaro.com/2006/09/19/installing-refit-on-the-hidden-efi-system-partition/&#34;&gt;http://blog.felipe-alfaro.com/2006/09/19/installing-refit-on-the-hidden-efi-system-partition/&lt;/a&gt;&lt;br/ &gt;
-&lt;a href=&#34;https://wiki.debian.org/MacBookAir&#34;&gt;https://wiki.debian.org/MacBookAir&lt;/a&gt;&lt;br/ &gt;
-&lt;a href=&#34;https://wiki.debian.org/InstallingDebianOn/Apple/MacBookAir/5-1&#34;&gt;https://wiki.debian.org/InstallingDebianOn/Apple/MacBookAir/5-1&lt;/a&gt;&lt;br/ &gt;&lt;/p&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2013/12/14/installing-debian-on-macbook-air/</guid>
+      <description>Macbook Air 난 맥북 에어를 좋아한다. 가볍고, 13인치 화면에서 1400x900 해상도가 지원이 되며 전력관리가 우수하기 때문이다. 2010년에 처음으로 맥북 에어를 구입하고 OS X 를 사용하면서 리눅스가 너무너무 그리웠다. 예쁘고 멋진 인터페이스에 나름 안정적인 OS X 였지만 어느날 iTunes 를 업데이트한뒤 iTunes 의 버그로 시스템이 멈추는 현상이 생겼고 그 후로 Update 할때마다 시스템이 죽는게 아닐까 걱정이 되더라. :(
+v10.6 &amp;gt; v10.7 &amp;gt; v10.8 &amp;gt; v10.9 까지 판올림을 해오면서 잘 써왔지만 이젠 리눅스로 돌아가기로 결심!</description>
     </item>
     
     <item>
       <title>Installing rbenv on OS X</title>
-      <link>http://blog.foobargem.com/blog/2013/12/01/installing-rbenv/</link>
+      <link>http://blog.foobargem.com/posts/2013/12/01/installing-rbenv/</link>
       <pubDate>Sun, 01 Dec 2013 22:12:48 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2013/12/01/installing-rbenv/</guid>
-      <description>
-
-&lt;p&gt;늘 하는 얘기지만 Linux 에서는 이런 고민은 안해도 된다.
-OS X Mavericks 에서는 ruby-2.0.0p247 이 시스템에 설치되어 있다.
-그래도 최신버전의 ruby와 GEM 을 편리하게 관리하려면 rbenv 만한 것도 없는것 같다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/sstephenson/rbenv&#34;&gt;Rbenv 프로젝트 페이지&lt;/a&gt;의 가이드를 따라 설치를 하면
-irb 나 rails console 에서 한글을 입력하지 못하게 될것이고
-openssl 관련한 이슈가 생길것이다. (이전의 경험이라 지금은 확인을 안해봤다.)&lt;/p&gt;
-
-&lt;p&gt;이를 위해서 openssl 과 readline 을 ruby 를 빌드할때 참조시켜줘야 한다.
-brew 의 설치는 &lt;a href=&#34;http://brew.sh/&#34;&gt;Homebrew 프로젝트 페이지&lt;/a&gt;를 참조하면 된다.&lt;/p&gt;
-
-&lt;h3 id=&#34;openssl-설치&#34;&gt;openssl 설치&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;brew install openssl
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;readline-설치&#34;&gt;readline 설치&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;brew install readline
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;rbenv-설치&#34;&gt;rbenv 설치&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;$ cd  # move to home dir.
-$ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-$ echo &#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bash_profile
-$ echo &#39;eval &amp;quot;$(rbenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bash_profile
-$ source .bash_profile
-$ type rbenv
-#=&amp;gt; &amp;quot;rbenv is a function&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;자세한 내용은 &lt;a href=&#34;https://github.com/sstephenson/rbenv&#34;&gt;Rbenv 프로젝트 페이지&lt;/a&gt;를 참조.&lt;/p&gt;
-
-&lt;h3 id=&#34;ruby-build-설치&#34;&gt;ruby-build 설치&lt;/h3&gt;
-
-&lt;p&gt;rbenv 의 plugin 으로 설치하는 것을 권장.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;자세한 내용은 &lt;a href=&#34;https://github.com/sstephenson/ruby-build&#34;&gt;ruby-build 프로젝트 페이지&lt;/a&gt;를 참조.&lt;/p&gt;
-
-&lt;h3 id=&#34;ruby-설치&#34;&gt;ruby 설치&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;$ rbenv install --list   # 설치가능한 버전확인
-$ CONFIGURE_OPTS=&amp;quot;--with-readline-dir=$(brew --prefix readline) --with-openssl-dir=$(brew --prefix openssl)&amp;quot; rbenv install 2.0.0-p353
-$ rbenv global 2.0.0-p353
-$ rbenv rehash
-$ ruby --version
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;이것으로 완료!!
-즐거운 루비 곡갱이질을.. :)&lt;/p&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2013/12/01/installing-rbenv/</guid>
+      <description>늘 하는 얘기지만 Linux 에서는 이런 고민은 안해도 된다. OS X Mavericks 에서는 ruby-2.0.0p247 이 시스템에 설치되어 있다. 그래도 최신버전의 ruby와 GEM 을 편리하게 관리하려면 rbenv 만한 것도 없는것 같다.
+Rbenv 프로젝트 페이지의 가이드를 따라 설치를 하면 irb 나 rails console 에서 한글을 입력하지 못하게 될것이고 openssl 관련한 이슈가 생길것이다. (이전의 경험이라 지금은 확인을 안해봤다.)
+이를 위해서 openssl 과 readline 을 ruby 를 빌드할때 참조시켜줘야 한다. brew 의 설치는 Homebrew 프로젝트 페이지를 참조하면 된다.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://blog.foobargem.com/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.foobargem.com/readme/</guid>
+      <description>foobargem.github.io foobargem&amp;rsquo;s blog</description>
     </item>
     
   </channel>

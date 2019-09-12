@@ -1,49 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Life with Linux</title>
-    <link>http://blog.foobargem.com/tags/%EB%B3%B4%EC%9E%90%EA%B8%B0%EC%B9%B4%EB%93%9C/index.xml</link>
-    <description>Recent content on Life with Linux</description>
+    <title>보자기카드 on Life with Linux</title>
+    <link>http://blog.foobargem.com/tags/%EB%B3%B4%EC%9E%90%EA%B8%B0%EC%B9%B4%EB%93%9C/</link>
+    <description>Recent content in 보자기카드 on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>foobargem</copyright>
-    <atom:link href="http://blog.foobargem.com/tags/%EB%B3%B4%EC%9E%90%EA%B8%B0%EC%B9%B4%EB%93%9C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Jan 2015 21:09:52 +0900</lastBuildDate>
+    
+	<atom:link href="http://blog.foobargem.com/tags/%EB%B3%B4%EC%9E%90%EA%B8%B0%EC%B9%B4%EB%93%9C/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>보자기카드 샘플 후기</title>
-      <link>http://blog.foobargem.com/blog/2015/01/24/i-like-bojagi-card/</link>
+      <link>http://blog.foobargem.com/posts/2015/01/24/i-like-bojagi-card/</link>
       <pubDate>Sat, 24 Jan 2015 21:09:52 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2015/01/24/i-like-bojagi-card/</guid>
-      <description>
-
-&lt;h3 id=&#34;보자기카드엔-꿈과-사랑과-선물이-한-보자기&#34;&gt;보자기카드엔 꿈과 사랑과 선물이 한 보자기&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.foobargem.com/images/201501/bojagi_card_sample.jpg&#34; alt=&#34;card sample&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;
-4월 결혼을 준비하며무엇을 준비해야할지 모르고있을때&lt;br&gt;
-옆반 선생님의 권유로 알게된 보자기카드^^&lt;br&gt;
-자신도 보자기카드에서 주문했다며 반신반의로 회원가입하였는데..
-&lt;/p&gt;
-&lt;p&gt;
-막상 들어가보니 예쁜 카드가 한가득^^&lt;br&gt;
-이것저것 남자친구와 고르던중 마음에 드는 카드를 골라 배송^^&lt;br&gt;
-직장으로 도착하여 동료들과 어느 청첩장이 이쁘냐며 이야기도 듣고&lt;br&gt;
-결국은 남자친구와 고른 예쁜 나비가 있는 카드 당첨!!
-&lt;/p&gt;
-&lt;p&gt;
-다른 곳에서도 같이 받아보았으나&lt;br&gt;
-이곳만의 특별한 매력은&lt;br&gt;
-바로 큰 봉투에 같이 온 보자기카드의 편지^^
-&lt;/p&gt;
-&lt;p&gt;
-그냥 카드를 사는곳이 아닌 결혼을 축하받는 기분이었답니다.
-&lt;/p&gt;
-&lt;p&gt;
-바로 보자키 카드에서 청접장을 받고 싶네요~~&lt;br&gt;
-결혼을 앞둔 친구들에게 꼭 소개해주고싶네요^^
-&lt;/p&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2015/01/24/i-like-bojagi-card/</guid>
+      <description>보자기카드엔 꿈과 사랑과 선물이 한 보자기  4월 결혼을 준비하며무엇을 준비해야할지 모르고있을때
+옆반 선생님의 권유로 알게된 보자기카드^^
+자신도 보자기카드에서 주문했다며 반신반의로 회원가입하였는데..  막상 들어가보니 예쁜 카드가 한가득^^
+이것저것 남자친구와 고르던중 마음에 드는 카드를 골라 배송^^
+직장으로 도착하여 동료들과 어느 청첩장이 이쁘냐며 이야기도 듣고
+결국은 남자친구와 고른 예쁜 나비가 있는 카드 당첨!!  다른 곳에서도 같이 받아보았으나
+이곳만의 특별한 매력은
+바로 큰 봉투에 같이 온 보자기카드의 편지^^  그냥 카드를 사는곳이 아닌 결혼을 축하받는 기분이었답니다.</description>
     </item>
     
   </channel>

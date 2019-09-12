@@ -1,93 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Life with Linux</title>
-    <link>http://blog.foobargem.com/tags/firmware/index.xml</link>
-    <description>Recent content on Life with Linux</description>
+    <title>firmware on Life with Linux</title>
+    <link>http://blog.foobargem.com/tags/firmware/</link>
+    <description>Recent content in firmware on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>foobargem</copyright>
-    <atom:link href="http://blog.foobargem.com/tags/firmware/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Jul 2015 11:06:36 +0900</lastBuildDate>
+    
+	<atom:link href="http://blog.foobargem.com/tags/firmware/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>LG 그램 랩탑에서 Linux kernel 빌드하기</title>
-      <link>http://blog.foobargem.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
+      <link>http://blog.foobargem.com/posts/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
       <pubDate>Sat, 04 Jul 2015 11:06:36 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
-      <description>
-
-&lt;p&gt;회사에서 지급받은 랩탑은 LG 그램이다.
-OS는 LMDE(Linux Mint Debian Edition) 을 설치해서 잘 쓰고 있다.&lt;/p&gt;
-
-&lt;p&gt;처음에는 i915 driver 버그로 LED 밝기조절이 안되고
-밝기조절 기능을 활성화 하는경우 시스템이 멎는 문제가 있었다.
-삽질을 하던중 KLDP 에서 커널 업데이트하면 해결된다는 글(&lt;a href=&#34;https://kldp.org/node/151205)을&#34;&gt;https://kldp.org/node/151205)을&lt;/a&gt; 읽었다.
-그리고 바로 3.18.8 커널로 빌드를 했고 문제는 깔끔하게 해결되었다. :D&lt;/p&gt;
-
-&lt;p&gt;커널 업데이트 후 wireless device (Intel Wireless 7620) 가 인식이 안되었는데
-원인은 firmware 버전이 안맞아서였다.
-그래서 &lt;a href=&#34;https://wireless.wiki.kernel.org/en/users/Drivers/iwlwifi&#34;&gt;linux wireless driver website&lt;/a&gt; 에서
-커널버전에 맞는 firmware 를 다운로드 받아 설치를 했고 아주 잘 동작함을 확인했다.&lt;/p&gt;
-
-&lt;p&gt;이번주에 오랜만에 커널을 4.1.1 버전으로 업데이트하고 wireless device 가 동작을 안해서
-이전의 firmware 설치한 기억을 잊어버리고 dmesg, log 를 추적해서 firmware 버전이 안맞는것이
-원인이라는 것을 찾아서 다시 4.1 버전 이상에 맞는 firmware 를 설치했다.&lt;/p&gt;
-
-&lt;p&gt;나의 믿을수 없는 기억으로 또 삽질하는 것을 방지하고자 커널 빌드과정을 정리한다.&lt;/p&gt;
-
-&lt;h3 id=&#34;prepare&#34;&gt;prepare&lt;/h3&gt;
-
-&lt;h5 id=&#34;kernel-source&#34;&gt;Kernel source&lt;/h5&gt;
-
-&lt;pre&gt;&lt;code&gt;https://www.kernel.org/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;wireless-device-firmware&#34;&gt;Wireless device firmware&lt;/h5&gt;
-
-&lt;p&gt;설치하려는 커널 버전에 맞는 firmware 다운로드
-    # tar xvzf iwlwifi-7260-ucode-25.30.13.0.tgz
-    # cp iwlwifi-7260-13.ucode /lib/firmware&lt;/p&gt;
-
-&lt;h3 id=&#34;kernel-build&#34;&gt;kernel build&lt;/h3&gt;
-
-&lt;h5 id=&#34;configuration&#34;&gt;Configuration&lt;/h5&gt;
-
-&lt;p&gt;설정 하나하나를 살펴보고 활성/모듈/비활성을 선택해야 한다.
-그러나 지금버전 커널의 config 파일를 기반으로 설정을 하면 좀 수월하다.
-그래서 /boot/config-$(uname -r) 파일을 복사해온다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# cd /usr/src
-# tar xvf linux-4.1.1.tar.xz
-...
-# cd linux-4.1.1
-# cp /boot/config-$(uname -r) /usr/src/linux-4.1.1/.config
-# make menuconfig
-// Load -&amp;gt; .config 후 전체 설정을 확인
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;build&#34;&gt;Build&lt;/h5&gt;
-
-&lt;p&gt;빌드 수행시 -jN (N은 cpu core 개수의 1/2정도) 옵션으로 병렬로 할수 있다.
-make install 이 수행되면 자동으로 update-grub 가 수행된다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# make -j2
-# make modules_install install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h5 id=&#34;done&#34;&gt;Done&lt;/h5&gt;
-
-&lt;pre&gt;&lt;code&gt;# reboot
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;참고&#34;&gt;참고&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.kernel.org/&#34;&gt;https://www.kernel.org/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://kernelnewbies.org/KernelBuild&#34;&gt;http://kernelnewbies.org/KernelBuild&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://wireless.wiki.kernel.org/en/users/Drivers/iwlwifi&#34;&gt;https://wireless.wiki.kernel.org/en/users/Drivers/iwlwifi&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://kldp.org/node/151205&#34;&gt;https://kldp.org/node/151205&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
+      <description>회사에서 지급받은 랩탑은 LG 그램이다. OS는 LMDE(Linux Mint Debian Edition) 을 설치해서 잘 쓰고 있다.
+처음에는 i915 driver 버그로 LED 밝기조절이 안되고 밝기조절 기능을 활성화 하는경우 시스템이 멎는 문제가 있었다. 삽질을 하던중 KLDP 에서 커널 업데이트하면 해결된다는 글(https://kldp.org/node/151205)을 읽었다. 그리고 바로 3.18.8 커널로 빌드를 했고 문제는 깔끔하게 해결되었다. :D
+커널 업데이트 후 wireless device (Intel Wireless 7620) 가 인식이 안되었는데 원인은 firmware 버전이 안맞아서였다. 그래서 linux wireless driver website 에서 커널버전에 맞는 firmware 를 다운로드 받아 설치를 했고 아주 잘 동작함을 확인했다.</description>
     </item>
     
   </channel>
