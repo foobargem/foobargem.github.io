@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Life with Linux</title>
+    <link>http://blog.foobargem.com/posts/</link>
+    <description>Recent content in Posts on Life with Linux</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 Jun 2016 16:56:53 +0900</lastBuildDate>
+    
+	<atom:link href="http://blog.foobargem.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Build a kernel module on CentOS</title>
+      <link>http://blog.foobargem.com/posts/2016/06/11/build-a-kernel-module-on-centos/</link>
+      <pubDate>Sat, 11 Jun 2016 16:56:53 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/2016/06/11/build-a-kernel-module-on-centos/</guid>
+      <description>발단 bcache (Linux kernel block layer cache) 를 적용하려고 알아보니 CentOS 7 의 커널은 bcache module 이 disabled 였다. 그래서 kernel source 를 받아서 bcache module 을 build 시도했다.
+경험하면 할 수록 CentOS 는 서버환경에서 별로이다. - Debian 추천!! :)
+Build 환경 구축 required packages 설치 # yum install rpm-build redhat-rpm-config asciidoc hmaccalc perl-ExtUtils-Embed pesign xmlto \ audit-libs-devel binutils-devel elfutils-devel elfutils-libelf-devel \ ncurses-devel newt-devel numactl-devel pciutils-devel python-devel zlib-devel  kernel source 다운로드 http://vault.</description>
+    </item>
+    
+    <item>
+      <title>RPM packaging</title>
+      <link>http://blog.foobargem.com/posts/2016/06/11/rpm-packaging/</link>
+      <pubDate>Sat, 11 Jun 2016 11:36:38 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/2016/06/11/rpm-packaging/</guid>
+      <description>발단 VMware VM 중 1대의 Disk 공간이 부족해서 resize 를 하려고 했는데 parted-3.1 (CentOS 7) 에는 resize command 가 없어졌다. 구글링을 해보니 parted-3.2 에 resizepart 가 추가되었다고 한다.
+ http://savannah.gnu.org/forum/forum.php?forum_id=8042  그래서 소스코드를 직접 빌드하고서 내친김에 rpm packaging 까지 하게 되었다.
+rpm 패키징 Build directory 생성 $ mkdir rpmbuild $ cd rpmbuild $ mkdir SOURCES SPECS BUILD BUILDROOT RPMS SRPMS $ ls BUILD BUILDROOT RPMS SOURCES SPECS SRPMS     Directory Description     SOURCES original sources, patches, icon files 가 포함된 디렉토리   SPECS rpm build 를 위한 spec files 가 있는 디렉토리   BUILD source file 압축해제 및 build 되는 디렉토리   BUILDROOT %install stage 에서 생성되는 files 가 저장되는 디렉토리   RPMS binary package files (*.</description>
+    </item>
+    
+    <item>
+      <title>stunnel with ulimit</title>
+      <link>http://blog.foobargem.com/posts/2016/04/13/stunnel-with-ulimit/</link>
+      <pubDate>Wed, 13 Apr 2016 21:01:22 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/2016/04/13/stunnel-with-ulimit/</guid>
+      <description>배경 그림과 같이 L4 에 2대의 Swift proxy server 를 바인딩 한 환경에서 https 서비스를 제공하기 위해 L4 에서 SSL Offloading 설정을 했다.
+이슈
+ L4의 SSL Offloading 성능이 떨어짐. 1Gbps 환경에서 download 시20MB/s  속도 문제를 해결하기 위해서 swift proxy server 에서 SSL 처리를 시도해 보았다. SSL termination 을 위해서 nginx 와 stunnel 을 시험해 보았다.
+시험방법
+ 100 sessions 로 동시 다운로드 시도시 시스템 리소스 사용율 측정(Load avg.</description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi 에서 온습도 센서(DHT-11)로 온/습도 측정하기</title>
+      <link>http://blog.foobargem.com/posts/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</link>
+      <pubDate>Sun, 27 Mar 2016 11:59:47 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</guid>
+      <description>DHT11 온습도 센서  http://eleparts.co.kr/EPXF43N9 manual: http://www.micropik.com/PDF/dht11.pdf Python library: https://github.com/adafruit/Adafruit_Python_DHT  시험환경  Raspberry PI B GPIO layout:   시험 센서연결
+ pin #1 - 3V pin #6 - Ground pin #16 - GPIO23 (data)  설치
+$ sudo python setup.py install  예제코드 수정 및 실행
+예제코드: https://github.com/adafruit/Adafruit_Python_DHT/blob/master/examples/simpletest.py
+#!/usr/bin/python import Adafruit_DHT sensor = Adafruit_DHT.DHT11 # GPIO23 (pin no: #16) pin = 23 humidity, temperature = Adafruit_DHT.read_retry(sensor, pin) if humidity is not None and temperature is not None: print &amp;quot;Temp={0:0.</description>
+    </item>
+    
+    <item>
+      <title>LG 그램 랩탑에서 Linux kernel 빌드하기</title>
+      <link>http://blog.foobargem.com/posts/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
+      <pubDate>Sat, 04 Jul 2015 11:06:36 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
+      <description>회사에서 지급받은 랩탑은 LG 그램이다. OS는 LMDE(Linux Mint Debian Edition) 을 설치해서 잘 쓰고 있다.
+처음에는 i915 driver 버그로 LED 밝기조절이 안되고 밝기조절 기능을 활성화 하는경우 시스템이 멎는 문제가 있었다. 삽질을 하던중 KLDP 에서 커널 업데이트하면 해결된다는 글(https://kldp.org/node/151205)을 읽었다. 그리고 바로 3.18.8 커널로 빌드를 했고 문제는 깔끔하게 해결되었다. :D
+커널 업데이트 후 wireless device (Intel Wireless 7620) 가 인식이 안되었는데 원인은 firmware 버전이 안맞아서였다. 그래서 linux wireless driver website 에서 커널버전에 맞는 firmware 를 다운로드 받아 설치를 했고 아주 잘 동작함을 확인했다.</description>
+    </item>
+    
+    <item>
+      <title>보자기카드 샘플 후기</title>
+      <link>http://blog.foobargem.com/posts/2015/01/24/i-like-bojagi-card/</link>
+      <pubDate>Sat, 24 Jan 2015 21:09:52 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/2015/01/24/i-like-bojagi-card/</guid>
+      <description>보자기카드엔 꿈과 사랑과 선물이 한 보자기  4월 결혼을 준비하며무엇을 준비해야할지 모르고있을때
+옆반 선생님의 권유로 알게된 보자기카드^^
+자신도 보자기카드에서 주문했다며 반신반의로 회원가입하였는데..  막상 들어가보니 예쁜 카드가 한가득^^
+이것저것 남자친구와 고르던중 마음에 드는 카드를 골라 배송^^
+직장으로 도착하여 동료들과 어느 청첩장이 이쁘냐며 이야기도 듣고
+결국은 남자친구와 고른 예쁜 나비가 있는 카드 당첨!!  다른 곳에서도 같이 받아보았으나
+이곳만의 특별한 매력은
+바로 큰 봉투에 같이 온 보자기카드의 편지^^  그냥 카드를 사는곳이 아닌 결혼을 축하받는 기분이었답니다.</description>
+    </item>
+    
+    <item>
+      <title>Multipath</title>
+      <link>http://blog.foobargem.com/posts/2014/08/27/multipath/</link>
+      <pubDate>Wed, 27 Aug 2014 11:11:11 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/2014/08/27/multipath/</guid>
+      <description>컴퓨터 스토리지에서 multipath I/O 는 결함감내시스템(Fault tolerance) 과 성능(Performance) 향상을 위한 기술을 말한다.
+버스(buses), 컨트롤러(controllers), 스위치(switches), 브리지 장치(bridge devices) 로 구성된 대량의 스토리지 장치(mass storage devices)와 컴퓨터 시스템의 CPU 사이에 한개 이상의 경로(path)를 두어서 구성을 한다.
+예를 들면 하나의 SCSI 디스크가 연결된 두개의 SCSI 컨트롤러(controllers) 가 같은 컴퓨터에 장착되어 있거나 두개의 파이버 채널(Fiber Channel) 포트(port)가 연결되어 있는 것을 말한다. 만약 한개의 컨트롤러나 포트 또는 스위치가 장애가 발생하면 운영체제(OS)는 장애가 나지 않은 다른 컨트롤러를 통해서 반드시 I/O 작업이 이뤄져야 한다.</description>
+    </item>
+    
+    <item>
+      <title>한글2007 설치하기 - 여자친구를 위한</title>
+      <link>http://blog.foobargem.com/posts/2014/07/14/installing-hangul-application/</link>
+      <pubDate>Mon, 14 Jul 2014 21:31:05 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/2014/07/14/installing-hangul-application/</guid>
+      <description>머리말 나의 사랑하는 여자친구는 유치원 교사이다. 이 글은 그녀가 가지고 있는 넷북에 한글2010을 설치하는 방법을 알려주기 위해 작성했다. 안타깝게도 내가 가지고 있는것은 한글2007뿐이다. 한글2010과 한글2007 두 버전의 차이는 센스쟁이 여자친구가 거뜬히 극복할 것을 믿기에 한글2007을 기준으로 글을 작성한다.
+설치과정 1. iso 파일의 압축 해제 한글2007 iso 파일을 7Zip 으로 압축을 해제한다.
+2. install.exe 파일 실행 압축이 풀려진 폴더로 가서 install.exe 파일을 실행(더블클릭)한다.
+&amp;ldquo;게시자를 알 수 없는 다음 프로그램이 이 컴퓨터를 변경할 수 있도록 허용하시겠습니까?</description>
+    </item>
+    
+    <item>
+      <title>Macbook Air 에 Debian(wheezy) 설치하기</title>
+      <link>http://blog.foobargem.com/posts/2013/12/14/installing-debian-on-macbook-air/</link>
+      <pubDate>Sat, 14 Dec 2013 23:09:46 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/2013/12/14/installing-debian-on-macbook-air/</guid>
+      <description>Macbook Air 난 맥북 에어를 좋아한다. 가볍고, 13인치 화면에서 1400x900 해상도가 지원이 되며 전력관리가 우수하기 때문이다. 2010년에 처음으로 맥북 에어를 구입하고 OS X 를 사용하면서 리눅스가 너무너무 그리웠다. 예쁘고 멋진 인터페이스에 나름 안정적인 OS X 였지만 어느날 iTunes 를 업데이트한뒤 iTunes 의 버그로 시스템이 멈추는 현상이 생겼고 그 후로 Update 할때마다 시스템이 죽는게 아닐까 걱정이 되더라. :(
+v10.6 &amp;gt; v10.7 &amp;gt; v10.8 &amp;gt; v10.9 까지 판올림을 해오면서 잘 써왔지만 이젠 리눅스로 돌아가기로 결심!</description>
+    </item>
+    
+    <item>
+      <title>Installing rbenv on OS X</title>
+      <link>http://blog.foobargem.com/posts/2013/12/01/installing-rbenv/</link>
+      <pubDate>Sun, 01 Dec 2013 22:12:48 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/2013/12/01/installing-rbenv/</guid>
+      <description>늘 하는 얘기지만 Linux 에서는 이런 고민은 안해도 된다. OS X Mavericks 에서는 ruby-2.0.0p247 이 시스템에 설치되어 있다. 그래도 최신버전의 ruby와 GEM 을 편리하게 관리하려면 rbenv 만한 것도 없는것 같다.
+Rbenv 프로젝트 페이지의 가이드를 따라 설치를 하면 irb 나 rails console 에서 한글을 입력하지 못하게 될것이고 openssl 관련한 이슈가 생길것이다. (이전의 경험이라 지금은 확인을 안해봤다.)
+이를 위해서 openssl 과 readline 을 ruby 를 빌드할때 참조시켜줘야 한다. brew 의 설치는 Homebrew 프로젝트 페이지를 참조하면 된다.</description>
+    </item>
+    
+  </channel>
+</rss>

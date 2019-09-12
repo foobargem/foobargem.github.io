@@ -1,76 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Life with Linux</title>
-    <link>http://blog.foobargem.com/tags/ruby/index.xml</link>
-    <description>Recent content on Life with Linux</description>
+    <title>ruby on Life with Linux</title>
+    <link>http://blog.foobargem.com/tags/ruby/</link>
+    <description>Recent content in ruby on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>foobargem</copyright>
-    <atom:link href="http://blog.foobargem.com/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Dec 2013 22:12:48 +0900</lastBuildDate>
+    
+	<atom:link href="http://blog.foobargem.com/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Installing rbenv on OS X</title>
-      <link>http://blog.foobargem.com/blog/2013/12/01/installing-rbenv/</link>
+      <link>http://blog.foobargem.com/posts/2013/12/01/installing-rbenv/</link>
       <pubDate>Sun, 01 Dec 2013 22:12:48 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2013/12/01/installing-rbenv/</guid>
-      <description>
-
-&lt;p&gt;늘 하는 얘기지만 Linux 에서는 이런 고민은 안해도 된다.
-OS X Mavericks 에서는 ruby-2.0.0p247 이 시스템에 설치되어 있다.
-그래도 최신버전의 ruby와 GEM 을 편리하게 관리하려면 rbenv 만한 것도 없는것 같다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/sstephenson/rbenv&#34;&gt;Rbenv 프로젝트 페이지&lt;/a&gt;의 가이드를 따라 설치를 하면
-irb 나 rails console 에서 한글을 입력하지 못하게 될것이고
-openssl 관련한 이슈가 생길것이다. (이전의 경험이라 지금은 확인을 안해봤다.)&lt;/p&gt;
-
-&lt;p&gt;이를 위해서 openssl 과 readline 을 ruby 를 빌드할때 참조시켜줘야 한다.
-brew 의 설치는 &lt;a href=&#34;http://brew.sh/&#34;&gt;Homebrew 프로젝트 페이지&lt;/a&gt;를 참조하면 된다.&lt;/p&gt;
-
-&lt;h3 id=&#34;openssl-설치&#34;&gt;openssl 설치&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;brew install openssl
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;readline-설치&#34;&gt;readline 설치&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;brew install readline
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;rbenv-설치&#34;&gt;rbenv 설치&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;$ cd  # move to home dir.
-$ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-$ echo &#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bash_profile
-$ echo &#39;eval &amp;quot;$(rbenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bash_profile
-$ source .bash_profile
-$ type rbenv
-#=&amp;gt; &amp;quot;rbenv is a function&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;자세한 내용은 &lt;a href=&#34;https://github.com/sstephenson/rbenv&#34;&gt;Rbenv 프로젝트 페이지&lt;/a&gt;를 참조.&lt;/p&gt;
-
-&lt;h3 id=&#34;ruby-build-설치&#34;&gt;ruby-build 설치&lt;/h3&gt;
-
-&lt;p&gt;rbenv 의 plugin 으로 설치하는 것을 권장.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;자세한 내용은 &lt;a href=&#34;https://github.com/sstephenson/ruby-build&#34;&gt;ruby-build 프로젝트 페이지&lt;/a&gt;를 참조.&lt;/p&gt;
-
-&lt;h3 id=&#34;ruby-설치&#34;&gt;ruby 설치&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;$ rbenv install --list   # 설치가능한 버전확인
-$ CONFIGURE_OPTS=&amp;quot;--with-readline-dir=$(brew --prefix readline) --with-openssl-dir=$(brew --prefix openssl)&amp;quot; rbenv install 2.0.0-p353
-$ rbenv global 2.0.0-p353
-$ rbenv rehash
-$ ruby --version
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;이것으로 완료!!
-즐거운 루비 곡갱이질을.. :)&lt;/p&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2013/12/01/installing-rbenv/</guid>
+      <description>늘 하는 얘기지만 Linux 에서는 이런 고민은 안해도 된다. OS X Mavericks 에서는 ruby-2.0.0p247 이 시스템에 설치되어 있다. 그래도 최신버전의 ruby와 GEM 을 편리하게 관리하려면 rbenv 만한 것도 없는것 같다.
+Rbenv 프로젝트 페이지의 가이드를 따라 설치를 하면 irb 나 rails console 에서 한글을 입력하지 못하게 될것이고 openssl 관련한 이슈가 생길것이다. (이전의 경험이라 지금은 확인을 안해봤다.)
+이를 위해서 openssl 과 readline 을 ruby 를 빌드할때 참조시켜줘야 한다. brew 의 설치는 Homebrew 프로젝트 페이지를 참조하면 된다.</description>
     </item>
     
   </channel>

@@ -1,84 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Life with Linux</title>
-    <link>http://blog.foobargem.com/tags/raspberrypi/index.xml</link>
-    <description>Recent content on Life with Linux</description>
+    <title>raspberrypi on Life with Linux</title>
+    <link>http://blog.foobargem.com/tags/raspberrypi/</link>
+    <description>Recent content in raspberrypi on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>foobargem</copyright>
-    <atom:link href="http://blog.foobargem.com/tags/raspberrypi/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Mar 2016 11:59:47 +0900</lastBuildDate>
+    
+	<atom:link href="http://blog.foobargem.com/tags/raspberrypi/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Raspberry Pi 에서 온습도 센서(DHT-11)로 온/습도 측정하기</title>
-      <link>http://blog.foobargem.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</link>
+      <link>http://blog.foobargem.com/posts/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</link>
       <pubDate>Sun, 27 Mar 2016 11:59:47 +0900</pubDate>
-      <guid>http://blog.foobargem.com/blog/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</guid>
-      <description>
-
-&lt;h3 id=&#34;dht11-온습도-센서&#34;&gt;DHT11 온습도 센서&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://eleparts.co.kr/EPXF43N9&#34;&gt;http://eleparts.co.kr/EPXF43N9&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;manual: &lt;a href=&#34;http://www.micropik.com/PDF/dht11.pdf&#34;&gt;http://www.micropik.com/PDF/dht11.pdf&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Python library:  &lt;a href=&#34;https://github.com/adafruit/Adafruit_Python_DHT&#34;&gt;https://github.com/adafruit/Adafruit_Python_DHT&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;시험환경&#34;&gt;시험환경&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Raspberry PI B&lt;/li&gt;
-&lt;li&gt;GPIO layout: &lt;img src=&#34;http://www.raspberrypi-spy.co.uk/wp-content/uploads/2012/09/Raspberry-Pi-GPIO-Layout-Revision-2.png&#34; alt=&#34;GPIO Layout&#34; /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;시험&#34;&gt;시험&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;센서연결&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;pin #1 - 3V&lt;/li&gt;
-&lt;li&gt;pin #6 - Ground&lt;/li&gt;
-&lt;li&gt;pin #16 - GPIO23 (data)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;설치&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo python setup.py install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;예제코드 수정 및 실행&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;예제코드: &lt;a href=&#34;https://github.com/adafruit/Adafruit_Python_DHT/blob/master/examples/simpletest.py&#34;&gt;https://github.com/adafruit/Adafruit_Python_DHT/blob/master/examples/simpletest.py&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/usr/bin/python
-import Adafruit_DHT
-
-sensor = Adafruit_DHT.DHT11
-
-# GPIO23 (pin no: #16)
-pin = 23
-
-humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-
-if humidity is not None and temperature is not None:
-    print &amp;quot;Temp={0:0.1f}*C Humidity={1:0.1f}%&amp;quot;.format(temperature, humidity)
-else:
-    print &amp;quot;Failed to get reading.&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;실행결과&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo python read.py
-Temp=24.0*C Humidity=21.0%
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;todo&#34;&gt;ToDo&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;매일 아침 창문 밖의 온습도 측정하여 휴대폰으로 알람 발송.&lt;/li&gt;
-&lt;li&gt;매 시간 단위로 온습도 측정하여 influxdb 에 저장. (그 후로는 나중에 생각하자..)&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      
+      <guid>http://blog.foobargem.com/posts/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</guid>
+      <description>DHT11 온습도 센서  http://eleparts.co.kr/EPXF43N9 manual: http://www.micropik.com/PDF/dht11.pdf Python library: https://github.com/adafruit/Adafruit_Python_DHT  시험환경  Raspberry PI B GPIO layout:   시험 센서연결
+ pin #1 - 3V pin #6 - Ground pin #16 - GPIO23 (data)  설치
+$ sudo python setup.py install  예제코드 수정 및 실행
+예제코드: https://github.com/adafruit/Adafruit_Python_DHT/blob/master/examples/simpletest.py
+#!/usr/bin/python import Adafruit_DHT sensor = Adafruit_DHT.DHT11 # GPIO23 (pin no: #16) pin = 23 humidity, temperature = Adafruit_DHT.read_retry(sensor, pin) if humidity is not None and temperature is not None: print &amp;quot;Temp={0:0.</description>
     </item>
     
   </channel>
