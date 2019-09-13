@@ -13,10 +13,10 @@
     
     <item>
       <title>Build a kernel module on CentOS</title>
-      <link>http://blog.foobargem.com/posts/2016/06/11/build-a-kernel-module-on-centos/</link>
+      <link>http://blog.foobargem.com/posts/build-a-kernel-module-on-centos/</link>
       <pubDate>Sat, 11 Jun 2016 16:56:53 +0900</pubDate>
       
-      <guid>http://blog.foobargem.com/posts/2016/06/11/build-a-kernel-module-on-centos/</guid>
+      <guid>http://blog.foobargem.com/posts/build-a-kernel-module-on-centos/</guid>
       <description>발단 bcache (Linux kernel block layer cache) 를 적용하려고 알아보니 CentOS 7 의 커널은 bcache module 이 disabled 였다. 그래서 kernel source 를 받아서 bcache module 을 build 시도했다.
 경험하면 할 수록 CentOS 는 서버환경에서 별로이다. - Debian 추천!! :)
 Build 환경 구축 required packages 설치 # yum install rpm-build redhat-rpm-config asciidoc hmaccalc perl-ExtUtils-Embed pesign xmlto \ audit-libs-devel binutils-devel elfutils-devel elfutils-libelf-devel \ ncurses-devel newt-devel numactl-devel pciutils-devel python-devel zlib-devel  kernel source 다운로드 http://vault.</description>

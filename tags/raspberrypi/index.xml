@@ -13,10 +13,10 @@
     
     <item>
       <title>Raspberry Pi 에서 온습도 센서(DHT-11)로 온/습도 측정하기</title>
-      <link>http://blog.foobargem.com/posts/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</link>
+      <link>http://blog.foobargem.com/posts/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</link>
       <pubDate>Sun, 27 Mar 2016 11:59:47 +0900</pubDate>
       
-      <guid>http://blog.foobargem.com/posts/2016/03/27/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</guid>
+      <guid>http://blog.foobargem.com/posts/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</guid>
       <description>DHT11 온습도 센서  http://eleparts.co.kr/EPXF43N9 manual: http://www.micropik.com/PDF/dht11.pdf Python library: https://github.com/adafruit/Adafruit_Python_DHT  시험환경  Raspberry PI B GPIO layout:   시험 센서연결
  pin #1 - 3V pin #6 - Ground pin #16 - GPIO23 (data)  설치
 $ sudo python setup.py install  예제코드 수정 및 실행

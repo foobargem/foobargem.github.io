@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Intel x86 CPU 취약점에 대한 Linux kernel 의 기능들"/>
+<meta name="twitter:description" content="몇년 전부터 x86 CPU 의 취약점들 - Meltdown and Spectre 등- 이 지속적으로 발견 및 보고되고 있다.
+최근 MaaS - Metal as a Service를 검토하던중 우연히 /proc/cpuinfo 의 항목중 bugs 라는게 생긴것과 sysfs 에 cpu 에 대한 취약점 디렉토리 (/sys/devices/system/cpu/vulnerabilities/*) 가 추가 된 것을 알게 되었다.
+/proc/cpuinfo 의 bugs flag CPU 버그에 대한 workarounds 를 감지 또는 적용했음을 표시해준다. 무려 5년전(2014년 6월)에 commit 된 기능이다. 회사에서는 주로 CentOS7 을 다루다 보니 발견할 수 없었다."/>
+
+    <meta property="og:title" content="Intel x86 CPU 취약점에 대한 Linux kernel 의 기능들" />
+<meta property="og:description" content="몇년 전부터 x86 CPU 의 취약점들 - Meltdown and Spectre 등- 이 지속적으로 발견 및 보고되고 있다.
+최근 MaaS - Metal as a Service를 검토하던중 우연히 /proc/cpuinfo 의 항목중 bugs 라는게 생긴것과 sysfs 에 cpu 에 대한 취약점 디렉토리 (/sys/devices/system/cpu/vulnerabilities/*) 가 추가 된 것을 알게 되었다.
+/proc/cpuinfo 의 bugs flag CPU 버그에 대한 workarounds 를 감지 또는 적용했음을 표시해준다. 무려 5년전(2014년 6월)에 commit 된 기능이다. 회사에서는 주로 CentOS7 을 다루다 보니 발견할 수 없었다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.foobargem.com/posts/features-of-linux-kernel-about-intel-x86-cpu-vulnerabilities/" />
+<meta property="article:published_time" content="2019-09-13T22:32:42+09:00" />
+<meta property="article:modified_time" content="2019-09-13T22:32:42+09:00" />
+
+
+    
+      <base href="http://blog.foobargem.com/posts/features-of-linux-kernel-about-intel-x86-cpu-vulnerabilities/">
+    
+    <title>
+  Intel x86 CPU 취약점에 대한 Linux kernel 의 기능들 · Life with Linux
+</title>
+
+    
+      <link rel="canonical" href="http://blog.foobargem.com/posts/features-of-linux-kernel-about-intel-x86-cpu-vulnerabilities/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.f59ac5350161d14b51c2df0669db0c8582d51b49a59fa586eebf569d86c58cd5.css" integrity="sha256-9ZrFNQFh0UtRwt8GadsMhYLVG0mln6WG7r9WnYbFjNU=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.58.1" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Life with Linux
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Intel x86 CPU 취약점에 대한 Linux kernel 의 기능들</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2019-09-13T22:32:42&#43;09:00'>
+                September 13, 2019
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              2 minutes read
+            </span>
+          </div>
+          
+          <div class="tags">
+  <i class="fas fa-tag"></i>
+    <a href="/tags/linux/">linux</a>
+      <span class="separator">•</span>
+    <a href="/tags/kernel/">kernel</a>
+      <span class="separator">•</span>
+    <a href="/tags/intel/">intel</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+
+<p>몇년 전부터 x86 CPU 의 취약점들 -
+<a href="https://meltdownattack.com/">Meltdown and Spectre</a> 등- 이
+지속적으로 발견 및 보고되고 있다.</p>
+
+<p>최근 <a href="https://maas.io/">MaaS - Metal as a Service</a>를 검토하던중
+우연히 /proc/cpuinfo 의 항목중 <strong>bugs</strong> 라는게 생긴것과
+sysfs 에 cpu 에 대한 취약점 디렉토리
+(<strong>/sys/devices/system/cpu/vulnerabilities/</strong>*) 가 추가 된 것을 알게 되었다.</p>
+
+<h3 id="proc-cpuinfo-의-bugs-flag">/proc/cpuinfo 의 bugs flag</h3>
+
+<p>CPU 버그에 대한 workarounds 를 감지 또는 적용했음을 표시해준다.
+무려 5년전(2014년 6월)에 <a href="https://github.com/torvalds/linux/commit/80a208bd3948aceddf0429bd9f9b4cd858d526df">commit</a> 된 기능이다.
+회사에서는 주로 CentOS7 을 다루다 보니 발견할 수 없었다.
+왜냐면 CentOS7 의 base repository 로 배포되는 커널(3.10)은
+bugs flag 기능이 빠져 있기 때문이다.</p>
+
+<p>그래서 elrepo-kernel repository 의 커널을 설치해서 시험을 해보니
+/proc/cpuinfo 에 bugs flag 가 표시됨을 확인할 수 있었다.</p>
+
+<ul>
+<li><p>CentOS 7</p>
+
+<ul>
+<li>base repository 의 kernel: 미반영</li>
+<li>elrepo-kernel repository 의 kernel: 반영</li>
+</ul></li>
+
+<li><p>예</p>
+
+<ul>
+<li><p>CentOS 7.5 (with elrepo-kernel)</p>
+
+<pre><code>[root ~]# uname -r
+5.2.13-1.el7.elrepo.x86_64
+
+[root ~]# grep bugs /proc/cpuinfo 
+bugs        : cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+</code></pre></li>
+</ul></li>
+</ul>
+
+<h3 id="sys-devices-system-cpu-vulnerabilities">/sys/devices/system/cpu/vulnerabilities/*</h3>
+
+<p>또 한가지는 sysfs 에 cpu 에 대한 취약점 디렉토리가 추가가 된 것이다.
+2018년 1월에 <a href="https://github.com/torvalds/linux/commit/87590ce6e373d1a5401f6539f0c59ef92dd924a9">commit</a> 이 되었다.
+CentOS7 은 7.4 기준으로 base repository 의 커널에 반영이 되었다.</p>
+
+<ul>
+<li><p>CentOS 7</p>
+
+<ul>
+<li>base repository 의 kernel
+
+<ul>
+<li>3.10.0-862 &gt;= (7.5)</li>
+<li>3.10.0-693.19.1.el7 (7.4)</li>
+</ul></li>
+</ul></li>
+
+<li><p>예</p>
+
+<ul>
+<li><p>CentOS 7.5</p>
+
+<pre><code>[root ~]# uname -r
+3.10.0-862.14.4.el7.x86_64
+
+[root ~]# grep . /sys/devices/system/cpu/vulnerabilities/*
+/sys/devices/system/cpu/vulnerabilities/l1tf:Mitigation: PTE Inversion
+/sys/devices/system/cpu/vulnerabilities/meltdown:Mitigation: PTI
+/sys/devices/system/cpu/vulnerabilities/spec_store_bypass:Vulnerable
+/sys/devices/system/cpu/vulnerabilities/spectre_v1:Mitigation: Load fences, __user pointer sanitization
+/sys/devices/system/cpu/vulnerabilities/spectre_v2:Mitigation: Full retpoline
+</code></pre></li>
+
+<li><p>CentOS 7.4</p>
+
+<pre><code>[root ~]$ uname -r
+3.10.0-693.21.1.el7.x86_64
+
+[root ~]$ grep . /sys/devices/system/cpu/vulnerabilities/* 
+/sys/devices/system/cpu/vulnerabilities/meltdown:Mitigation: PTI
+/sys/devices/system/cpu/vulnerabilities/spectre_v1:Mitigation: Load fences
+/sys/devices/system/cpu/vulnerabilities/spectre_v2:Mitigation: Full retpoline
+</code></pre></li>
+
+<li><p>CentOS 7.3</p>
+
+<pre><code>[root ~]$ uname -r
+3.10.0-514.26.2.el7.x86_64
+
+[root ~]$ grep . /sys/devices/system/cpu/vulnerabilities/*
+grep: /sys/devices/system/cpu/vulnerabilities/*: No such file or directory
+</code></pre></li>
+</ul></li>
+</ul>
+
+<h5 id="todo">ToDo</h5>
+
+<ul>
+<li>어떻게 bugs flag 를 표시하는가?</li>
+<li>sysfs 의 cpu 취약점 항목을 어떻게 표시하는가?</li>
+</ul>
+
+<h5 id="참조">참조</h5>
+
+<ul>
+<li><a href="https://www.reddit.com/r/linux/comments/8k3x3b/til_proccpuinfo_shows_architecture_bugs_such_as/">https://www.reddit.com/r/linux/comments/8k3x3b/til_proccpuinfo_shows_architecture_bugs_such_as/</a></li>
+<li><a href="https://github.com/torvalds/linux/commit/80a208bd3948aceddf0429bd9f9b4cd858d526df">x86/cpufeature: Add bug flags to /proc/cpuinfo</a></li>
+<li><a href="https://github.com/torvalds/linux/commit/87590ce6e373d1a5401f6539f0c59ef92dd924a9">sysfs/cpu: Add vulnerability folder</a></li>
+</ul>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+     © 2019
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-948617-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-948617-5');
+</script>
+
+
+  </body>
+
+</html>

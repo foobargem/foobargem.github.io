@@ -13,10 +13,10 @@
     
     <item>
       <title>LG 그램 랩탑에서 Linux kernel 빌드하기</title>
-      <link>http://blog.foobargem.com/posts/2015/07/04/build-kernel-on-lg-gram-laptop/</link>
+      <link>http://blog.foobargem.com/posts/build-kernel-on-lg-gram-laptop/</link>
       <pubDate>Sat, 04 Jul 2015 11:06:36 +0900</pubDate>
       
-      <guid>http://blog.foobargem.com/posts/2015/07/04/build-kernel-on-lg-gram-laptop/</guid>
+      <guid>http://blog.foobargem.com/posts/build-kernel-on-lg-gram-laptop/</guid>
       <description>회사에서 지급받은 랩탑은 LG 그램이다. OS는 LMDE(Linux Mint Debian Edition) 을 설치해서 잘 쓰고 있다.
 처음에는 i915 driver 버그로 LED 밝기조절이 안되고 밝기조절 기능을 활성화 하는경우 시스템이 멎는 문제가 있었다. 삽질을 하던중 KLDP 에서 커널 업데이트하면 해결된다는 글(https://kldp.org/node/151205)을 읽었다. 그리고 바로 3.18.8 커널로 빌드를 했고 문제는 깔끔하게 해결되었다. :D
 커널 업데이트 후 wireless device (Intel Wireless 7620) 가 인식이 안되었는데 원인은 firmware 버전이 안맞아서였다. 그래서 linux wireless driver website 에서 커널버전에 맞는 firmware 를 다운로드 받아 설치를 했고 아주 잘 동작함을 확인했다.</description>
