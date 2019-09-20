@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Anaconda 디버깅 - anaconda 가 거짓말을 했어"/>
+<meta name="twitter:description" content="회사에서 PM 은 PXE 로 anaconda 를 구동하여 kickstart 기반으로 OS(CentOS7) 설치를 하고 있다. kickstart 의 pre script, post script 의 조합으로 OS 구성을 하게 되는데, 잘 동작하면 괜찮지만 script 실행중에 실패가 발생하면 디버깅을 하기가 매우 어렵게 되어있다.
+오늘도 동료가 진행하는 서버 구성중 OS 설치가 지속적으로 실패를 했고 디버깅을 하는 과정에서 anaconda(CentOS installer) 의 황당한 버그(?)를 발견하여 간략히 정리를 해둔다.
+kickstart 의 post script 선언부에서 logging 설정을 넣으면 post script 실행 과정에 대한 log 를 남기게 된다."/>
+
+    <meta property="og:title" content="Anaconda 디버깅 - anaconda 가 거짓말을 했어" />
+<meta property="og:description" content="회사에서 PM 은 PXE 로 anaconda 를 구동하여 kickstart 기반으로 OS(CentOS7) 설치를 하고 있다. kickstart 의 pre script, post script 의 조합으로 OS 구성을 하게 되는데, 잘 동작하면 괜찮지만 script 실행중에 실패가 발생하면 디버깅을 하기가 매우 어렵게 되어있다.
+오늘도 동료가 진행하는 서버 구성중 OS 설치가 지속적으로 실패를 했고 디버깅을 하는 과정에서 anaconda(CentOS installer) 의 황당한 버그(?)를 발견하여 간략히 정리를 해둔다.
+kickstart 의 post script 선언부에서 logging 설정을 넣으면 post script 실행 과정에 대한 log 를 남기게 된다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.foobargem.com/posts/anaconda-debugging/" />
+<meta property="article:published_time" content="2019-09-20T23:50:24+09:00" />
+<meta property="article:modified_time" content="2019-09-20T23:50:24+09:00" />
+
+
+    
+      <base href="http://blog.foobargem.com/posts/anaconda-debugging/">
+    
+    <title>
+  Anaconda 디버깅 - anaconda 가 거짓말을 했어 · Life with Linux
+</title>
+
+    
+      <link rel="canonical" href="http://blog.foobargem.com/posts/anaconda-debugging/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.f59ac5350161d14b51c2df0669db0c8582d51b49a59fa586eebf569d86c58cd5.css" integrity="sha256-9ZrFNQFh0UtRwt8GadsMhYLVG0mln6WG7r9WnYbFjNU=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.58.1" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Life with Linux
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Anaconda 디버깅 - anaconda 가 거짓말을 했어</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2019-09-20T23:50:24&#43;09:00'>
+                September 20, 2019
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              2 minutes read
+            </span>
+          </div>
+          
+          <div class="tags">
+  <i class="fas fa-tag"></i>
+    <a href="/tags/linux/">linux</a>
+      <span class="separator">•</span>
+    <a href="/tags/centos/">centos</a>
+      <span class="separator">•</span>
+    <a href="/tags/anaconda/">anaconda</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+
+<p>회사에서 PM 은 PXE 로 anaconda 를 구동하여 kickstart 기반으로
+OS(CentOS7) 설치를 하고 있다.
+kickstart 의 pre script, post script 의 조합으로 OS 구성을 하게 되는데,
+잘 동작하면 괜찮지만 script 실행중에 실패가 발생하면
+디버깅을 하기가 매우 어렵게 되어있다.</p>
+
+<p>오늘도 동료가 진행하는 서버 구성중 OS 설치가 지속적으로 실패를 했고
+디버깅을 하는 과정에서 anaconda(CentOS installer) 의 황당한 버그(?)를 발견하여
+간략히 정리를 해둔다.</p>
+
+<p>kickstart 의 post script 선언부에서 logging 설정을 넣으면
+post script 실행 과정에 대한 log 를 남기게 된다.
+그래서 OS 설치 과정중 post script 의 어디선가 실패하는 것을 확인할 수 있었다.
+그리고 문득 anaconda 로 OS 설치하는 과정에 대한 로그도 확인하면 좋을것 같아서
+문서를 확인해보니 역시 <strong>logging 설정</strong>이 제공되고 있었다.</p>
+
+<p>방법은 두가지 있는데, 첫번째는 anaconda 부팅 옵션에 logging 관련 설정을
+기술하는 것이고, 두번째는 kickstart 에 logging 설정을 기술하는 것이다.</p>
+
+<h5 id="1-anaconda-boot-options">1. anaconda boot options</h5>
+
+<ul>
+<li>참고: <a href="https://rhinstaller.github.io/anaconda/boot-options.html#debugging-and-troubleshooting">anaconda boot options</a></li>
+
+<li><p>inst.loglevel</p>
+
+<ul>
+<li>loglevel 을 정의한다. 정의한 level 이상의 log 를 대상으로 한다.</li>
+<li>기본값: info</li>
+<li>정의 가능한 값: debug|info|warning|error|critical</li>
+</ul></li>
+
+<li><p>inst.syslog</p>
+
+<ul>
+<li>log 를 전송할 remote host 를 지정한다.</li>
+<li>v25.14 문서에는 <strong>UDP 514</strong>번 포트가 기본으로 사용된다고 기술되어 있다.</li>
+</ul></li>
+</ul>
+
+<h5 id="2-kickstart">2. kickstart</h5>
+
+<ul>
+<li>참고: <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/sect-kickstart-syntax">kickstart reference</a></li>
+<li>logging
+
+<ul>
+<li>&ndash;host</li>
+<li>&ndash;port</li>
+<li>&ndash;level</li>
+</ul></li>
+</ul>
+
+<h3 id="삽질">삽질</h3>
+
+<p>먼저 가장 간단한 kickstart 에 <code>logging</code> 선언을 하고 OS 설치를 진행하면서
+syslog 수집서버(UDP 514 만 Listen)로 전달되는지 확인을 했다.</p>
+
+<pre><code>```
+skipx
+text
+install
+
+logging --host=192.168.100.11 --level=debug
+
+...
+```
+</code></pre>
+
+<p>syslog 수집서버에 전달이 안되어서 anaconda shell 로
+/etc/rsyslog.conf 설정을 확인해보니
+remote host 설정이 <strong>@@192.168.100.11 (TCP 514)</strong> 로 설정이 되어있었다.</p>
+
+<p><img src="/images/anaconda_rsyslog_conf.png" alt="anaconda_rsyslog_conf" /></p>
+
+<p>그래서 <strong>@192.168.100.11 (UDP 514)</strong> 로 설정을 변경후 rsyslog 재시작을 해주니
+syslog 수집서버로 전달이 잘 됨을 확인했다.</p>
+
+<pre><code>*.* @192.168.100.11
+</code></pre>
+
+<p>이번에는 kickstart 의 logging 설정을 주석처리 하고
+anaconda boot options 로 시도를 해보았다.
+하지만 역시 OS 설치 과정의 로그는 syslog 수집 서버로 전달되지 않았고
+이유는 마찬가지로 TCP 로 설정이 되었기 때문이었다.</p>
+
+<p><img src="/images/anaconda_boot_option.png" alt="anaconda_boot_option" /></p>
+
+<p>사내 공통으로 사용중인 syslog 수집 서버라서 바로 TCP 로 변경할수 없어서
+꼼수를 시도해 보았고 잘 동작함을 확인했다.</p>
+
+<p>그것은 kickstart 의 <strong>pre script</strong> 에 rsyslog 설정을 추가후
+rsyslog 서비스를 재시작 하도록 하는 것이다.</p>
+
+<pre><code>%pre
+#!/bin/bash
+cat &gt;&gt;/etc/rsyslog.conf &lt;&lt;EOF
+*.* @192.168.100.11
+EOF
+systemctl restart rsyslog
+%end
+</code></pre>
+
+<p>다시 OS 설치를 시도해보니 기대한 대로 anaconda 의 syslog 가
+수집서버로 잘 전달이 되었다.</p>
+
+<p>그리고 실제 사내 시스템에 적용을 했고,
+OS 설치 과정의 로그를 kibana 에서 쉽게 확인할 수 있게 되었다.</p>
+
+<p>몇가지 의문점은 다음주에 출근해서 더 확인을 해보도록 하자.</p>
+
+<ul>
+<li>anaconda 의 버그인가? 아니면 문서가 잘못 적혀 있는 것인가?</li>
+<li>왜 TCP 를 기본으로 설정 했을까?</li>
+</ul>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+     © 2019
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-948617-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-948617-5');
+</script>
+
+
+  </body>
+
+</html>
