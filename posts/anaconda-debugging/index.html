@@ -172,15 +172,12 @@ post script 실행 과정에 대한 log 를 남기게 된다.
 <p>먼저 가장 간단한 kickstart 에 <strong>logging</strong> 선언을 하고 OS 설치를 진행하면서
 syslog 수집서버(UDP 514 만 Listen)로 전달되는지 확인을 했다.</p>
 
-<pre><code>```
-skipx
+<pre><code>skipx
 text
 install
 
 logging --host=192.168.100.11 --level=debug
-
 ...
-```
 </code></pre>
 
 <p>syslog 수집서버에 전달이 안되어서 anaconda shell 로
