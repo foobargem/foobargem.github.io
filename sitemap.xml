@@ -3,6 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://blog.foobargem.com/tags/anaconda/</loc>
+    <lastmod>2019-09-20T23:50:24+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/posts/anaconda-debugging/</loc>
+    <lastmod>2019-09-20T23:50:24+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/centos/</loc>
+    <lastmod>2019-09-20T23:50:24+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/</loc>
+    <lastmod>2019-09-20T23:50:24+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/linux/</loc>
+    <lastmod>2019-09-20T23:50:24+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/posts/</loc>
+    <lastmod>2019-09-20T23:50:24+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/</loc>
+    <lastmod>2019-09-20T23:50:24+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.foobargem.com/tags/intel/</loc>
     <lastmod>2019-09-13T22:32:42+09:00</lastmod>
   </url>
@@ -18,32 +53,7 @@
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/</loc>
-    <lastmod>2019-09-13T22:32:42+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/tags/linux/</loc>
-    <lastmod>2019-09-13T22:32:42+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/posts/</loc>
-    <lastmod>2019-09-13T22:32:42+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/tags/</loc>
-    <lastmod>2019-09-13T22:32:42+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://blog.foobargem.com/posts/build-a-kernel-module-on-centos/</loc>
-    <lastmod>2016-06-11T16:56:53+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/tags/centos/</loc>
     <lastmod>2016-06-11T16:56:53+09:00</lastmod>
   </url>
   
