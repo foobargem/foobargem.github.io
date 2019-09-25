@@ -9,6 +9,33 @@
     
     
 
+    <script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/blog.foobargem.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Anaconda 디버깅 - anaconda 가 거짓말을 했어",
+    "headline" : "Anaconda 디버깅 - anaconda 가 거짓말을 했어",
+    "description" : "회사에서 PM 은 PXE 로 anaconda 를 구동하여 kickstart 기반으로 OS(CentOS7) 설치를 하고 있다. kickstart 의 pre script, post script 의 조합으로 OS 구성을 하게 되는데, 잘 동작하면 괜찮지만 script 실행중에 실패가 발생하면 디버깅을 하기가 매우 어렵게 되어있다.\n오늘도 동료가 진행하는 서버 구성중 OS 설치가 지속적으로 실패를 했고 디버깅을 하는 과정에서 anaconda(CentOS installer) 의 황당한 버그(?)를 발견하여 간략히 정리를 해둔다.\nkickstart 의 post script 선언부에서 logging 설정을 넣으면 post script 실행 과정에 대한 log 를 남기게 된다.",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-09-20 23:50:24 \x2b0900 JST",
+    "dateModified" : "2019-09-20 23:50:24 \x2b0900 JST",
+    "url" : "http:\/\/blog.foobargem.com\/posts\/anaconda-debugging\/",
+    "wordCount" : "372",
+    "keywords" : [ "linux","centos","anaconda","Blog" ]
+}
+</script>
+
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Anaconda 디버깅 - anaconda 가 거짓말을 했어"/>
 <meta name="twitter:description" content="회사에서 PM 은 PXE 로 anaconda 를 구동하여 kickstart 기반으로 OS(CentOS7) 설치를 하고 있다. kickstart 의 pre script, post script 의 조합으로 OS 구성을 하게 되는데, 잘 동작하면 괜찮지만 script 실행중에 실패가 발생하면 디버깅을 하기가 매우 어렵게 되어있다.
@@ -44,7 +71,7 @@ kickstart 의 post script 선언부에서 logging 설정을 넣으면 post scrip
     
       
       
-      <link rel="stylesheet" href="/css/coder.min.f59ac5350161d14b51c2df0669db0c8582d51b49a59fa586eebf569d86c58cd5.css" integrity="sha256-9ZrFNQFh0UtRwt8GadsMhYLVG0mln6WG7r9WnYbFjNU=" crossorigin="anonymous" media="screen" />
+      <link rel="stylesheet" href="http://blog.foobargem.com/css/coder.min.f59ac5350161d14b51c2df0669db0c8582d51b49a59fa586eebf569d86c58cd5.css" integrity="sha256-9ZrFNQFh0UtRwt8GadsMhYLVG0mln6WG7r9WnYbFjNU=" crossorigin="anonymous" media="screen" />
     
 
     
@@ -65,7 +92,7 @@ kickstart 의 post script 선언부에서 logging 설정을 넣으면 post scrip
     <main class="wrapper">
       <nav class="navigation">
   <section class="container">
-    <a class="navigation-title" href="/">
+    <a class="navigation-title" href="http://blog.foobargem.com/">
       Life with Linux
     </a>
     <input type="checkbox" id="menu-toggle" />
@@ -102,11 +129,11 @@ kickstart 의 post script 선언부에서 logging 설정을 넣으면 post scrip
           
           <div class="tags">
   <i class="fas fa-tag"></i>
-    <a href="/tags/linux/">linux</a>
+    <a href="http://blog.foobargem.com/tags/linux/">linux</a>
       <span class="separator">•</span>
-    <a href="/tags/centos/">centos</a>
+    <a href="http://blog.foobargem.com/tags/centos/">centos</a>
       <span class="separator">•</span>
-    <a href="/tags/anaconda/">anaconda</a></div>
+    <a href="http://blog.foobargem.com/tags/anaconda/">anaconda</a></div>
 
         </div>
       </header>
@@ -161,9 +188,9 @@ post script 실행 과정에 대한 log 를 남기게 된다.
 <li>logging
 
 <ul>
-<li>&ndash;host</li>
-<li>&ndash;port</li>
-<li>&ndash;level</li>
+<li>--host</li>
+<li>--port</li>
+<li>--level</li>
 </ul></li>
 </ul>
 
@@ -184,7 +211,7 @@ logging --host=192.168.100.11 --level=debug
 /etc/rsyslog.conf 설정을 확인해보니
 remote host 설정이 <strong>@@192.168.100.11 (TCP 514)</strong> 로 설정이 되어있었다.</p>
 
-<p><img src="/images/anaconda_rsyslog_conf.png" alt="anaconda_rsyslog_conf" /></p>
+<p><img src="http://blog.foobargem.com/images/anaconda_rsyslog_conf.png" alt="anaconda_rsyslog_conf" /></p>
 
 <p>그래서 <strong>@192.168.100.11 (UDP 514)</strong> 로 설정을 변경후 rsyslog 재시작을 해주니
 syslog 수집서버로 전달이 잘 됨을 확인했다.</p>
@@ -197,7 +224,7 @@ anaconda boot options 로 시도를 해보았다.
 하지만 역시 OS 설치 과정의 로그는 syslog 수집 서버로 전달되지 않았고
 이유는 마찬가지로 TCP 로 설정이 되었기 때문이었다.</p>
 
-<p><img src="/images/anaconda_boot_option.png" alt="anaconda_boot_option" /></p>
+<p><img src="http://blog.foobargem.com/images/anaconda_boot_option.png" alt="anaconda_boot_option" /></p>
 
 <p>사내 공통으로 사용중인 syslog 수집 서버라서 바로 TCP 로 변경할수 없어서
 꼼수를 시도해 보았고 잘 동작함을 확인했다.</p>
@@ -258,7 +285,9 @@ OS 설치 과정의 로그를 kibana 에서 쉽게 확인할 수 있게 되었�
 
     </main>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-948617-5"></script>
+    
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-948617-5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -266,6 +295,8 @@ OS 설치 과정의 로그를 kibana 에서 쉽게 확인할 수 있게 되었�
 
   gtag('config', 'UA-948617-5');
 </script>
+  
+
 
 
   </body>
