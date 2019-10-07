@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nfs on Life with Linux</title>
+    <link>http://blog.foobargem.com/tags/nfs/</link>
+    <description>Recent content in nfs on Life with Linux</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 08 Oct 2019 00:11:13 +0900</lastBuildDate>
+    
+	<atom:link href="http://blog.foobargem.com/tags/nfs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>nfs 를 사용한 cinder-volume 구성시 secure 설정</title>
+      <link>http://blog.foobargem.com/posts/cinder-volume-with-nfs/</link>
+      <pubDate>Tue, 08 Oct 2019 00:11:13 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/cinder-volume-with-nfs/</guid>
+      <description>퇴근을 10여분 앞둔 금요일 오후.. 갑자기 모니터링 시스템으로 부터 알람이 쏟아지기 시작했다. 진단을 해보니 VM 에 Disk IO 가 정지되어 read-only 상태로 mount 된것을 확인했다. 관련된 log 를 확인하던중 qemu log 에서 permission denied (13) 오류가 발생한 것을 확인했다.
+block I/O error in device &#39;drive-virtio-disk0&#39;: Permission denied (13) block I/O error in device &#39;drive-virtio-disk0&#39;: Permission denied (13) block I/O error in device &#39;drive-virtio-disk0&#39;: Permission denied (13) block I/O error in device &#39;drive-virtio-disk0&#39;: Permission denied (13)  cinder 의 backend 가 mount 된 directory 와 disk files 의 상태를 조회해보니 일부 disk files 의 소유권이 모두 nova:nova 로 변경 되어 있었다.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -3,6 +3,56 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://blog.foobargem.com/categories/</loc>
+    <lastmod>2019-10-08T00:11:13+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/cinder/</loc>
+    <lastmod>2019-10-08T00:11:13+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/categories/cloud/</loc>
+    <lastmod>2019-10-08T00:11:13+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/</loc>
+    <lastmod>2019-10-08T00:11:13+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/nfs/</loc>
+    <lastmod>2019-10-08T00:11:13+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/posts/cinder-volume-with-nfs/</loc>
+    <lastmod>2019-10-08T00:11:13+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/openstack/</loc>
+    <lastmod>2019-10-08T00:11:13+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/categories/openstack/</loc>
+    <lastmod>2019-10-08T00:11:13+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/posts/</loc>
+    <lastmod>2019-10-08T00:11:13+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/</loc>
+    <lastmod>2019-10-08T00:11:13+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.foobargem.com/tags/anaconda/</loc>
     <lastmod>2019-09-20T23:50:24+09:00</lastmod>
   </url>
@@ -18,22 +68,7 @@
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/</loc>
-    <lastmod>2019-09-20T23:50:24+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://blog.foobargem.com/tags/linux/</loc>
-    <lastmod>2019-09-20T23:50:24+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/posts/</loc>
-    <lastmod>2019-09-20T23:50:24+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/tags/</loc>
     <lastmod>2019-09-20T23:50:24+09:00</lastmod>
   </url>
   
@@ -170,10 +205,6 @@
   <url>
     <loc>http://blog.foobargem.com/readme/</loc>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/categories/</loc>
   </url>
   
 </urlset>
