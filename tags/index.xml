@@ -6,10 +6,37 @@
     <description>Recent content in Tags on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 Oct 2019 00:11:13 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 17 Oct 2019 01:28:11 +0900</lastBuildDate>
     
 	<atom:link href="http://blog.foobargem.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cpu</title>
+      <link>http://blog.foobargem.com/tags/cpu/</link>
+      <pubDate>Thu, 17 Oct 2019 01:28:11 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/cpu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kernel</title>
+      <link>http://blog.foobargem.com/tags/kernel/</link>
+      <pubDate>Thu, 17 Oct 2019 01:28:11 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/kernel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rhel</title>
+      <link>http://blog.foobargem.com/tags/rhel/</link>
+      <pubDate>Thu, 17 Oct 2019 01:28:11 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/rhel/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>cinder</title>
@@ -71,15 +98,6 @@
       <pubDate>Fri, 13 Sep 2019 22:32:42 +0900</pubDate>
       
       <guid>http://blog.foobargem.com/tags/intel/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kernel</title>
-      <link>http://blog.foobargem.com/tags/kernel/</link>
-      <pubDate>Fri, 13 Sep 2019 22:32:42 +0900</pubDate>
-      
-      <guid>http://blog.foobargem.com/tags/kernel/</guid>
       <description></description>
     </item>
     
