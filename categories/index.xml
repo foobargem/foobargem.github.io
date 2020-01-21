@@ -6,10 +6,28 @@
     <description>Recent content in Categories on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Oct 2019 01:28:11 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 22 Jan 2020 00:36:16 +0900</lastBuildDate>
     
 	<atom:link href="http://blog.foobargem.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>system</title>
+      <link>http://blog.foobargem.com/categories/system/</link>
+      <pubDate>Wed, 22 Jan 2020 00:36:16 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/categories/system/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>windows</title>
+      <link>http://blog.foobargem.com/categories/windows/</link>
+      <pubDate>Wed, 22 Jan 2020 00:36:16 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/categories/windows/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>kernel</title>
