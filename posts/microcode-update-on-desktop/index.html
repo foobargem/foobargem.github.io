@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    
+
+    <script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/blog.foobargem.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "데스크탑 PC 의 microcode update",
+    "headline" : "데스크탑 PC 의 microcode update",
+    "description" : "kernel-5.4.13 빌드를 한뒤 부팅하고 dmesg 와 sysfs 를 확인해보니 역시나 새로운 intel cpu 취약점을 알려주고 있었다.\n# dmesg | grep -i micro [ 0.172428] TAA: Vulnerable: Clear CPU buffers attempted, no microcode [ 0.172429] MDS: Vulnerable: Clear CPU buffers attempted, no microcode [ 6.553483] microcode: sig=0x506e3, pf=0x2, revision=0xc6 [ 6.553702] microcode: Microcode Update Driver: v2.2. # grep . \/sys\/devices\/system\/cpu\/vulnerabilities\/* \/sys\/devices\/system\/cpu\/vulnerabilities\/itlb_multihit:KVM: Mitigation: Split huge pages \/sys\/devices\/system\/cpu\/vulnerabilities\/l1tf:Mitigation: PTE Inversion; VMX: conditional cache flushes, SMT vulnerable \/sys\/devices\/system\/cpu\/vulnerabilities\/mds:Vulnerable: Clear CPU buffers attempted, no microcode; SMT vulnerable \/sys\/devices\/system\/cpu\/vulnerabilities\/meltdown:Mitigation: PTI \/sys\/devices\/system\/cpu\/vulnerabilities\/spec_store_bypass:Mitigation: Speculative Store Bypass disabled via prctl and seccomp \/sys\/devices\/system\/cpu\/vulnerabilities\/spectre_v1:Mitigation: usercopy\/swapgs barriers and __user pointer sanitization \/sys\/devices\/system\/cpu\/vulnerabilities\/spectre_v2:Mitigation: Full generic retpoline, IBPB: conditional, IBRS_FW, STIBP: conditional, RSB filling \/sys\/devices\/system\/cpu\/vulnerabilities\/tsx_async_abort:Vulnerable: Clear CPU buffers attempted, no microcode; SMT vulnerable  microcode 를 업데이트 하면 일부는 완화될것으로 생각이 되어 업데이트를 시도!",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-01-23 01:00:16 \x2b0900 JST",
+    "dateModified" : "2020-01-23 01:00:16 \x2b0900 JST",
+    "url" : "http:\/\/blog.foobargem.com\/posts\/microcode-update-on-desktop\/",
+    "wordCount" : "481",
+    "keywords" : [ "linux","debian","cpu","microcode","Blog" ]
+}
+</script>
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="데스크탑 PC 의 microcode update"/>
+<meta name="twitter:description" content="kernel-5.4.13 빌드를 한뒤 부팅하고 dmesg 와 sysfs 를 확인해보니 역시나 새로운 intel cpu 취약점을 알려주고 있었다.
+# dmesg | grep -i micro [ 0.172428] TAA: Vulnerable: Clear CPU buffers attempted, no microcode [ 0.172429] MDS: Vulnerable: Clear CPU buffers attempted, no microcode [ 6.553483] microcode: sig=0x506e3, pf=0x2, revision=0xc6 [ 6.553702] microcode: Microcode Update Driver: v2.2. # grep . /sys/devices/system/cpu/vulnerabilities/* /sys/devices/system/cpu/vulnerabilities/itlb_multihit:KVM: Mitigation: Split huge pages /sys/devices/system/cpu/vulnerabilities/l1tf:Mitigation: PTE Inversion; VMX: conditional cache flushes, SMT vulnerable /sys/devices/system/cpu/vulnerabilities/mds:Vulnerable: Clear CPU buffers attempted, no microcode; SMT vulnerable /sys/devices/system/cpu/vulnerabilities/meltdown:Mitigation: PTI /sys/devices/system/cpu/vulnerabilities/spec_store_bypass:Mitigation: Speculative Store Bypass disabled via prctl and seccomp /sys/devices/system/cpu/vulnerabilities/spectre_v1:Mitigation: usercopy/swapgs barriers and __user pointer sanitization /sys/devices/system/cpu/vulnerabilities/spectre_v2:Mitigation: Full generic retpoline, IBPB: conditional, IBRS_FW, STIBP: conditional, RSB filling /sys/devices/system/cpu/vulnerabilities/tsx_async_abort:Vulnerable: Clear CPU buffers attempted, no microcode; SMT vulnerable  microcode 를 업데이트 하면 일부는 완화될것으로 생각이 되어 업데이트를 시도!"/>
+
+    <meta property="og:title" content="데스크탑 PC 의 microcode update" />
+<meta property="og:description" content="kernel-5.4.13 빌드를 한뒤 부팅하고 dmesg 와 sysfs 를 확인해보니 역시나 새로운 intel cpu 취약점을 알려주고 있었다.
+# dmesg | grep -i micro [ 0.172428] TAA: Vulnerable: Clear CPU buffers attempted, no microcode [ 0.172429] MDS: Vulnerable: Clear CPU buffers attempted, no microcode [ 6.553483] microcode: sig=0x506e3, pf=0x2, revision=0xc6 [ 6.553702] microcode: Microcode Update Driver: v2.2. # grep . /sys/devices/system/cpu/vulnerabilities/* /sys/devices/system/cpu/vulnerabilities/itlb_multihit:KVM: Mitigation: Split huge pages /sys/devices/system/cpu/vulnerabilities/l1tf:Mitigation: PTE Inversion; VMX: conditional cache flushes, SMT vulnerable /sys/devices/system/cpu/vulnerabilities/mds:Vulnerable: Clear CPU buffers attempted, no microcode; SMT vulnerable /sys/devices/system/cpu/vulnerabilities/meltdown:Mitigation: PTI /sys/devices/system/cpu/vulnerabilities/spec_store_bypass:Mitigation: Speculative Store Bypass disabled via prctl and seccomp /sys/devices/system/cpu/vulnerabilities/spectre_v1:Mitigation: usercopy/swapgs barriers and __user pointer sanitization /sys/devices/system/cpu/vulnerabilities/spectre_v2:Mitigation: Full generic retpoline, IBPB: conditional, IBRS_FW, STIBP: conditional, RSB filling /sys/devices/system/cpu/vulnerabilities/tsx_async_abort:Vulnerable: Clear CPU buffers attempted, no microcode; SMT vulnerable  microcode 를 업데이트 하면 일부는 완화될것으로 생각이 되어 업데이트를 시도!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.foobargem.com/posts/microcode-update-on-desktop/" />
+<meta property="article:published_time" content="2020-01-23T01:00:16+09:00" />
+<meta property="article:modified_time" content="2020-01-23T01:00:16+09:00" />
+
+
+    
+      <base href="http://blog.foobargem.com/posts/microcode-update-on-desktop/">
+    
+    <title>
+  데스크탑 PC 의 microcode update · Life with Linux
+</title>
+
+    
+      <link rel="canonical" href="http://blog.foobargem.com/posts/microcode-update-on-desktop/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="http://blog.foobargem.com/css/coder.min.f59ac5350161d14b51c2df0669db0c8582d51b49a59fa586eebf569d86c58cd5.css" integrity="sha256-9ZrFNQFh0UtRwt8GadsMhYLVG0mln6WG7r9WnYbFjNU=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.58.1" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="http://blog.foobargem.com/">
+      Life with Linux
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">데스크탑 PC 의 microcode update</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2020-01-23T01:00:16&#43;09:00'>
+                January 23, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              3 minutes read
+            </span>
+          </div>
+          <div class="categories">
+  <i class="fas fa-folder"></i>
+    <a href="http://blog.foobargem.com/categories/linux/">linux</a>
+      <span class="separator">•</span>
+    <a href="http://blog.foobargem.com/categories/debian/">debian</a></div>
+
+          <div class="tags">
+  <i class="fas fa-tag"></i>
+    <a href="http://blog.foobargem.com/tags/linux/">linux</a>
+      <span class="separator">•</span>
+    <a href="http://blog.foobargem.com/tags/debian/">debian</a>
+      <span class="separator">•</span>
+    <a href="http://blog.foobargem.com/tags/cpu/">cpu</a>
+      <span class="separator">•</span>
+    <a href="http://blog.foobargem.com/tags/microcode/">microcode</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+
+<p>kernel-5.4.13 빌드를 한뒤 부팅하고 dmesg 와 sysfs 를 확인해보니
+역시나 새로운 intel cpu 취약점을 알려주고 있었다.</p>
+
+<pre><code># dmesg | grep -i micro
+[    0.172428] TAA: Vulnerable: Clear CPU buffers attempted, no microcode
+[    0.172429] MDS: Vulnerable: Clear CPU buffers attempted, no microcode
+[    6.553483] microcode: sig=0x506e3, pf=0x2, revision=0xc6
+[    6.553702] microcode: Microcode Update Driver: v2.2.
+
+
+# grep . /sys/devices/system/cpu/vulnerabilities/*
+/sys/devices/system/cpu/vulnerabilities/itlb_multihit:KVM: Mitigation: Split huge pages
+/sys/devices/system/cpu/vulnerabilities/l1tf:Mitigation: PTE Inversion; VMX: conditional cache flushes, SMT vulnerable
+/sys/devices/system/cpu/vulnerabilities/mds:Vulnerable: Clear CPU buffers attempted, no microcode; SMT vulnerable
+/sys/devices/system/cpu/vulnerabilities/meltdown:Mitigation: PTI
+/sys/devices/system/cpu/vulnerabilities/spec_store_bypass:Mitigation: Speculative Store Bypass disabled via prctl and seccomp
+/sys/devices/system/cpu/vulnerabilities/spectre_v1:Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+/sys/devices/system/cpu/vulnerabilities/spectre_v2:Mitigation: Full generic retpoline, IBPB: conditional, IBRS_FW, STIBP: conditional, RSB filling
+/sys/devices/system/cpu/vulnerabilities/tsx_async_abort:Vulnerable: Clear CPU buffers attempted, no microcode; SMT vulnerable
+</code></pre>
+
+<p>microcode 를 업데이트 하면 일부는 완화될것으로 생각이 되어 업데이트를 시도!!</p>
+
+<p>Debian 은 <strong>intel-microcode</strong> package 가 필요한데 <strong>non-free</strong> 섹션에 있고
+intel-microcode 는 <strong>iucode-tool</strong> package 를 필요로 한다.
+iucode-tool 은 contrib 섹션에 포함되어 있다.</p>
+
+<h3 id="microcode-update">microcode update</h3>
+
+<ul>
+<li><p>/etc/apt/sources.list 편집</p>
+
+<ul>
+<li><p>non-free, contrib 추가</p>
+
+<pre><code class="language-diff">-deb http://deb.debian.org/debian/ buster main
++deb http://deb.debian.org/debian/ buster main non-free contrib
+</code></pre></li>
+</ul></li>
+
+<li><p>install</p>
+
+<pre><code># apt install intel-microcode
+</code></pre></li>
+</ul>
+
+<h3 id="업데이트-후">업데이트 후</h3>
+
+<p><strong>mds</strong>, <strong>tsx_async_abort</strong> 가 완화되었다.</p>
+
+<pre><code># dmesg | grep -i micro
+[    0.000000] microcode: microcode updated early to revision 0xcc, date = 2019-04-01
+[    6.559418] microcode: sig=0x506e3, pf=0x2, revision=0xcc
+[    6.559665] microcode: Microcode Update Driver: v2.2.
+
+
+# grep . /sys/devices/system/cpu/vulnerabilities/*
+/sys/devices/system/cpu/vulnerabilities/itlb_multihit:KVM: Mitigation: Split huge pages
+/sys/devices/system/cpu/vulnerabilities/l1tf:Mitigation: PTE Inversion; VMX: conditional cache flushes, SMT vulnerable
+/sys/devices/system/cpu/vulnerabilities/mds:Mitigation: Clear CPU buffers; SMT vulnerable
+/sys/devices/system/cpu/vulnerabilities/meltdown:Mitigation: PTI
+/sys/devices/system/cpu/vulnerabilities/spec_store_bypass:Mitigation: Speculative Store Bypass disabled via prctl and seccomp
+/sys/devices/system/cpu/vulnerabilities/spectre_v1:Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+/sys/devices/system/cpu/vulnerabilities/spectre_v2:Mitigation: Full generic retpoline, IBPB: conditional, IBRS_FW, STIBP: conditional, RSB filling
+/sys/devices/system/cpu/vulnerabilities/tsx_async_abort:Mitigation: Clear CPU buffers; SMT vulnerable
+
+
+# lscpu
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+Address sizes:       39 bits physical, 48 bits virtual
+CPU(s):              8
+On-line CPU(s) list: 0-7
+Thread(s) per core:  2
+Core(s) per socket:  4
+Socket(s):           1
+NUMA node(s):        1
+Vendor ID:           GenuineIntel
+CPU family:          6
+Model:               94
+Model name:          Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz
+Stepping:            3
+CPU MHz:             900.958
+CPU max MHz:         4000.0000
+CPU min MHz:         800.0000
+BogoMIPS:            6799.81
+Virtualization:      VT-x
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            256K
+L3 cache:            8192K
+NUMA node0 CPU(s):   0-7
+Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+</code></pre>
+
+<p>desktop 이니깐 편하게!!</p>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+     © 2020
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-948617-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-948617-5');
+</script>
+  
+
+
+
+  </body>
+
+</html>

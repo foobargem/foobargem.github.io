@@ -4,21 +4,61 @@
   
   <url>
     <loc>http://blog.foobargem.com/categories/</loc>
-    <lastmod>2020-01-22T00:36:16+09:00</lastmod>
+    <lastmod>2020-01-23T01:00:16+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/cpu/</loc>
+    <lastmod>2020-01-23T01:00:16+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/debian/</loc>
+    <lastmod>2020-01-23T01:00:16+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/categories/debian/</loc>
+    <lastmod>2020-01-23T01:00:16+09:00</lastmod>
   </url>
   
   <url>
     <loc>http://blog.foobargem.com/</loc>
-    <lastmod>2020-01-22T00:36:16+09:00</lastmod>
+    <lastmod>2020-01-23T01:00:16+09:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/tags/plink/</loc>
-    <lastmod>2020-01-22T00:36:16+09:00</lastmod>
+    <loc>http://blog.foobargem.com/tags/linux/</loc>
+    <lastmod>2020-01-23T01:00:16+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/categories/linux/</loc>
+    <lastmod>2020-01-23T01:00:16+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/microcode/</loc>
+    <lastmod>2020-01-23T01:00:16+09:00</lastmod>
   </url>
   
   <url>
     <loc>http://blog.foobargem.com/posts/</loc>
+    <lastmod>2020-01-23T01:00:16+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/</loc>
+    <lastmod>2020-01-23T01:00:16+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/posts/microcode-update-on-desktop/</loc>
+    <lastmod>2020-01-23T01:00:16+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/plink/</loc>
     <lastmod>2020-01-22T00:36:16+09:00</lastmod>
   </url>
   
@@ -33,7 +73,7 @@
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/tags/</loc>
+    <loc>http://blog.foobargem.com/tags/windows/</loc>
     <lastmod>2020-01-22T00:36:16+09:00</lastmod>
   </url>
   
@@ -43,18 +83,8 @@
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/tags/windows/</loc>
-    <lastmod>2020-01-22T00:36:16+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://blog.foobargem.com/posts/redirect-ssh-remote-command-output-to-file-at-windows/</loc>
     <lastmod>2020-01-22T00:36:16+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/tags/cpu/</loc>
-    <lastmod>2019-10-17T01:28:11+09:00</lastmod>
   </url>
   
   <url>
@@ -68,17 +98,12 @@
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/categories/linux/</loc>
+    <loc>http://blog.foobargem.com/categories/rhel/</loc>
     <lastmod>2019-10-17T01:28:11+09:00</lastmod>
   </url>
   
   <url>
     <loc>http://blog.foobargem.com/tags/rhel/</loc>
-    <lastmod>2019-10-17T01:28:11+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/categories/rhel/</loc>
     <lastmod>2019-10-17T01:28:11+09:00</lastmod>
   </url>
   
@@ -129,11 +154,6 @@
   
   <url>
     <loc>http://blog.foobargem.com/tags/centos/</loc>
-    <lastmod>2019-09-20T23:50:24+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/tags/linux/</loc>
     <lastmod>2019-09-20T23:50:24+09:00</lastmod>
   </url>
   
@@ -230,11 +250,6 @@
   <url>
     <loc>http://blog.foobargem.com/tags/%EC%B2%AD%EC%B2%A9%EC%9E%A5/</loc>
     <lastmod>2015-01-24T21:09:52+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/tags/debian/</loc>
-    <lastmod>2014-08-27T11:11:11+09:00</lastmod>
   </url>
   
   <url>
