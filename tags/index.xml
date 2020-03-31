@@ -6,10 +6,55 @@
     <description>Recent content in Tags on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 Jan 2020 00:36:16 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2020 17:36:02 +0900</lastBuildDate>
     
 	<atom:link href="http://blog.foobargem.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>linux</title>
+      <link>http://blog.foobargem.com/tags/linux/</link>
+      <pubDate>Tue, 31 Mar 2020 17:36:02 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xfs</title>
+      <link>http://blog.foobargem.com/tags/xfs/</link>
+      <pubDate>Tue, 31 Mar 2020 17:36:02 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/xfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cpu</title>
+      <link>http://blog.foobargem.com/tags/cpu/</link>
+      <pubDate>Thu, 23 Jan 2020 01:00:16 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/cpu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>debian</title>
+      <link>http://blog.foobargem.com/tags/debian/</link>
+      <pubDate>Thu, 23 Jan 2020 01:00:16 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/debian/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>microcode</title>
+      <link>http://blog.foobargem.com/tags/microcode/</link>
+      <pubDate>Thu, 23 Jan 2020 01:00:16 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/microcode/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>plink</title>
@@ -35,15 +80,6 @@
       <pubDate>Wed, 22 Jan 2020 00:36:16 +0900</pubDate>
       
       <guid>http://blog.foobargem.com/tags/windows/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cpu</title>
-      <link>http://blog.foobargem.com/tags/cpu/</link>
-      <pubDate>Thu, 17 Oct 2019 01:28:11 +0900</pubDate>
-      
-      <guid>http://blog.foobargem.com/tags/cpu/</guid>
       <description></description>
     </item>
     
@@ -107,15 +143,6 @@
       <pubDate>Fri, 20 Sep 2019 23:50:24 +0900</pubDate>
       
       <guid>http://blog.foobargem.com/tags/centos/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>http://blog.foobargem.com/tags/linux/</link>
-      <pubDate>Fri, 20 Sep 2019 23:50:24 +0900</pubDate>
-      
-      <guid>http://blog.foobargem.com/tags/linux/</guid>
       <description></description>
     </item>
     
@@ -224,15 +251,6 @@
       <pubDate>Sat, 24 Jan 2015 21:09:52 +0900</pubDate>
       
       <guid>http://blog.foobargem.com/tags/%EC%B2%AD%EC%B2%A9%EC%9E%A5/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>debian</title>
-      <link>http://blog.foobargem.com/tags/debian/</link>
-      <pubDate>Wed, 27 Aug 2014 11:11:11 +0900</pubDate>
-      
-      <guid>http://blog.foobargem.com/tags/debian/</guid>
       <description></description>
     </item>
     

@@ -6,10 +6,28 @@
     <description>Recent content in Categories on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 Jan 2020 00:36:16 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2020 17:36:02 +0900</lastBuildDate>
     
 	<atom:link href="http://blog.foobargem.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>linux</title>
+      <link>http://blog.foobargem.com/categories/linux/</link>
+      <pubDate>Tue, 31 Mar 2020 17:36:02 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>debian</title>
+      <link>http://blog.foobargem.com/categories/debian/</link>
+      <pubDate>Thu, 23 Jan 2020 01:00:16 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/categories/debian/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>system</title>
@@ -35,15 +53,6 @@
       <pubDate>Thu, 17 Oct 2019 01:28:11 +0900</pubDate>
       
       <guid>http://blog.foobargem.com/categories/kernel/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>http://blog.foobargem.com/categories/linux/</link>
-      <pubDate>Thu, 17 Oct 2019 01:28:11 +0900</pubDate>
-      
-      <guid>http://blog.foobargem.com/categories/linux/</guid>
       <description></description>
     </item>
     
