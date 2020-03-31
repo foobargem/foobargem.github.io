@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    
+
+    <script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/blog.foobargem.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "v4.19 kernel 에서 xfs 의 barrier\/nobarrier mount option 이 제거됨",
+    "headline" : "v4.19 kernel 에서 xfs 의 barrier\/nobarrier mount option 이 제거됨",
+    "description" : "kernel 변화에 따른 성능변화를 측정하기 위해서 CentOS 7.4 \/ 3.10.0-693.21.1.el7.x86_64 기반의 시스템에 elrepo 의 kernel(5.5.x) 을 설치하고 재부팅을 했다.\n그런데, 오랜 시간이 지나도 ssh 접속이 되지 않았다. (beta 장비라서 OOB 구성이 안되어 있음) 어쩔수 없이 IDC 엔지니어에게 요청을 해서 다시 3.10.0-693.21.1.el7.x86_64 로 부팅을 했다.\n동일 형상의 VM 을 가지고 elrepo 의 kernel 을 설치하고 console 화면을 확인해보니 부팅 중에 root filesystem 을 마운트 하지 못하여 maintenance mode 가 되어 있는게 원인이었다.",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-03-31 17:36:02 \x2b0900 JST",
+    "dateModified" : "2020-03-31 17:36:02 \x2b0900 JST",
+    "url" : "http:\/\/blog.foobargem.com\/posts\/removed-barrier-and-nobarrier-mount-option-of-xfs\/",
+    "wordCount" : "103",
+    "keywords" : [ "linux","xfs","Blog" ]
+}
+</script>
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="v4.19 kernel 에서 xfs 의 barrier/nobarrier mount option 이 제거됨"/>
+<meta name="twitter:description" content="kernel 변화에 따른 성능변화를 측정하기 위해서 CentOS 7.4 / 3.10.0-693.21.1.el7.x86_64 기반의 시스템에 elrepo 의 kernel(5.5.x) 을 설치하고 재부팅을 했다.
+그런데, 오랜 시간이 지나도 ssh 접속이 되지 않았다. (beta 장비라서 OOB 구성이 안되어 있음) 어쩔수 없이 IDC 엔지니어에게 요청을 해서 다시 3.10.0-693.21.1.el7.x86_64 로 부팅을 했다.
+동일 형상의 VM 을 가지고 elrepo 의 kernel 을 설치하고 console 화면을 확인해보니 부팅 중에 root filesystem 을 마운트 하지 못하여 maintenance mode 가 되어 있는게 원인이었다."/>
+
+    <meta property="og:title" content="v4.19 kernel 에서 xfs 의 barrier/nobarrier mount option 이 제거됨" />
+<meta property="og:description" content="kernel 변화에 따른 성능변화를 측정하기 위해서 CentOS 7.4 / 3.10.0-693.21.1.el7.x86_64 기반의 시스템에 elrepo 의 kernel(5.5.x) 을 설치하고 재부팅을 했다.
+그런데, 오랜 시간이 지나도 ssh 접속이 되지 않았다. (beta 장비라서 OOB 구성이 안되어 있음) 어쩔수 없이 IDC 엔지니어에게 요청을 해서 다시 3.10.0-693.21.1.el7.x86_64 로 부팅을 했다.
+동일 형상의 VM 을 가지고 elrepo 의 kernel 을 설치하고 console 화면을 확인해보니 부팅 중에 root filesystem 을 마운트 하지 못하여 maintenance mode 가 되어 있는게 원인이었다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.foobargem.com/posts/removed-barrier-and-nobarrier-mount-option-of-xfs/" />
+<meta property="article:published_time" content="2020-03-31T17:36:02+09:00" />
+<meta property="article:modified_time" content="2020-03-31T17:36:02+09:00" />
+
+
+    
+      <base href="http://blog.foobargem.com/posts/removed-barrier-and-nobarrier-mount-option-of-xfs/">
+    
+    <title>
+  v4.19 kernel 에서 xfs 의 barrier/nobarrier mount option 이 제거됨 · Life with Linux
+</title>
+
+    
+      <link rel="canonical" href="http://blog.foobargem.com/posts/removed-barrier-and-nobarrier-mount-option-of-xfs/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="http://blog.foobargem.com/css/coder.min.f59ac5350161d14b51c2df0669db0c8582d51b49a59fa586eebf569d86c58cd5.css" integrity="sha256-9ZrFNQFh0UtRwt8GadsMhYLVG0mln6WG7r9WnYbFjNU=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.58.1" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="http://blog.foobargem.com/">
+      Life with Linux
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">v4.19 kernel 에서 xfs 의 barrier/nobarrier mount option 이 제거됨</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2020-03-31T17:36:02&#43;09:00'>
+                March 31, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              One minute read
+            </span>
+          </div>
+          <div class="categories">
+  <i class="fas fa-folder"></i>
+    <a href="http://blog.foobargem.com/categories/linux/">linux</a></div>
+
+          <div class="tags">
+  <i class="fas fa-tag"></i>
+    <a href="http://blog.foobargem.com/tags/linux/">linux</a>
+      <span class="separator">•</span>
+    <a href="http://blog.foobargem.com/tags/xfs/">xfs</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+
+<p>kernel 변화에 따른 성능변화를 측정하기 위해서
+CentOS 7.4 / 3.10.0-693.21.1.el7.x86_64 기반의 시스템에
+elrepo 의 kernel(5.5.x) 을 설치하고 재부팅을 했다.</p>
+
+<p>그런데, 오랜 시간이 지나도 ssh 접속이 되지 않았다.
+(beta 장비라서 OOB 구성이 안되어 있음)
+어쩔수 없이 IDC 엔지니어에게 요청을 해서
+다시 3.10.0-693.21.1.el7.x86_64 로 부팅을 했다.</p>
+
+<p>동일 형상의 VM 을 가지고 elrepo 의 kernel 을 설치하고
+console 화면을 확인해보니 부팅 중에 root filesystem 을 마운트 하지 못하여
+maintenance mode 가 되어 있는게 원인이었다.</p>
+
+<p>/etc/fstab 을 확인해보고 검색을 해보니
+kernel 4.19 부터는 barrier, nobarrier 옵션이 사라졌다고 한다.</p>
+
+<h3 id="참고">참고</h3>
+
+<ul>
+<li><a href="https://github.com/torvalds/linux/commit/1c02d502c20809a2a5f71ec16a930a61ed779b81">kernel commit - xfs: remove deprecated barrier/nobarrier mount</a></li>
+<li><a href="http://man7.org/linux/man-pages/man5/xfs.5.html">xfs manpage</a></li>
+</ul>
+
+<p>/etc/fstab 에서 nobarrier 옵션을 제거하니 문제없이 부팅 성공!!</p>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+     © 2020
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-948617-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-948617-5');
+</script>
+  
+
+
+
+  </body>
+
+</html>

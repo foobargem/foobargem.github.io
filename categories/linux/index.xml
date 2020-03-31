@@ -6,10 +6,21 @@
     <description>Recent content in linux on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Jan 2020 01:00:16 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 31 Mar 2020 17:36:02 +0900</lastBuildDate>
     
 	<atom:link href="http://blog.foobargem.com/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>v4.19 kernel 에서 xfs 의 barrier/nobarrier mount option 이 제거됨</title>
+      <link>http://blog.foobargem.com/posts/removed-barrier-and-nobarrier-mount-option-of-xfs/</link>
+      <pubDate>Tue, 31 Mar 2020 17:36:02 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/removed-barrier-and-nobarrier-mount-option-of-xfs/</guid>
+      <description>kernel 변화에 따른 성능변화를 측정하기 위해서 CentOS 7.4 / 3.10.0-693.21.1.el7.x86_64 기반의 시스템에 elrepo 의 kernel(5.5.x) 을 설치하고 재부팅을 했다.
+그런데, 오랜 시간이 지나도 ssh 접속이 되지 않았다. (beta 장비라서 OOB 구성이 안되어 있음) 어쩔수 없이 IDC 엔지니어에게 요청을 해서 다시 3.10.0-693.21.1.el7.x86_64 로 부팅을 했다.
+동일 형상의 VM 을 가지고 elrepo 의 kernel 을 설치하고 console 화면을 확인해보니 부팅 중에 root filesystem 을 마운트 하지 못하여 maintenance mode 가 되어 있는게 원인이었다.</description>
+    </item>
     
     <item>
       <title>데스크탑 PC 의 microcode update</title>
