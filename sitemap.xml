@@ -4,7 +4,32 @@
   
   <url>
     <loc>http://blog.foobargem.com/tags/docker/</loc>
-    <lastmod>2020-05-03T12:54:44+09:00</lastmod>
+    <lastmod>2020-05-03T17:07:28+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/</loc>
+    <lastmod>2020-05-03T17:07:28+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/packaing/</loc>
+    <lastmod>2020-05-03T17:07:28+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/posts/</loc>
+    <lastmod>2020-05-03T17:07:28+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/posts/rabbitmq_exporter-rpm-packaing-with-docker/</loc>
+    <lastmod>2020-05-03T17:07:28+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/</loc>
+    <lastmod>2020-05-03T17:07:28+09:00</lastmod>
   </url>
   
   <url>
@@ -14,21 +39,6 @@
   
   <url>
     <loc>http://blog.foobargem.com/tags/graylog/</loc>
-    <lastmod>2020-05-03T12:54:44+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/</loc>
-    <lastmod>2020-05-03T12:54:44+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/posts/</loc>
-    <lastmod>2020-05-03T12:54:44+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/tags/</loc>
     <lastmod>2020-05-03T12:54:44+09:00</lastmod>
   </url>
   
@@ -113,12 +123,12 @@
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/tags/kernel/</loc>
+    <loc>http://blog.foobargem.com/categories/kernel/</loc>
     <lastmod>2019-10-17T01:28:11+09:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/categories/kernel/</loc>
+    <loc>http://blog.foobargem.com/tags/kernel/</loc>
     <lastmod>2019-10-17T01:28:11+09:00</lastmod>
   </url>
   
@@ -158,12 +168,12 @@
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/tags/openstack/</loc>
+    <loc>http://blog.foobargem.com/categories/openstack/</loc>
     <lastmod>2019-10-08T00:11:13+09:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/categories/openstack/</loc>
+    <loc>http://blog.foobargem.com/tags/openstack/</loc>
     <lastmod>2019-10-08T00:11:13+09:00</lastmod>
   </url>
   

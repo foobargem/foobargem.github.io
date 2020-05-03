@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    
+
+    <script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/blog.foobargem.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "rabbitmq_exporter rpm packaing",
+    "headline" : "rabbitmq_exporter rpm packaing",
+    "description" : "OpenStack 을 지탱하는 Message queue 인 RabbitMQ 를 모니터링 하기 위해서 방안을 찾던중, 이미 퇴사한 친구가 구성해둔 Prometheus 가 있어서 활용하기 위해 rabbitmq_exporter 를 찾아 보았다.\nPoC 를 위해서 https:\/\/github.com\/kbudde\/rabbitmq_exporter 를 사용하여 구성을 하기로 했는데, 당장 production 환경을 Docker 같은 container 환경으로 구성할수 없어서 rpm build 를 해야 했다.\n이번에는 누구나 언제든 rpmbuild 를 할수 있도록 Docker 기반으로 스크립트를 만들었다.\nrpm packaing $ git clone https:\/\/github.com\/foobargem\/packaging-rabbitmq_exporter.git $ cd packaging-rabbitmq_exporter $ make rpm  특별한 오류가 없다면 output 디렉토리에 rabbitmq_exporter-2020.",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-05-03 17:07:28 \x2b0900 JST",
+    "dateModified" : "2020-05-03 17:07:28 \x2b0900 JST",
+    "url" : "http:\/\/blog.foobargem.com\/posts\/rabbitmq_exporter-rpm-packaing-with-docker\/",
+    "wordCount" : "84",
+    "keywords" : [ "packaing","docker","Blog" ]
+}
+</script>
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="rabbitmq_exporter rpm packaing"/>
+<meta name="twitter:description" content="OpenStack 을 지탱하는 Message queue 인 RabbitMQ 를 모니터링 하기 위해서 방안을 찾던중, 이미 퇴사한 친구가 구성해둔 Prometheus 가 있어서 활용하기 위해 rabbitmq_exporter 를 찾아 보았다.
+PoC 를 위해서 https://github.com/kbudde/rabbitmq_exporter 를 사용하여 구성을 하기로 했는데, 당장 production 환경을 Docker 같은 container 환경으로 구성할수 없어서 rpm build 를 해야 했다.
+이번에는 누구나 언제든 rpmbuild 를 할수 있도록 Docker 기반으로 스크립트를 만들었다.
+rpm packaing $ git clone https://github.com/foobargem/packaging-rabbitmq_exporter.git $ cd packaging-rabbitmq_exporter $ make rpm  특별한 오류가 없다면 output 디렉토리에 rabbitmq_exporter-2020."/>
+
+    <meta property="og:title" content="rabbitmq_exporter rpm packaing" />
+<meta property="og:description" content="OpenStack 을 지탱하는 Message queue 인 RabbitMQ 를 모니터링 하기 위해서 방안을 찾던중, 이미 퇴사한 친구가 구성해둔 Prometheus 가 있어서 활용하기 위해 rabbitmq_exporter 를 찾아 보았다.
+PoC 를 위해서 https://github.com/kbudde/rabbitmq_exporter 를 사용하여 구성을 하기로 했는데, 당장 production 환경을 Docker 같은 container 환경으로 구성할수 없어서 rpm build 를 해야 했다.
+이번에는 누구나 언제든 rpmbuild 를 할수 있도록 Docker 기반으로 스크립트를 만들었다.
+rpm packaing $ git clone https://github.com/foobargem/packaging-rabbitmq_exporter.git $ cd packaging-rabbitmq_exporter $ make rpm  특별한 오류가 없다면 output 디렉토리에 rabbitmq_exporter-2020." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.foobargem.com/posts/rabbitmq_exporter-rpm-packaing-with-docker/" />
+<meta property="article:published_time" content="2020-05-03T17:07:28+09:00" />
+<meta property="article:modified_time" content="2020-05-03T17:07:28+09:00" />
+
+
+    
+      <base href="http://blog.foobargem.com/posts/rabbitmq_exporter-rpm-packaing-with-docker/">
+    
+    <title>
+  rabbitmq_exporter rpm packaing · Life with Linux
+</title>
+
+    
+      <link rel="canonical" href="http://blog.foobargem.com/posts/rabbitmq_exporter-rpm-packaing-with-docker/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="http://blog.foobargem.com/css/coder.min.f59ac5350161d14b51c2df0669db0c8582d51b49a59fa586eebf569d86c58cd5.css" integrity="sha256-9ZrFNQFh0UtRwt8GadsMhYLVG0mln6WG7r9WnYbFjNU=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.58.1" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="http://blog.foobargem.com/">
+      Life with Linux
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">rabbitmq_exporter rpm packaing</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2020-05-03T17:07:28&#43;09:00'>
+                May 3, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              One minute read
+            </span>
+          </div>
+          
+          <div class="tags">
+  <i class="fas fa-tag"></i>
+    <a href="http://blog.foobargem.com/tags/packaing/">packaing</a>
+      <span class="separator">•</span>
+    <a href="http://blog.foobargem.com/tags/docker/">docker</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+
+<p>OpenStack 을 지탱하는 Message queue 인 <em>RabbitMQ</em> 를 모니터링 하기 위해서 방안을 찾던중,
+이미 퇴사한 친구가 구성해둔 Prometheus 가 있어서 활용하기 위해 rabbitmq_exporter 를 찾아 보았다.</p>
+
+<p>PoC 를 위해서 <a href="https://github.com/kbudde/rabbitmq_exporter">https://github.com/kbudde/rabbitmq_exporter</a> 를 사용하여 구성을 하기로 했는데,
+당장 production 환경을 Docker 같은 container 환경으로 구성할수 없어서 rpm build 를 해야 했다.</p>
+
+<p>이번에는 누구나 언제든 rpmbuild 를 할수 있도록 Docker 기반으로 스크립트를 만들었다.</p>
+
+<h2 id="rpm-packaing">rpm packaing</h2>
+
+<pre><code>$ git clone https://github.com/foobargem/packaging-rabbitmq_exporter.git
+$ cd packaging-rabbitmq_exporter
+$ make rpm
+</code></pre>
+
+<p>특별한 오류가 없다면 output 디렉토리에 <em>rabbitmq_exporter-2020.1-1.el7.centos.x86_64.rpm</em> 이 복사가 된다.</p>
+
+<h2 id="참고">참고</h2>
+
+<ul>
+<li><a href="https://github.com/kbudde/rabbitmq_exporter">https://github.com/kbudde/rabbitmq_exporter</a></li>
+<li><a href="https://github.com/foobargem/packaging-rabbitmq_exporter">https://github.com/foobargem/packaging-rabbitmq_exporter</a></li>
+</ul>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+     © 2020
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-948617-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-948617-5');
+</script>
+  
+
+
+
+  </body>
+
+</html>
