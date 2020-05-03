@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    
+    
+
+    <script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/blog.foobargem.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Docker container 로 Graylog 구동하기",
+    "headline" : "Docker container 로 Graylog 구동하기",
+    "description" : "Ubuntu 의 cloud-config 기반의 자동설치를 시험하다 디버깅을 위해 syslog 수집이 필요해서 graylog 를 docker 로 구성을 해보았다.\n단순히 디버깅 목적이라 production 에서 사용하려면 많은 검증이 필요하다.\n준비  필요한 것  VM docker docker-compose   환경은 Debian 10(buster) 기준이다.\n우선 TOAST Cloud 에서 Debian 10 기반의 VM을 하나 생성한다. VM 접속후 docker 및 docker-compose 를 설치한다.\n아래와 같은 스크립트면 docker, docker-compose 설치 및 debian user 에 docker 권한을 추가해준다.",
+    "inLanguage" : "en-US",
+    "author" : "",
+    "creator" : "",
+    "publisher": "",
+    "accountablePerson" : "",
+    "copyrightHolder" : "",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-05-03 12:54:44 \x2b0900 JST",
+    "dateModified" : "2020-05-03 12:54:44 \x2b0900 JST",
+    "url" : "http:\/\/blog.foobargem.com\/posts\/how-to-run-graylog-container-in-docker\/",
+    "wordCount" : "256",
+    "keywords" : [ "docker","graylog","Blog" ]
+}
+</script>
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker container 로 Graylog 구동하기"/>
+<meta name="twitter:description" content="Ubuntu 의 cloud-config 기반의 자동설치를 시험하다 디버깅을 위해 syslog 수집이 필요해서 graylog 를 docker 로 구성을 해보았다.
+단순히 디버깅 목적이라 production 에서 사용하려면 많은 검증이 필요하다.
+준비  필요한 것  VM docker docker-compose   환경은 Debian 10(buster) 기준이다.
+우선 TOAST Cloud 에서 Debian 10 기반의 VM을 하나 생성한다. VM 접속후 docker 및 docker-compose 를 설치한다.
+아래와 같은 스크립트면 docker, docker-compose 설치 및 debian user 에 docker 권한을 추가해준다."/>
+
+    <meta property="og:title" content="Docker container 로 Graylog 구동하기" />
+<meta property="og:description" content="Ubuntu 의 cloud-config 기반의 자동설치를 시험하다 디버깅을 위해 syslog 수집이 필요해서 graylog 를 docker 로 구성을 해보았다.
+단순히 디버깅 목적이라 production 에서 사용하려면 많은 검증이 필요하다.
+준비  필요한 것  VM docker docker-compose   환경은 Debian 10(buster) 기준이다.
+우선 TOAST Cloud 에서 Debian 10 기반의 VM을 하나 생성한다. VM 접속후 docker 및 docker-compose 를 설치한다.
+아래와 같은 스크립트면 docker, docker-compose 설치 및 debian user 에 docker 권한을 추가해준다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://blog.foobargem.com/posts/how-to-run-graylog-container-in-docker/" />
+<meta property="article:published_time" content="2020-05-03T12:54:44+09:00" />
+<meta property="article:modified_time" content="2020-05-03T12:54:44+09:00" />
+
+
+    
+      <base href="http://blog.foobargem.com/posts/how-to-run-graylog-container-in-docker/">
+    
+    <title>
+  Docker container 로 Graylog 구동하기 · Life with Linux
+</title>
+
+    
+      <link rel="canonical" href="http://blog.foobargem.com/posts/how-to-run-graylog-container-in-docker/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="http://blog.foobargem.com/css/coder.min.f59ac5350161d14b51c2df0669db0c8582d51b49a59fa586eebf569d86c58cd5.css" integrity="sha256-9ZrFNQFh0UtRwt8GadsMhYLVG0mln6WG7r9WnYbFjNU=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.58.1" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="http://blog.foobargem.com/">
+      Life with Linux
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Docker container 로 Graylog 구동하기</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2020-05-03T12:54:44&#43;09:00'>
+                May 3, 2020
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              2 minutes read
+            </span>
+          </div>
+          
+          <div class="tags">
+  <i class="fas fa-tag"></i>
+    <a href="http://blog.foobargem.com/tags/docker/">docker</a>
+      <span class="separator">•</span>
+    <a href="http://blog.foobargem.com/tags/graylog/">graylog</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+
+<p>Ubuntu 의 cloud-config 기반의 자동설치를 시험하다
+디버깅을 위해 syslog 수집이 필요해서 graylog 를 docker 로 구성을 해보았다.</p>
+
+<p>단순히 디버깅 목적이라 production 에서 사용하려면 많은 검증이 필요하다.</p>
+
+<h2 id="준비">준비</h2>
+
+<ul>
+<li>필요한 것
+
+<ul>
+<li>VM</li>
+<li>docker</li>
+<li>docker-compose</li>
+</ul></li>
+</ul>
+
+<p>환경은 Debian 10(buster) 기준이다.</p>
+
+<p>우선 TOAST Cloud 에서 Debian 10 기반의 VM을 하나 생성한다.
+VM 접속후 docker 및 docker-compose 를 설치한다.</p>
+
+<p>아래와 같은 스크립트면 docker, docker-compose 설치 및
+debian user 에 docker 권한을 추가해준다.</p>
+
+<pre><code>sudo apt update
+sudo apt -y install \
+	apt-transport-https ca-certificates curl \
+	gnupg gnupg-agent software-properties-common
+
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+
+sudo add-apt-repository \
+	&quot;deb [arch=amd64] https://download.docker.com/linux/debian \
+   	$(lsb_release -cs) \
+   	stable&quot;
+
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
+
+sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+sudo usermod -a -G docker debian
+</code></pre>
+
+<h2 id="graylog-container-구동">graylog container 구동</h2>
+
+<pre><code>$ git clone https://github.com/foobargem/docker-graylog.git
+$ cd docker-graylog
+$ cp docker-compose.yml.example docker-compose.yml
+</code></pre>
+
+<p>docker-compose.yml 의 GRAYLOG_HTTP_EXTERNAL_URI 를 외부에서 접속 가능한
+Floating IP 나 Domain name 으로 변경한다.</p>
+
+<pre><code>$ docker-compose up
+</code></pre>
+
+<p>graylog dashboard (http://<em>Floating_IP_of_VM</em>:9000/) 로 접속</p>
+
+<ul>
+<li>user: admin</li>
+<li>passwd: admin</li>
+</ul>
+
+<h2 id="syslog-inputs-설정">Syslog inputs 설정</h2>
+
+<p><img src="http://blog.foobargem.com/images/2020/05/graylog_syslog_setup01.png" alt="configure_graylog_inputs_01" />
+<img src="http://blog.foobargem.com/images/2020/05/graylog_syslog_setup02.png" alt="configure_graylog_inputs_01" /></p>
+
+<p>UDP 514 port 로 syslog 에 대한 inputs 를 설정한다.
+System -&gt; Inputs 로 이동후 Syslog UDP 를 선택한다.</p>
+
+<ul>
+<li>global 체크</li>
+<li>title 작성</li>
+<li>그 외의 기본 설정은 유지</li>
+</ul>
+
+<p>save 버튼을 클릭하면 Syslog UDP inputs 가 동작을 시작한다.</p>
+
+<h2 id="동작-확인">동작 확인</h2>
+
+<p>graylog 의 Streams &gt; All messages 로 이동후
+Update every <em>5 Seconds</em> 설정을 해둔다.</p>
+
+<p>rsyslog.conf 에 remote 전송 설정 추가</p>
+
+<pre><code>$ sudo bash -c 'cat &gt;&gt;/etc/rsyslog.conf &lt;&lt;EOF
+*.*  @127.0.0.1:514;RSYSLOG_SyslogProtocol23Format
+EOF'
+
+$ sudo systemctl restart rsyslog
+$ logger hello-graylog
+</code></pre>
+
+<p><img src="http://blog.foobargem.com/images/2020/05/graylog_stream_messages.png" alt="graylog_stream_messages" /></p>
+
+<p>logger 명령으로 보낸 메시지가 확인된다.</p>
+
+<h2 id="참고">참고</h2>
+
+<ul>
+<li><a href="https://docs.graylog.org/en/3.2/index.html">https://docs.graylog.org/en/3.2/index.html</a></li>
+<li><a href="https://docs.graylog.org/en/3.2/pages/configuration/elasticsearch.html">https://docs.graylog.org/en/3.2/pages/configuration/elasticsearch.html</a></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/docker.html">https://www.elastic.co/guide/en/elasticsearch/reference/6.8/docker.html</a></li>
+</ul>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+     © 2020
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-948617-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-948617-5');
+</script>
+  
+
+
+
+  </body>
+
+</html>

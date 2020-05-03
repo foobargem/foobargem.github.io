@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2020 17:36:02 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2020 12:54:44 +0900</lastBuildDate>
     
 	<atom:link href="http://blog.foobargem.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>docker</title>
+      <link>http://blog.foobargem.com/tags/docker/</link>
+      <pubDate>Sun, 03 May 2020 12:54:44 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>graylog</title>
+      <link>http://blog.foobargem.com/tags/graylog/</link>
+      <pubDate>Sun, 03 May 2020 12:54:44 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/graylog/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>linux</title>
