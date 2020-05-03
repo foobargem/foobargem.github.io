@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>graylog on Life with Linux</title>
+    <link>http://blog.foobargem.com/tags/graylog/</link>
+    <description>Recent content in graylog on Life with Linux</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 May 2020 12:54:44 +0900</lastBuildDate>
+    
+	<atom:link href="http://blog.foobargem.com/tags/graylog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker container 로 Graylog 구동하기</title>
+      <link>http://blog.foobargem.com/posts/how-to-run-graylog-container-in-docker/</link>
+      <pubDate>Sun, 03 May 2020 12:54:44 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/how-to-run-graylog-container-in-docker/</guid>
+      <description>Ubuntu 의 cloud-config 기반의 자동설치를 시험하다 디버깅을 위해 syslog 수집이 필요해서 graylog 를 docker 로 구성을 해보았다.
+단순히 디버깅 목적이라 production 에서 사용하려면 많은 검증이 필요하다.
+준비  필요한 것  VM docker docker-compose   환경은 Debian 10(buster) 기준이다.
+우선 TOAST Cloud 에서 Debian 10 기반의 VM을 하나 생성한다. VM 접속후 docker 및 docker-compose 를 설치한다.
+아래와 같은 스크립트면 docker, docker-compose 설치 및 debian user 에 docker 권한을 추가해준다.</description>
+    </item>
+    
+  </channel>
+</rss>
