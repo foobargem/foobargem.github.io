@@ -6,7 +6,7 @@
     <description>Recent content in Categories on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2020 17:36:02 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jun 2020 21:49:33 +0900</lastBuildDate>
     
 	<atom:link href="http://blog.foobargem.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,18 @@
     <item>
       <title>linux</title>
       <link>http://blog.foobargem.com/categories/linux/</link>
-      <pubDate>Tue, 31 Mar 2020 17:36:02 +0900</pubDate>
+      <pubDate>Mon, 01 Jun 2020 21:49:33 +0900</pubDate>
       
       <guid>http://blog.foobargem.com/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>raspberrypi</title>
+      <link>http://blog.foobargem.com/categories/raspberrypi/</link>
+      <pubDate>Mon, 01 Jun 2020 21:49:33 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/categories/raspberrypi/</guid>
       <description></description>
     </item>
     

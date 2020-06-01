@@ -1,15 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    
-    
-    
-
-    <script type="application/ld+json">
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Anaconda 디버깅 - anaconda 가 거짓말을 했어 - Life with Linux</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="application/ld+json">
 {
     "@context" : "http://schema.org",
     "@type" : "BlogPosting",
@@ -35,14 +29,7 @@
     "keywords" : [ "linux","centos","anaconda","Blog" ]
 }
 </script>
-
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Anaconda 디버깅 - anaconda 가 거짓말을 했어"/>
-<meta name="twitter:description" content="회사에서 PM 은 PXE 로 anaconda 를 구동하여 kickstart 기반으로 OS(CentOS7) 설치를 하고 있다. kickstart 의 pre script, post script 의 조합으로 OS 구성을 하게 되는데, 잘 동작하면 괜찮지만 script 실행중에 실패가 발생하면 디버깅을 하기가 매우 어렵게 되어있다.
-오늘도 동료가 진행하는 서버 구성중 OS 설치가 지속적으로 실패를 했고 디버깅을 하는 과정에서 anaconda(CentOS installer) 의 황당한 버그(?)를 발견하여 간략히 정리를 해둔다.
-kickstart 의 post script 선언부에서 logging 설정을 넣으면 post script 실행 과정에 대한 log 를 남기게 된다."/>
-
-    <meta property="og:title" content="Anaconda 디버깅 - anaconda 가 거짓말을 했어" />
+<meta property="og:title" content="Anaconda 디버깅 - anaconda 가 거짓말을 했어" />
 <meta property="og:description" content="회사에서 PM 은 PXE 로 anaconda 를 구동하여 kickstart 기반으로 OS(CentOS7) 설치를 하고 있다. kickstart 의 pre script, post script 의 조합으로 OS 구성을 하게 되는데, 잘 동작하면 괜찮지만 script 실행중에 실패가 발생하면 디버깅을 하기가 매우 어렵게 되어있다.
 오늘도 동료가 진행하는 서버 구성중 OS 설치가 지속적으로 실패를 했고 디버깅을 하는 과정에서 anaconda(CentOS installer) 의 황당한 버그(?)를 발견하여 간략히 정리를 해둔다.
 kickstart 의 post script 선언부에서 logging 설정을 넣으면 post script 실행 과정에 대한 log 를 남기게 된다." />
@@ -50,96 +37,45 @@ kickstart 의 post script 선언부에서 logging 설정을 넣으면 post scrip
 <meta property="og:url" content="http://blog.foobargem.com/posts/anaconda-debugging/" />
 <meta property="article:published_time" content="2019-09-20T23:50:24+09:00" />
 <meta property="article:modified_time" content="2019-09-20T23:50:24+09:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Anaconda 디버깅 - anaconda 가 거짓말을 했어"/>
+<meta name="twitter:description" content="회사에서 PM 은 PXE 로 anaconda 를 구동하여 kickstart 기반으로 OS(CentOS7) 설치를 하고 있다. kickstart 의 pre script, post script 의 조합으로 OS 구성을 하게 되는데, 잘 동작하면 괜찮지만 script 실행중에 실패가 발생하면 디버깅을 하기가 매우 어렵게 되어있다.
+오늘도 동료가 진행하는 서버 구성중 OS 설치가 지속적으로 실패를 했고 디버깅을 하는 과정에서 anaconda(CentOS installer) 의 황당한 버그(?)를 발견하여 간략히 정리를 해둔다.
+kickstart 의 post script 선언부에서 logging 설정을 넣으면 post script 실행 과정에 대한 log 를 남기게 된다."/>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,300italic,400italic|Raleway:200,300" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" media="screen" href="http://blog.foobargem.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://blog.foobargem.com/css/main.css" />
+
+	
+	<script src="http://blog.foobargem.com/js/main.js"></script>
+</head>
+
+<body>
+	<div class="container wrapper post">
+		<div class="header">
+	<base href="http://blog.foobargem.com/">
+	<h1 class="site-title"><a href="http://blog.foobargem.com/">Life with Linux</a></h1>
+	<div class="site-description"><nav class="nav social">
+			<ul class="flat"></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat">
+			
+		</ul>
+	</nav>
+</div>
 
 
-    
-      <base href="http://blog.foobargem.com/posts/anaconda-debugging/">
-    
-    <title>
-  Anaconda 디버깅 - anaconda 가 거짓말을 했어 · Life with Linux
-</title>
+		<div class="post-header">
+			<h1 class="title">Anaconda 디버깅 - anaconda 가 거짓말을 했어</h1>
+			<div class="meta">Posted at &mdash; Sep 20, 2019</div>
+		</div>
 
-    
-      <link rel="canonical" href="http://blog.foobargem.com/posts/anaconda-debugging/">
-    
-
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
-
-    
-      
-      
-      <link rel="stylesheet" href="http://blog.foobargem.com/css/coder.min.f59ac5350161d14b51c2df0669db0c8582d51b49a59fa586eebf569d86c58cd5.css" integrity="sha256-9ZrFNQFh0UtRwt8GadsMhYLVG0mln6WG7r9WnYbFjNU=" crossorigin="anonymous" media="screen" />
-    
-
-    
-
-    
-
-    
-
-    
-    
-    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="http://blog.foobargem.com/images/favicon-16x16.png" sizes="16x16">
-
-    <meta name="generator" content="Hugo 0.58.1" />
-  </head>
-
-  <body class=" ">
-    <main class="wrapper">
-      <nav class="navigation">
-  <section class="container">
-    <a class="navigation-title" href="http://blog.foobargem.com/">
-      Life with Linux
-    </a>
-    <input type="checkbox" id="menu-toggle" />
-    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
-    <ul class="navigation-list">
-      
-      
-    </ul>
-  </section>
-</nav>
-
-
-      <div class="content">
-        
-  <section class="container post">
-    <article>
-      <header>
-        <div class="post-title">
-          <h1 class="title">Anaconda 디버깅 - anaconda 가 거짓말을 했어</h1>
-        </div>
-        <div class="post-meta">
-          <div class="date">
-            <span class="posted-on">
-              <i class="fas fa-calendar"></i>
-              <time datetime='2019-09-20T23:50:24&#43;09:00'>
-                September 20, 2019
-              </time>
-            </span>
-            <span class="reading-time">
-              <i class="fas fa-clock"></i>
-              2 minutes read
-            </span>
-          </div>
-          
-          <div class="tags">
-  <i class="fas fa-tag"></i>
-    <a href="http://blog.foobargem.com/tags/linux/">linux</a>
-      <span class="separator">•</span>
-    <a href="http://blog.foobargem.com/tags/centos/">centos</a>
-      <span class="separator">•</span>
-    <a href="http://blog.foobargem.com/tags/anaconda/">anaconda</a></div>
-
-        </div>
-      </header>
-
-      <div>
-        
+		<div class="markdown">
+			
 
 <p>회사에서 PM 은 PXE 로 anaconda 를 구동하여 kickstart 기반으로
 OS(CentOS7) 설치를 하고 있다.
@@ -254,38 +190,33 @@ OS 설치 과정의 로그를 kibana 에서 쉽게 확인할 수 있게 되었�
 <li>왜 TCP 를 기본으로 설정 했을까?</li>
 </ul>
 
-      </div>
+		</div>
 
-      <footer>
-        
+		<div class="post-tags">
+			
+				
+					<nav class="nav tags">
+							<ul class="flat">
+								
+								<li><a href="http://blog.foobargem.com/tags/linux">linux</a></li>
+								
+								<li><a href="http://blog.foobargem.com/tags/centos">centos</a></li>
+								
+								<li><a href="http://blog.foobargem.com/tags/anaconda">anaconda</a></li>
+								
+							</ul>
+					</nav>
+				
+			
+		</div>
+		</div>
+	<div class="footer wrapper">
+	<nav class="nav">
+		<div> <a href="https://github.com/vividvilla/ezhil">Ezhil theme</a> | Built with <a href="https://gohugo.io">Hugo</a></div>
+	</nav>
+</div>
 
 
-        
-        
-        
-      </footer>
-    </article>
-
-    
-  </section>
-
-      </div>
-
-      <footer class="footer">
-  <section class="container">
-    
-     © 2020
-    
-       · 
-      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
-    
-    
-  </section>
-</footer>
-
-    </main>
-
-    
   
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-948617-5"></script>
 <script>
@@ -298,7 +229,5 @@ OS 설치 과정의 로그를 kibana 에서 쉽게 확인할 수 있게 되었�
   
 
 
-
-  </body>
-
+</body>
 </html>

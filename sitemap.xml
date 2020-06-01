@@ -3,12 +3,52 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://blog.foobargem.com/tags/docker/</loc>
-    <lastmod>2020-05-03T17:07:28+09:00</lastmod>
+    <loc>http://blog.foobargem.com/categories/</loc>
+    <lastmod>2020-06-01T21:49:33+09:00</lastmod>
   </url>
   
   <url>
     <loc>http://blog.foobargem.com/</loc>
+    <lastmod>2020-06-01T21:49:33+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/categories/linux/</loc>
+    <lastmod>2020-06-01T21:49:33+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/linux/</loc>
+    <lastmod>2020-06-01T21:49:33+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/posts/</loc>
+    <lastmod>2020-06-01T21:49:33+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/raspberrypi/</loc>
+    <lastmod>2020-06-01T21:49:33+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/categories/raspberrypi/</loc>
+    <lastmod>2020-06-01T21:49:33+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/posts/make-a-wifi-extender-with-rpi3/</loc>
+    <lastmod>2020-06-01T21:49:33+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/</loc>
+    <lastmod>2020-06-01T21:49:33+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.foobargem.com/tags/docker/</loc>
     <lastmod>2020-05-03T17:07:28+09:00</lastmod>
   </url>
   
@@ -18,17 +58,7 @@
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/posts/</loc>
-    <lastmod>2020-05-03T17:07:28+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://blog.foobargem.com/posts/rabbitmq_exporter-rpm-packaing-with-docker/</loc>
-    <lastmod>2020-05-03T17:07:28+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/tags/</loc>
     <lastmod>2020-05-03T17:07:28+09:00</lastmod>
   </url>
   
@@ -40,21 +70,6 @@
   <url>
     <loc>http://blog.foobargem.com/tags/graylog/</loc>
     <lastmod>2020-05-03T12:54:44+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/categories/</loc>
-    <lastmod>2020-03-31T17:36:02+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/categories/linux/</loc>
-    <lastmod>2020-03-31T17:36:02+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/tags/linux/</loc>
-    <lastmod>2020-03-31T17:36:02+09:00</lastmod>
   </url>
   
   <url>
@@ -123,12 +138,12 @@
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/categories/kernel/</loc>
+    <loc>http://blog.foobargem.com/tags/kernel/</loc>
     <lastmod>2019-10-17T01:28:11+09:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.foobargem.com/tags/kernel/</loc>
+    <loc>http://blog.foobargem.com/categories/kernel/</loc>
     <lastmod>2019-10-17T01:28:11+09:00</lastmod>
   </url>
   
@@ -249,11 +264,6 @@
   
   <url>
     <loc>http://blog.foobargem.com/posts/how-to-read-dht-series-of-humidity-and-temperature-sensors-on-a-raspberry-pi/</loc>
-    <lastmod>2016-03-27T11:59:47+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.foobargem.com/tags/raspberrypi/</loc>
     <lastmod>2016-03-27T11:59:47+09:00</lastmod>
   </url>
   
