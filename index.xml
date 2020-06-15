@@ -6,10 +6,20 @@
     <description>Recent content on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jun 2020 21:49:33 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jun 2020 12:06:58 +0900</lastBuildDate>
     
 	<atom:link href="http://blog.foobargem.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>라즈베리파이와 wifi - Operation not possible due to RF-kill</title>
+      <link>http://blog.foobargem.com/posts/raspberrypi-operation-not-possible-due-to-rf-kill/</link>
+      <pubDate>Mon, 15 Jun 2020 12:06:58 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/raspberrypi-operation-not-possible-due-to-rf-kill/</guid>
+      <description>Raspberry Pi OS(이전의 Raspbian) 를 부팅한뒤 wpa_supplicant, interfaces 정보를 적절하게 설정하고 wlan0 인터페이스를 활성화 하려고 하니 이런 오류가 발생!
+root@raspberrypi:~# ifup wlan0 Internet Systems Consortium DHCP Client 4.4.1 Copyright 2004-2018 Internet Systems Consortium. All rights reserved. For info, please visit https://www.isc.org/software/dhcp/ RTNETLINK answers: Operation not possible due to RF-kill Listening on LPF/wlan0/dc:a6:32:b2:5e:db Sending on LPF/wlan0/dc:a6:32:b2:5e:db Sending on Socket/fallback DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 5 send_packet: Network is down dhclient.</description>
+    </item>
     
     <item>
       <title>RPi3로 wifi extender 만들기</title>
