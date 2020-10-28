@@ -6,10 +6,32 @@
     <description>Recent content in Posts on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jun 2020 21:49:33 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 22 Oct 2020 12:43:18 +0900</lastBuildDate>
     
 	<atom:link href="http://blog.foobargem.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Vault 를 사용한 TrustedUserCAKeys 기반 SSH 인증 구현</title>
+      <link>http://blog.foobargem.com/posts/implementation-of-trustedusercakeys-with-using-vault/</link>
+      <pubDate>Thu, 22 Oct 2020 12:43:18 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/implementation-of-trustedusercakeys-with-using-vault/</guid>
+      <description>LDAP 또는 Kerberos 같은 통합인증(Single Sign-On)을 사용하지 않는 환경이라면 password 인증 또는 authorized_keys 인증을 주로 사용할 것이다.
+팀 구성원에 변화(입사/퇴사)가 생기는 경우 password 를 변경하거나, 사용자의 public key 를 authorized_keys 에서 제거 또는 추가를 해야 한다. ansible 같은 도구를 통해 관리를 해 나갈수 있지만 쉽지만은 않다. 게다가 인프라가 지속적으로 늘어나기에 이상적으로 관리하는 것은 쉽지 않은것 같다.
+그래서 보통은 private key 를 공유해서 사용하는 경우가 빈번한것 같다.
+CA(Certificate Authority) 기반 인증 CA 서버를 통해서 각 사용자의 public key 에 대한 서명된 인증서를 발급받아 SSH 인증에 사용하는 방법이다.</description>
+    </item>
+    
+    <item>
+      <title>라즈베리파이와 wifi - Operation not possible due to RF-kill</title>
+      <link>http://blog.foobargem.com/posts/raspberrypi-operation-not-possible-due-to-rf-kill/</link>
+      <pubDate>Mon, 15 Jun 2020 12:06:58 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/posts/raspberrypi-operation-not-possible-due-to-rf-kill/</guid>
+      <description>Raspberry Pi OS(이전의 Raspbian) 를 부팅한뒤 wpa_supplicant, interfaces 정보를 적절하게 설정하고 wlan0 인터페이스를 활성화 하려고 하니 이런 오류가 발생!
+root@raspberrypi:~# ifup wlan0 Internet Systems Consortium DHCP Client 4.4.1 Copyright 2004-2018 Internet Systems Consortium. All rights reserved. For info, please visit https://www.isc.org/software/dhcp/ RTNETLINK answers: Operation not possible due to RF-kill Listening on LPF/wlan0/dc:a6:32:b2:5e:db Sending on LPF/wlan0/dc:a6:32:b2:5e:db Sending on Socket/fallback DHCPDISCOVER on wlan0 to 255.255.255.255 port 67 interval 5 send_packet: Network is down dhclient.</description>
+    </item>
     
     <item>
       <title>RPi3로 wifi extender 만들기</title>
