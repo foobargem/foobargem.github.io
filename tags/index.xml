@@ -6,17 +6,44 @@
     <description>Recent content in Tags on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jun 2020 12:06:58 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 22 Oct 2020 12:43:18 +0900</lastBuildDate>
     
 	<atom:link href="http://blog.foobargem.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>linux</title>
+      <link>http://blog.foobargem.com/tags/linux/</link>
+      <pubDate>Thu, 22 Oct 2020 12:43:18 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/raspberrypi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ssh</title>
+      <link>http://blog.foobargem.com/tags/ssh/</link>
+      <pubDate>Thu, 22 Oct 2020 12:43:18 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/ssh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vault</title>
+      <link>http://blog.foobargem.com/tags/vault/</link>
+      <pubDate>Thu, 22 Oct 2020 12:43:18 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/tags/vault/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>raspberrypi</title>
       <link>http://blog.foobargem.com/tags/raspberrypi/</link>
       <pubDate>Mon, 15 Jun 2020 12:06:58 +0900</pubDate>
       
-      <guid>http://blog.foobargem.com/tags/raspberrypi/</guid>
+      <guid>http://blog.foobargem.com/tags/linux/</guid>
       <description></description>
     </item>
     
@@ -35,15 +62,6 @@
       <pubDate>Mon, 15 Jun 2020 12:06:58 +0900</pubDate>
       
       <guid>http://blog.foobargem.com/tags/rfkill/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>http://blog.foobargem.com/tags/linux/</link>
-      <pubDate>Mon, 01 Jun 2020 21:49:33 +0900</pubDate>
-      
-      <guid>http://blog.foobargem.com/tags/linux/</guid>
       <description></description>
     </item>
     
