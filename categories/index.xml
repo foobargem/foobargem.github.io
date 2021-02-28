@@ -6,10 +6,19 @@
     <description>Recent content in Categories on Life with Linux</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Oct 2020 12:43:18 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 24 Feb 2021 00:40:17 +0900</lastBuildDate>
     
 	<atom:link href="http://blog.foobargem.com/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>terraform</title>
+      <link>http://blog.foobargem.com/categories/terraform/</link>
+      <pubDate>Wed, 24 Feb 2021 00:40:17 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/categories/terraform/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>linux</title>
@@ -17,6 +26,15 @@
       <pubDate>Thu, 22 Oct 2020 12:43:18 +0900</pubDate>
       
       <guid>http://blog.foobargem.com/categories/raspberrypi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sre</title>
+      <link>http://blog.foobargem.com/categories/sre/</link>
+      <pubDate>Thu, 22 Oct 2020 12:43:18 +0900</pubDate>
+      
+      <guid>http://blog.foobargem.com/categories/sre/</guid>
       <description></description>
     </item>
     
