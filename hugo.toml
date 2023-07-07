@@ -1,0 +1,4 @@
+baseURL = 'http://foobargem.dev/'
+languageCode = 'en-us'
+title = 'Life with Linux'
+theme = 'hugo-PaperMod'
